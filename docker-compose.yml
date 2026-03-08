@@ -1,0 +1,79 @@
+version: '3.8'
+
+services:
+  # Base de datos PostgreSQL
+  database:
+    image: postgres:15-alpine
+    container_name: tu-diabetes-db
+    environment:
+      POSTGRES_DB: tudiabetes
+      POSTGRES_USER: tudiabetes_user
+      POSTGRES_PASSWORD: tudiabetes_password
+      POSTGRES_ROOT_PASSWORD: rootpassword
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./database/init:/docker-entrypoint-initdb.d
+    networks:
+      - tu-diabetes-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U tudiabetes_user -d tudiabetes"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Backend API
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.dev
+    container_name: tu-diabetes-backend
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: development
+      PORT: 3000
+      DB_HOST: database
+      DB_PORT: 5432
+      DB_NAME: tudiabetes
+      DB_USER: tudiabetes_user
+      DB_PASSWORD: tudiabetes_password
+      JWT_SECRET: tu_secreto_jwt_super_seguro_cambiame_en_produccion
+      JWT_EXPIRES_IN: 7d
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    depends_on:
+      database:
+        condition: service_healthy
+    networks:
+      - tu-diabetes-network
+
+  # Frontend Vue.js
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+    container_name: tu-diabetes-frontend
+    ports:
+      - "8080:8080"
+    environment:
+      VUE_APP_API_URL: http://localhost:3000
+      VUE_APP_TITLE: "TU diabetes NUESTRA historia"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    depends_on:
+      - backend
+    networks:
+      - tu-diabetes-network
+
+# Volúmenes para persistencia de datos
+volumes:
+  postgres_data:
+
+# Red para comunicación entre servicios
+networks:
+  tu-diabetes-network:
+    driver: bridge
