@@ -2,7 +2,7 @@
 
 Plataforma web tipo foro para ayudar a personas con diabetes tipo 1, donde los usuarios pueden compartir experiencias, hacer preguntas y recibir ayuda de otros usuarios.
 
-## 🚀 Tecnologías
+## Tecnologías
 
 - **Frontend**: Vue.js 3, Bootstrap, SCSS
 - **Backend**: Node.js, Express
@@ -10,13 +10,13 @@ Plataforma web tipo foro para ayudar a personas con diabetes tipo 1, donde los u
 - **Contenedores**: Docker, Docker Compose
 - **Autenticación**: JWT
 
-## 📋 Requisitos previos
+## Requisitos previos
 
 - Docker y Docker Compose instalados
 - Git
 - Node.js 18+ (opcional, para desarrollo local)
 
-## 🛠️ Instalación y configuración
+## Instalación y configuración
 
 1. Clonar el repositorio:
    ```bash
