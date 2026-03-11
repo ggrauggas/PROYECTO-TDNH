@@ -25,31 +25,28 @@ Plataforma web tipo foro para ayudar a personas con diabetes tipo 1, donde los u
 
 ## Esquema de la base de datos
    ```bash
-    ┌─────────────┐       ┌─────────────┐       ┌─────────────┐
-    │    users    │       │    posts    │       │  comments   │
-    ├─────────────┤       ├─────────────┤       ├─────────────┤
-    │ id          │◄──────┤ user_id     │       │ id          │
-    │ username    │       │ id          │       │ content     │
-    │ email       │       │ title       │       │ user_id     │◄────┐
-    │ password    │       │ content     │       │ post_id     │     │
-    │ created_at  │       │ created_at  │       │ created_at  │     │
-    │ updated_at  │       │ updated_at  │       │ updated_at  │     │
-    └─────────────┘       └─────────────┘       └─────────────┘     │
-            │                    │                    │             │
-            │                    │                    │             │
-            │    ┌─────────────┐ │                    │             │
-            │    │    likes    │ │                    │             │
-            │    ├─────────────┤ │                    │             │
-            └────┤ user_id     │ │                    │             │
-                 │ post_id     │◄┘                    │             │
-                 │ comment_id  │──────────────────────┘             │
-                 │ created_at  │                                    │
-                 └─────────────┘                                    │
-                                                                    │
-                                                      ┌─────────────┴─────┐
-                                                      │   replies (self   │
-                                                      │   reference)      │
-                                                      ├───────────────────┤
-                                                      │ comment_id        │
-                                                      │ parent_comment_id │
-                                                      └───────────────────┘
+┌─────────────┐       ┌─────────────┐       ┌─────────────┐
+│   users     │       │   posts     │       │  comments   │
+├─────────────┤       ├─────────────┤       ├─────────────┤
+│ id          │───────│ userId      │       │ userId      │
+│ username    │       │ id          │───────│ postId      │
+│ email       │       │ title       │       │ content     │
+│ password    │       │ content     │       │ createdAt   │
+│ role        │       │ createdAt   │       └─────────────┘
+│ isBanned    │       │ updatedAt   │
+│ createdAt   │       └─────────────┘
+│ updatedAt   │
+└─────────────┘
+       │
+       │
+       │
+┌──────▼──────┐       ┌─────────────┐       ┌─────────────┐
+│   likes     │       │   foods     │       │    faqs     │
+├─────────────┤       ├─────────────┤       ├─────────────┤
+│ userId      │       │ id          │       │ id          │
+│ postId      │       │ name        │       │ question    │
+│ createdAt   │       │ description │       │ answer      │
+└─────────────┘       │ category    │       │ order       │
+                      │ imageUrl    │       │ createdAt   │
+                      │ createdAt   │       └─────────────┘
+                      └─────────────┘
