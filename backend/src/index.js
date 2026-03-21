@@ -20,7 +20,6 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Configurar trust proxy (útil cuando está detrás de nginx)
 app.set('trust proxy', 1);
 
 // Middlewares de seguridad
@@ -28,8 +27,8 @@ app.use(helmet());
 
 // Rate limiting
 const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutos
-  max: 100, // límite de 100 peticiones por ventana
+  windowMs: 15 * 60 * 1000,
+  max: 100,
   message: {
     status: 'error',
     message: 'Demasiadas peticiones, por favor intenta más tarde'
@@ -37,25 +36,26 @@ const limiter = rateLimit({
 });
 app.use('/api', limiter);
 
-// Middlewares
+// CORS
 app.use(cors({
-  origin: process.env.FRONTEND_URL || 'http://localhost:8080',
+  origin: ['http://localhost:8080', 'http://127.0.0.1:8080'],
   credentials: true
 }));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(morgan('combined'));
+app.use(morgan('dev'));
 
-// Rutas de prueba
+// Ruta de prueba
 app.get('/api/health', (req, res) => {
   res.json({ 
     status: 'OK', 
-    message: 'Backend de TU diabetes NUESTRA historia funcionando correctamente',
+    message: 'Backend funcionando correctamente',
     timestamp: new Date().toISOString()
   });
 });
 
-// Rutas de la API
+// Registrar rutas de la API
 app.use('/api/auth', authRoutes);
 app.use('/api/posts', postRoutes);
 app.use('/api/comments', commentRoutes);
@@ -104,4 +104,15 @@ app.listen(PORT, () => {
   console.log(`🚀 Servidor backend corriendo en puerto ${PORT}`);
   console.log(`📝 Modo: ${process.env.NODE_ENV || 'development'}`);
   console.log(`🔗 API disponible en: http://localhost:${PORT}/api`);
+  console.log(`📋 Rutas registradas:`);
+  console.log(`   - GET  /api/health`);
+  console.log(`   - GET  /api/test-db`);
+  console.log(`   - POST /api/auth/register`);
+  console.log(`   - POST /api/auth/login`);
+  console.log(`   - GET  /api/auth/profile (protegida)`);
+  console.log(`   - GET  /api/posts`);
+  console.log(`   - POST /api/posts (protegida)`);
+  console.log(`   - GET  /api/comments/post/:postId`);
+  console.log(`   - POST /api/comments (protegida)`);
+  console.log(`   - POST /api/likes/post/:postId (protegida)`);
 });
