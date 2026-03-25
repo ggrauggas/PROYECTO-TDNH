@@ -40,13 +40,12 @@ Plataforma web tipo foro para ayudar a personas con diabetes tipo 1, donde los u
        │
        │
        │
-┌──────▼──────┐       ┌─────────────┐       ┌─────────────┐
-│   likes     │       │   foods     │       │    faqs     │
-├─────────────┤       ├─────────────┤       ├─────────────┤
-│ userId      │       │ id          │       │ id          │
-│ postId      │       │ name        │       │ question    │
-│ createdAt   │       │ description │       │ answer      │
-└─────────────┘       │ category    │       │ order       │
-                      │ imageUrl    │       │ createdAt   │
-                      │ createdAt   │       └─────────────┘
-                      └─────────────┘
+┌──────▼──────┐       
+│   likes     │       
+├─────────────┤      
+│ userId      │       
+│ postId      │       
+│ createdAt   │       
+└─────────────┘       
+                      
+
