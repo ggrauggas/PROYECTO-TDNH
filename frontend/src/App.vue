@@ -35,7 +35,7 @@
         <hr>
         <p class="text-center small text-muted mb-0">
           © 2026 TU diabetes NUESTRA historia. 
-          Proyecto de Trabajo de Fin de Grado.
+          Proyecto de Trabajo de Fin de Grado. GERARD GRAU GASCÓN
         </p>
       </div>
     </footer>

@@ -12,7 +12,7 @@ class UserModel {
     const query = `
       INSERT INTO users (username, email, password, full_name, diabetes_type, diagnosis_date, bio)
       VALUES ($1, $2, $3, $4, $5, $6, $7)
-      RETURNING id, username, email, full_name, created_at
+      RETURNING id, username, email, full_name, role, created_at
     `;
     
     const values = [username, email, hashedPassword, full_name, diabetes_type, diagnosis_date, bio];

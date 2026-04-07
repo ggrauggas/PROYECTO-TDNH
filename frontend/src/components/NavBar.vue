@@ -19,13 +19,19 @@
             </router-link>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link" to="/forum" :class="{ active: $route.path.startsWith('/forum') }">
+            <router-link class="nav-link" to="/forum" :class="{ active: $route.path.startsWith('/forum') || $route.path.startsWith('/post') }">
               <i class="bi bi-chat-dots me-1"></i> Foro
             </router-link>
           </li>
           <li class="nav-item">
             <router-link class="nav-link" to="/guide" :class="{ active: $route.path === '/guide' }">
               <i class="bi bi-book me-1"></i> Guía
+            </router-link>
+          </li>
+          <!-- Test para principiantes: accesible para todos -->
+          <li class="nav-item">
+            <router-link class="nav-link" to="/quiz" :class="{ active: $route.path === '/quiz' }">
+              <i class="bi bi-patch-question me-1"></i> Test
             </router-link>
           </li>
           <li class="nav-item">
@@ -43,26 +49,12 @@
               <i class="bi bi-heart me-1"></i> Donaciones
             </router-link>
           </li>
-
-          <!-- Glucosa y Cuestionario: visibles para cualquier usuario autenticado -->
-          <template v-if="authStore.isAuthenticated">
-            <li class="nav-item">
-              <router-link class="nav-link" to="/glucose" :class="{ active: $route.path === '/glucose' }">
-                <i class="bi bi-activity me-1"></i> Glucosa
-              </router-link>
-            </li>
-            <li class="nav-item">
-              <router-link class="nav-link" to="/questionnaire" :class="{ active: $route.path === '/questionnaire' }">
-                <i class="bi bi-clipboard2-pulse me-1"></i> Cuestionario
-              </router-link>
-            </li>
-          </template>
         </ul>
         
         <ul class="navbar-nav">
           <template v-if="authStore.isAuthenticated">
 
-            <!-- Enlace al Panel Admin: solo visible para admins -->
+            <!-- Panel Admin: solo visible para admins -->
             <li v-if="authStore.user?.role === 'admin'" class="nav-item">
               <router-link class="nav-link admin-link" to="/admin" :class="{ active: $route.path === '/admin' }">
                 <i class="bi bi-shield-lock-fill me-1"></i> Admin
@@ -91,12 +83,6 @@
                     <i class="bi bi-activity me-2 text-primary"></i>Mis datos de glucosa
                   </router-link>
                 </li>
-                <li>
-                  <router-link class="dropdown-item" to="/questionnaire">
-                    <i class="bi bi-clipboard2-pulse me-2 text-success"></i>Cuestionario de perfil
-                  </router-link>
-                </li>
-
                 <li><hr class="dropdown-divider"></li>
                 <li>
                   <a class="dropdown-item text-danger" href="#" @click.prevent="logout">
@@ -138,10 +124,7 @@ export default {
       router.push('/');
     };
 
-    return {
-      authStore,
-      logout
-    };
+    return { authStore, logout };
   }
 };
 </script>
@@ -151,25 +134,17 @@ export default {
 
 .navbar {
   box-shadow: $box-shadow;
-  
+
   .navbar-brand {
     font-weight: 600;
     font-size: 1.2rem;
-    
-    .brand-tu {
-      color: $pink-pastel;
-      font-weight: 700;
-    }
-    
-    .brand-nuestra {
-      color: $pink-pastel-light;
-      font-weight: 700;
-    }
+
+    .brand-tu   { color: $pink-pastel;       font-weight: 700; }
+    .brand-nuestra { color: $pink-pastel-light; font-weight: 700; }
   }
-  
+
   .nav-link {
     font-weight: 500;
-    
     &.active {
       color: white;
       background-color: rgba(255, 255, 255, 0.1);
@@ -180,7 +155,6 @@ export default {
   .admin-link {
     color: #ffd166 !important;
     font-weight: 600;
-
     &:hover, &.active {
       color: #fff !important;
       background-color: rgba(255, 209, 102, 0.15);
@@ -189,9 +163,5 @@ export default {
   }
 }
 
-.dropdown-item {
-  i {
-    width: 1.5rem;
-  }
-}
+.dropdown-item i { width: 1.5rem; }
 </style>

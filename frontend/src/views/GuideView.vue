@@ -182,8 +182,24 @@
         y con apoyo, información y las herramientas adecuadas, puedes vivir la vida que deseas.
       </div>
 
-      <div class="text-center mt-5">
-        <router-link to="/forum" class="btn btn-primary btn-lg">
+      <!-- Bloque cuestionario -->
+      <div class="questionnaire-cta mt-5 p-4 rounded-3 text-center">
+        <div class="mb-3">
+          <i class="bi bi-clipboard2-pulse-fill" style="font-size: 2.5rem; color: #2c7da0;"></i>
+        </div>
+        <h4 class="fw-bold mb-2">¿Quieres personalizar tu experiencia?</h4>
+        <p class="text-muted mb-4">
+          Completa el cuestionario de perfil para que podamos ofrecerte contenido 
+          más relevante según tu situación con la diabetes.
+        </p>
+        <router-link to="/questionnaire" class="btn btn-primary btn-lg px-5">
+          <i class="bi bi-clipboard2-pulse me-2"></i>
+          Hacer el cuestionario
+        </router-link>
+      </div>
+
+      <div class="text-center mt-4">
+        <router-link to="/forum" class="btn btn-outline-primary btn-lg">
           <i class="bi bi-chat-dots me-2"></i>
           Comparte tu experiencia en el foro
         </router-link>
@@ -197,3 +213,10 @@ export default {
   name: 'GuideView'
 };
 </script>
+
+<style scoped lang="scss">
+.questionnaire-cta {
+  background: linear-gradient(135deg, rgba(44, 125, 160, 0.08) 0%, rgba(42, 157, 143, 0.08) 100%);
+  border: 2px dashed rgba(44, 125, 160, 0.3);
+}
+</style>

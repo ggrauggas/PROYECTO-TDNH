@@ -41,7 +41,7 @@ class AuthController {
         id: newUser.id,
         username: newUser.username,
         email: newUser.email,
-        role: 'user'
+        role: newUser.role || 'user'
       });
 
       res.status(201).json({

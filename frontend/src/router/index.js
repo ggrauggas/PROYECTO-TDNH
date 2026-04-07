@@ -16,10 +16,11 @@ import VideosView from '../views/VideosView.vue';
 import ProfileView from '../views/ProfileView.vue';
 import MyPostsView from '../views/MyPostsView.vue';
 
-// ── Nuevas vistas ──
+// Nuevas vistas
 import AdminView from '../views/AdminView.vue';
 import QuestionnaireView from '../views/QuestionnaireView.vue';
 import GlucoseView from '../views/GlucoseView.vue';
+import QuizView from '../views/QuizView.vue';
 
 const routes = [
   // ── Rutas existentes ──
@@ -45,16 +46,24 @@ const routes = [
     meta: { requiresAuth: true, requiresAdmin: true }
   },
   {
+    // Cuestionario de perfil: accesible desde la Guía, requiere login
     path: '/questionnaire',
     name: 'Questionnaire',
     component: QuestionnaireView,
     meta: { requiresAuth: true }
   },
   {
+    // Datos de glucosa: requiere login
     path: '/glucose',
     name: 'Glucose',
     component: GlucoseView,
     meta: { requiresAuth: true }
+  },
+  {
+    // Test para principiantes: público, no requiere login
+    path: '/quiz',
+    name: 'Quiz',
+    component: QuizView
   },
 
   // ── Fallback ──
@@ -64,14 +73,12 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(),
   routes,
-  // Volver al inicio de la página en cada navegación
   scrollBehavior(to, from, savedPosition) {
     if (savedPosition) return savedPosition;
     return { top: 0 };
   }
 });
 
-// Guard de navegación
 router.beforeEach((to, from, next) => {
   const isAuthenticated = authStore.isAuthenticated;
   const isAdmin = authStore.user?.role === 'admin';
@@ -79,11 +86,9 @@ router.beforeEach((to, from, next) => {
   if (to.meta.requiresAuth && !isAuthenticated) {
     return next({ path: '/login', query: { redirect: to.fullPath } });
   }
-
   if (to.meta.requiresAdmin && !isAdmin) {
-    return next('/');   // Redirigir a inicio si no es admin
+    return next('/');
   }
-
   if (to.meta.guest && isAuthenticated) {
     return next('/forum');
   }
