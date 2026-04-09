@@ -444,6 +444,7 @@
 <script>
 import { ref, computed, reactive, onMounted, nextTick } from 'vue';
 import { useRouter } from 'vue-router';
+import { Modal, Toast } from 'bootstrap';
 import authStore from '../stores/authStore';
 import userService from '../services/userService';
 import postService from '../services/postService';
@@ -564,7 +565,7 @@ export default {
     const openEditUser = (user) => {
       editingUser.value = { ...user };
       nextTick(() => {
-        const modal = new window.bootstrap.Modal(editUserModalRef.value);
+        const modal = new Modal(editUserModalRef.value);
         modal.show();
       });
     };
@@ -575,7 +576,7 @@ export default {
         // Llamada real: await userService.adminUpdate(editingUser.value.id, editingUser.value);
         const idx = users.value.findIndex(u => u.id === editingUser.value.id);
         if (idx !== -1) users.value[idx] = { ...editingUser.value };
-        window.bootstrap.Modal.getInstance(editUserModalRef.value)?.hide();
+        Modal.getInstance(editUserModalRef.value)?.hide();
         showToast('Usuario actualizado correctamente', 'success');
       } catch (e) {
         showToast('Error al actualizar el usuario', 'error');
@@ -595,7 +596,7 @@ export default {
     const confirmAction = (type, target) => {
       pendingAction.value = { type, target };
       nextTick(() => {
-        const modal = new window.bootstrap.Modal(confirmModalRef.value);
+        const modal = new Modal(confirmModalRef.value);
         modal.show();
       });
     };
@@ -624,7 +625,7 @@ export default {
           if (u) u.role = 'user';
           showToast('Rol de administrador eliminado', 'success');
         }
-        window.bootstrap.Modal.getInstance(confirmModalRef.value)?.hide();
+        Modal.getInstance(confirmModalRef.value)?.hide();
       } catch (e) {
         showToast('Error al ejecutar la acción', 'error');
       } finally {
@@ -637,7 +638,7 @@ export default {
       toast.message = message;
       toast.type = type;
       nextTick(() => {
-        const t = new window.bootstrap.Toast(toastRef.value, { delay: 3000 });
+        const t = new Toast(toastRef.value, { delay: 3000 });
         t.show();
       });
     };

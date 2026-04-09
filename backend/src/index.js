@@ -13,6 +13,7 @@ const authRoutes = require('./routes/authRoutes');
 const postRoutes = require('./routes/postRoutes');
 const commentRoutes = require('./routes/commentRoutes');
 const likeRoutes = require('./routes/likeRoutes');
+const userRoutes = require('./routes/userRoutes');
 
 // Configurar variables de entorno
 dotenv.config();
@@ -60,6 +61,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/posts', postRoutes);
 app.use('/api/comments', commentRoutes);
 app.use('/api/likes', likeRoutes);
+app.use('/api/users', userRoutes);
 
 // Ruta de prueba para base de datos
 app.get('/api/test-db', async (req, res) => {

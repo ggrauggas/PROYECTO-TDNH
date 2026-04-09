@@ -186,15 +186,17 @@ export default {
         editForm.diagnosis_date = user.value.diagnosis_date || '';
         editForm.bio = user.value.bio || '';
 
-        // Cargar publicaciones recientes del usuario
-        const postsResponse = await postService.getByUser(user.value.id, 1, 5);
+        // Cargar publicaciones recientes del usuario y estadísticas reales en paralelo
+        const [postsResponse, statsResponse] = await Promise.all([
+          postService.getByUser(user.value.id, 1, 5),
+          userService.getStats(user.value.id)
+        ]);
+
         recentPosts.value = postsResponse.data.posts;
-        
-        stats.posts = postsResponse.data.pagination.total || 0;
-        
-        // Aquí cargaríamos estadísticas reales de la API
-        stats.comments = 12; // Ejemplo
-        stats.likesReceived = 34; // Ejemplo
+
+        stats.posts = statsResponse.data.stats.posts;
+        stats.comments = statsResponse.data.stats.comments;
+        stats.likesReceived = statsResponse.data.stats.likesReceived;
 
       } catch (error) {
         console.error('Error cargando perfil:', error);

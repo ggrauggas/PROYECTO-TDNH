@@ -15,6 +15,11 @@ class UserService {
     const response = await api.get(`/posts/user/${userId}?page=${page}&limit=${limit}`);
     return response.data;
   }
+
+  async getStats(userId) {
+    const response = await api.get(`/users/${userId}/stats`);
+    return response.data;
+  }
 }
 
 export default new UserService();

@@ -74,6 +74,24 @@ class UserModel {
     return result.rows;
   }
 
+  // Obtener estadísticas de un usuario
+  async getStats(id) {
+    const query = `
+      SELECT
+        (SELECT COUNT(*) FROM posts WHERE user_id = $1) AS posts,
+        (SELECT COUNT(*) FROM comments WHERE user_id = $1) AS comments,
+        (SELECT COUNT(*) FROM likes l
+         JOIN posts p ON l.post_id = p.id
+         WHERE p.user_id = $1) AS likes_received
+    `;
+    const result = await pool.query(query, [id]);
+    return {
+      posts: parseInt(result.rows[0].posts),
+      comments: parseInt(result.rows[0].comments),
+      likesReceived: parseInt(result.rows[0].likes_received)
+    };
+  }
+
   // Actualizar perfil de usuario
   async update(id, userData) {
     const { full_name, diabetes_type, diagnosis_date, bio, avatar_url } = userData;
