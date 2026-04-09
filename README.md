@@ -21,7 +21,7 @@ Plataforma web tipo foro para ayudar a personas con diabetes tipo 1, donde los u
 1. Clonar el repositorio:
    ```bash
    git clone https://github.com/ggrauggas/PROYECTO-TDNH.git
-   cd tu-diabetes-nuestra-historia
+   cd PROYECTO-TDNH
 
 ## Esquema de la base de datos
    ```bash
