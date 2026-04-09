@@ -8,7 +8,9 @@
     "dev": "nodemon src/index.js",
     "db:migrate": "node src/db/migrations/run.js",
     "db:seed": "node src/db/seeders/run.js",
-    "db:setup": "node src/db/setup.js"
+    "db:setup": "node src/db/setup.js",
+    "db:bots:add": "node src/db/seeders/implement-bots.js",
+    "db:bots:delete": "node src/db/seeders/delete-bots.js"
   },
   "dependencies": {
     "bcrypt": "^5.1.0",
