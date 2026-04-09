@@ -1,16 +1,20 @@
 <template>
   <div class="comment-item" :class="{ 'is-reply': isReply }">
     <div class="d-flex">
-      <div class="avatar-circle me-2" :style="{ backgroundColor: getAvatarColor(comment.author_name) }">
-        {{ comment.author_name?.charAt(0) || 'U' }}
+      <div class="avatar-circle me-2" :style="comment.author_avatar ? {} : { backgroundColor: getAvatarColor(comment.author_name) }">
+        <img v-if="comment.author_avatar" :src="comment.author_avatar" alt="avatar" class="avatar-img" />
+        <span v-else>{{ comment.author_name?.charAt(0) || 'U' }}</span>
       </div>
-      
+
       <div class="flex-grow-1">
         <div class="d-flex justify-content-between align-items-start">
-          <div>
+          <div class="d-flex align-items-center flex-wrap gap-2">
             <strong>{{ comment.author_name }}</strong>
-            <small class="text-muted ms-2">{{ formatDate(comment.created_at) }}</small>
-            <span v-if="comment.is_edited" class="badge bg-light text-muted ms-2">editado</span>
+            <span v-if="comment.author_role === 'admin'" class="badge badge-admin">
+              <i class="bi bi-shield-check me-1"></i>Admin verificado
+            </span>
+            <small class="text-muted">{{ formatDate(comment.created_at) }}</small>
+            <span v-if="comment.is_edited" class="badge bg-light text-muted">editado</span>
           </div>
           
           <div v-if="isAuthor" class="dropdown">
@@ -202,6 +206,22 @@ export default {
     font-weight: bold;
     font-size: 1rem;
     flex-shrink: 0;
+    overflow: hidden;
+
+    .avatar-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+    }
   }
+}
+
+.badge-admin {
+  background-color: #6f42c1;
+  color: white;
+  font-size: 0.65rem;
+  padding: 0.2em 0.45em;
+  border-radius: 0.4rem;
 }
 </style>

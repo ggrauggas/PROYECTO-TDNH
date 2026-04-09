@@ -10,9 +10,25 @@
       <div class="col-md-4 mb-4">
         <div class="card">
           <div class="card-body text-center">
-            <div class="avatar-circle mx-auto mb-3" :style="{ backgroundColor: getAvatarColor(user?.full_name) }">
-              {{ user?.full_name?.charAt(0) || user?.username?.charAt(0) }}
-            </div>
+            <label for="avatar-file-input" class="avatar-wrapper mx-auto mb-3" title="Cambiar foto de perfil">
+              <div v-if="user?.avatar_url" class="avatar-img-circle">
+                <img :src="user.avatar_url" alt="Avatar" class="avatar-img" />
+              </div>
+              <div v-else class="avatar-circle" :style="{ backgroundColor: getAvatarColor(user?.full_name) }">
+                {{ user?.full_name?.charAt(0) || user?.username?.charAt(0) }}
+              </div>
+              <div class="avatar-overlay">
+                <span v-if="uploadingAvatar" class="spinner-border spinner-border-sm text-white"></span>
+                <i v-else class="bi bi-camera-fill"></i>
+              </div>
+            </label>
+            <input
+              id="avatar-file-input"
+              type="file"
+              accept="image/*"
+              class="d-none"
+              @change="handleAvatarChange"
+            />
             <h4>{{ user?.full_name || user?.username }}</h4>
             <p class="text-muted">@{{ user?.username }}</p>
             
@@ -158,6 +174,7 @@ import { ref, reactive, onMounted } from 'vue';
 import authStore from '../stores/authStore';
 import userService from '../services/userService';
 import postService from '../services/postService';
+import authService from '../services/authService';
 
 export default {
   name: 'ProfileView',
@@ -166,6 +183,7 @@ export default {
     const loading = ref(true);
     const editing = ref(false);
     const saving = ref(false);
+    const uploadingAvatar = ref(false);
     const stats = reactive({ posts: 0, comments: 0, likesReceived: 0 });
     const recentPosts = ref([]);
 
@@ -225,15 +243,59 @@ export default {
       return colors[index];
     };
 
+    const resizeImage = (file, maxSize = 300) => {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const img = new Image();
+          img.onload = () => {
+            const canvas = document.createElement('canvas');
+            let w = img.width, h = img.height;
+            if (w > h) { if (w > maxSize) { h = Math.round(h * maxSize / w); w = maxSize; } }
+            else { if (h > maxSize) { w = Math.round(w * maxSize / h); h = maxSize; } }
+            canvas.width = w;
+            canvas.height = h;
+            canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+            resolve(canvas.toDataURL('image/jpeg', 0.8));
+          };
+          img.onerror = reject;
+          img.src = e.target.result;
+        };
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
+    };
+
+    const handleAvatarChange = async (event) => {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      uploadingAvatar.value = true;
+      try {
+        const base64 = await resizeImage(file, 300);
+        await userService.updateProfile({ avatar_url: base64 });
+        const updatedUser = { ...authStore.user, avatar_url: base64 };
+        authStore.setUser(updatedUser);
+        localStorage.setItem('user', JSON.stringify(updatedUser));
+        user.value = updatedUser;
+      } catch (error) {
+        console.error('Error subiendo avatar:', error);
+        alert('Error al cambiar la foto de perfil');
+      } finally {
+        uploadingAvatar.value = false;
+        event.target.value = '';
+      }
+    };
+
     const updateProfile = async () => {
       saving.value = true;
       try {
-        // Aquí llamarías a la API para actualizar el perfil
-        // await userService.updateProfile(editForm);
-        
-        // Actualizar store local
-        authStore.user = { ...authStore.user, ...editForm };
-        
+        const response = await userService.updateProfile(editForm);
+        const updatedUser = { ...authStore.user, ...response.data.user };
+        authStore.setUser(updatedUser);
+        localStorage.setItem('user', JSON.stringify(updatedUser));
+        user.value = updatedUser;
+
         editing.value = false;
         alert('Perfil actualizado correctamente');
       } catch (error) {
@@ -258,12 +320,14 @@ export default {
       loading,
       editing,
       saving,
+      uploadingAvatar,
       stats,
       recentPosts,
       editForm,
       formatDate,
       formatJoinDate,
       getAvatarColor,
+      handleAvatarChange,
       updateProfile,
       cancelEdit
     };
@@ -272,7 +336,20 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.avatar-circle {
+.avatar-wrapper {
+  position: relative;
+  display: block;
+  width: 100px;
+  height: 100px;
+  cursor: pointer;
+
+  &:hover .avatar-overlay {
+    opacity: 1;
+  }
+}
+
+.avatar-circle,
+.avatar-img-circle {
   width: 100px;
   height: 100px;
   border-radius: 50%;
@@ -282,5 +359,30 @@ export default {
   justify-content: center;
   font-weight: bold;
   font-size: 2.5rem;
+  overflow: hidden;
+}
+
+.avatar-img-circle {
+  background-color: #eee;
+}
+
+.avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.avatar-overlay {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.2s;
+  color: white;
+  font-size: 1.4rem;
 }
 </style>

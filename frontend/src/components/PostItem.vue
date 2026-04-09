@@ -3,11 +3,17 @@
     <div class="card-body">
       <div class="d-flex justify-content-between align-items-start mb-2">
         <div class="d-flex align-items-center">
-          <div class="avatar-circle me-2" :style="{ backgroundColor: getAvatarColor(post.author_name) }">
-            {{ post.author_name?.charAt(0) || post.username?.charAt(0) || 'U' }}
+          <div class="avatar-circle me-2" :style="post.author_avatar ? {} : { backgroundColor: getAvatarColor(post.author_name) }">
+            <img v-if="post.author_avatar" :src="post.author_avatar" alt="avatar" class="avatar-img" />
+            <span v-else>{{ post.author_name?.charAt(0) || post.username?.charAt(0) || 'U' }}</span>
           </div>
           <div>
-            <h6 class="mb-0">{{ post.author_name || post.username }}</h6>
+            <div class="d-flex align-items-center gap-2">
+              <h6 class="mb-0">{{ post.author_name || post.username }}</h6>
+              <span v-if="post.author_role === 'admin'" class="badge badge-admin">
+                <i class="bi bi-shield-check me-1"></i>Admin verificado
+              </span>
+            </div>
             <small class="text-muted">{{ formatDate(post.created_at) }}</small>
           </div>
         </div>
@@ -147,6 +153,23 @@ export default {
   justify-content: center;
   font-weight: bold;
   font-size: 1.2rem;
+  overflow: hidden;
+  flex-shrink: 0;
+
+  .avatar-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+}
+
+.badge-admin {
+  background-color: #6f42c1;
+  color: white;
+  font-size: 0.7rem;
+  padding: 0.25em 0.5em;
+  border-radius: 0.4rem;
 }
 
 .card-title {

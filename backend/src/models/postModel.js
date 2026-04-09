@@ -24,18 +24,19 @@ class PostModel {
   // Obtener todas las publicaciones con información de usuario y conteos
   async findAll(limit = 20, offset = 0) {
     const query = `
-      SELECT 
+      SELECT
         p.*,
         u.username,
         u.full_name as author_name,
         u.avatar_url as author_avatar,
+        u.role as author_role,
         COUNT(DISTINCT c.id) as comment_count,
         COUNT(DISTINCT l.id) as like_count
       FROM posts p
       JOIN users u ON p.user_id = u.id
       LEFT JOIN comments c ON p.id = c.post_id
       LEFT JOIN likes l ON p.id = l.post_id
-      GROUP BY p.id, u.username, u.full_name, u.avatar_url
+      GROUP BY p.id, u.username, u.full_name, u.avatar_url, u.role
       ORDER BY p.created_at DESC
       LIMIT $1 OFFSET $2
     `;
@@ -47,11 +48,12 @@ class PostModel {
   // Obtener una publicación por ID
   async findById(id) {
     const query = `
-      SELECT 
+      SELECT
         p.*,
         u.username,
         u.full_name as author_name,
         u.avatar_url as author_avatar,
+        u.role as author_role,
         COUNT(DISTINCT c.id) as comment_count,
         COUNT(DISTINCT l.id) as like_count
       FROM posts p
@@ -59,7 +61,7 @@ class PostModel {
       LEFT JOIN comments c ON p.id = c.post_id
       LEFT JOIN likes l ON p.id = l.post_id
       WHERE p.id = $1
-      GROUP BY p.id, u.username, u.full_name, u.avatar_url
+      GROUP BY p.id, u.username, u.full_name, u.avatar_url, u.role
     `;
     
     const result = await pool.query(query, [id]);

@@ -108,13 +108,13 @@
           o invitando a otros a unirse a la comunidad.
         </p>
         <div class="d-flex justify-content-center gap-3">
-          <a href="#" class="btn btn-outline-primary">
+          <a :href="shareUrls.twitter" target="_blank" rel="noopener" class="btn btn-outline-primary">
             <i class="bi bi-twitter me-2"></i>Compartir
           </a>
-          <a href="#" class="btn btn-outline-primary">
+          <a :href="shareUrls.facebook" target="_blank" rel="noopener" class="btn btn-outline-primary">
             <i class="bi bi-facebook me-2"></i>Compartir
           </a>
-          <a href="#" class="btn btn-outline-primary">
+          <a :href="shareUrls.whatsapp" target="_blank" rel="noopener" class="btn btn-outline-primary">
             <i class="bi bi-whatsapp me-2"></i>Compartir
           </a>
         </div>
@@ -125,6 +125,18 @@
 
 <script>
 export default {
-  name: 'DonateView'
+  name: 'DonateView',
+  data() {
+    const siteUrl = 'https://www.tudiabetesnuestrahistoria.es';
+    const text = encodeURIComponent('¡Únete a TU diabetes NUESTRA historia! Una comunidad para personas con diabetes tipo 1. 💙');
+    const url = encodeURIComponent(siteUrl);
+    return {
+      shareUrls: {
+        twitter: `https://twitter.com/intent/tweet?text=${text}&url=${url}`,
+        facebook: `https://www.facebook.com/sharer/sharer.php?u=${url}`,
+        whatsapp: `https://wa.me/?text=${text}%20${url}`
+      }
+    };
+  }
 };
 </script>

@@ -26,25 +26,27 @@ class CommentModel {
     const query = `
       WITH RECURSIVE comment_tree AS (
         -- Comentarios raíz (sin padre)
-        SELECT 
+        SELECT
           c.*,
           u.username,
           u.full_name as author_name,
           u.avatar_url as author_avatar,
+          u.role as author_role,
           0 as level,
           c.id as path
         FROM comments c
         JOIN users u ON c.user_id = u.id
         WHERE c.post_id = $1 AND c.parent_comment_id IS NULL
-        
+
         UNION ALL
-        
+
         -- Respuestas a comentarios
-        SELECT 
+        SELECT
           c.*,
           u.username,
           u.full_name as author_name,
           u.avatar_url as author_avatar,
+          u.role as author_role,
           ct.level + 1,
           ct.path
         FROM comments c
@@ -62,11 +64,12 @@ class CommentModel {
   // Obtener un comentario por ID
   async findById(id) {
     const query = `
-      SELECT 
+      SELECT
         c.*,
         u.username,
         u.full_name as author_name,
-        u.avatar_url as author_avatar
+        u.avatar_url as author_avatar,
+        u.role as author_role
       FROM comments c
       JOIN users u ON c.user_id = u.id
       WHERE c.id = $1

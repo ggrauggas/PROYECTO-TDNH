@@ -62,8 +62,9 @@
             </li>
 
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-                <i class="bi bi-person-circle me-1"></i>
+              <a class="nav-link dropdown-toggle d-flex align-items-center gap-2" href="#" role="button" data-bs-toggle="dropdown">
+                <img v-if="authStore.user?.avatar_url" :src="authStore.user.avatar_url" alt="avatar" class="nav-avatar" />
+                <i v-else class="bi bi-person-circle"></i>
                 {{ authStore.user?.username }}
               </a>
               <ul class="dropdown-menu dropdown-menu-end">
@@ -164,4 +165,12 @@ export default {
 }
 
 .dropdown-item i { width: 1.5rem; }
+
+.nav-avatar {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid rgba(255,255,255,0.5);
+}
 </style>
