@@ -62,16 +62,47 @@ class UserModel {
     return await bcrypt.compare(plainPassword, hashedPassword);
   }
 
-  // Obtener todos los usuarios (para admin)
-  async findAll(limit = 50, offset = 0) {
+  // Obtener todos los usuarios (para admin) con conteos
+  async findAll(limit = 500, offset = 0) {
     const query = `
-      SELECT id, username, email, full_name, role, created_at
-      FROM users
-      ORDER BY created_at DESC
+      SELECT u.id, u.username, u.email, u.full_name, u.diabetes_type,
+             u.role, u.is_active, u.created_at, u.bio,
+             COUNT(DISTINCT p.id)::int AS post_count,
+             COUNT(DISTINCT c.id)::int AS comment_count
+      FROM users u
+      LEFT JOIN posts p ON p.user_id = u.id
+      LEFT JOIN comments c ON c.user_id = u.id
+      GROUP BY u.id
+      ORDER BY u.created_at DESC
       LIMIT $1 OFFSET $2
     `;
     const result = await pool.query(query, [limit, offset]);
     return result.rows;
+  }
+
+  // Actualizar usuario desde panel admin
+  async adminUpdate(id, data) {
+    const { full_name, username, email, diabetes_type, bio, role, is_active } = data;
+    const query = `
+      UPDATE users
+      SET full_name   = COALESCE($1, full_name),
+          username    = COALESCE($2, username),
+          email       = COALESCE($3, email),
+          diabetes_type = COALESCE($4, diabetes_type),
+          bio         = COALESCE($5, bio),
+          role        = COALESCE($6, role),
+          is_active   = COALESCE($7, is_active),
+          updated_at  = CURRENT_TIMESTAMP
+      WHERE id = $8
+      RETURNING id, username, email, full_name, diabetes_type, bio, role, is_active, created_at
+    `;
+    const result = await pool.query(query, [full_name, username, email, diabetes_type, bio, role, is_active, id]);
+    return result.rows[0];
+  }
+
+  // Eliminar usuario (admin)
+  async adminDelete(id) {
+    await pool.query('DELETE FROM users WHERE id = $1', [id]);
   }
 
   // Obtener estadísticas de un usuario

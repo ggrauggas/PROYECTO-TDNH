@@ -16,22 +16,22 @@ const pool = new Pool({
 
 // Probar la conexión (una sola vez al iniciar)
 pool.on('connect', () => {
-  console.log('🔌 Conectado a la base de datos PostgreSQL');
+  console.log('Conectado a la base de datos PostgreSQL');
 });
 
 pool.on('error', (err) => {
-  console.error('❌ Error inesperado en la conexión a la base de datos:', err);
+  console.error('Error inesperado en la conexión a la base de datos:', err);
 });
 
 // Función para probar la conexión
 async function testConnection() {
   try {
     const client = await pool.connect();
-    console.log('✅ Conexión a la base de datos verificada');
+    console.log('Conexión a la base de datos verificada');
     client.release();
     return true;
   } catch (error) {
-    console.error('❌ No se pudo conectar a la base de datos:', error.message);
+    console.error('No se pudo conectar a la base de datos:', error.message);
     return false;
   }
 }

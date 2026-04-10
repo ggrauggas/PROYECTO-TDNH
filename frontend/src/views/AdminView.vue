@@ -206,6 +206,7 @@
                       <i class="bi bi-shield-minus"></i>
                     </button>
                     <button
+                      v-if="user.id !== currentUserId"
                       class="btn btn-outline-danger"
                       title="Eliminar usuario"
                       @click="confirmAction('deleteUser', user)"
@@ -371,10 +372,18 @@
               </div>
               <div class="col-md-6">
                 <label class="form-label small fw-semibold">Estado</label>
-                <select class="form-select" v-model="editingUser.is_active">
+                <select
+                  class="form-select"
+                  v-model="editingUser.is_active"
+                  :disabled="editingUser.id === currentUserId"
+                  :title="editingUser.id === currentUserId ? 'No puedes bloquearte a ti mismo' : ''"
+                >
                   <option :value="true">Activo</option>
                   <option :value="false">Inactivo / Baneado</option>
                 </select>
+                <div v-if="editingUser.id === currentUserId" class="form-text text-warning">
+                  <i class="bi bi-exclamation-triangle me-1"></i>No puedes modificar tu propio estado.
+                </div>
               </div>
               <div class="col-12">
                 <label class="form-label small fw-semibold">Biografía</label>
@@ -459,6 +468,8 @@ export default {
       router.push('/');
     }
 
+    const currentUserId = authStore.user?.id;
+
     // ---- Tabs ----
     const activeTab = ref('stats');
 
@@ -488,14 +499,8 @@ export default {
     const loadUsers = async () => {
       loadingUsers.value = true;
       try {
-        // Llamada real a la API: const res = await userService.getAll();
-        // Datos de ejemplo para mostrar la UI:
-        users.value = [
-          { id: 1, username: 'carlos_diabetes', email: 'carlos@example.com', full_name: 'Carlos Rodríguez', diabetes_type: 'Tipo 1', role: 'user', is_active: true, created_at: '2024-01-15', post_count: 5, comment_count: 12 },
-          { id: 2, username: 'ana_martinez', email: 'ana@example.com', full_name: 'Ana Martínez', diabetes_type: 'Tipo 1', role: 'user', is_active: true, created_at: '2024-02-03', post_count: 3, comment_count: 8 },
-          { id: 3, username: 'miguel_asesor', email: 'miguel@example.com', full_name: 'Miguel Sánchez', diabetes_type: 'Tipo 1', role: 'admin', is_active: true, created_at: '2024-01-01', post_count: 10, comment_count: 34 },
-          { id: 4, username: 'lucia_tipo2', email: 'lucia@example.com', full_name: 'Lucía Pérez', diabetes_type: 'Tipo 2', role: 'user', is_active: false, created_at: '2024-03-10', post_count: 1, comment_count: 2 },
-        ];
+        const res = await userService.adminGetAll();
+        users.value = res.data?.users || [];
       } catch (e) {
         console.error('Error cargando usuarios:', e);
       } finally {
@@ -506,7 +511,7 @@ export default {
     const loadPosts = async () => {
       loadingPosts.value = true;
       try {
-        const res = await postService.getAll(1);
+        const res = await postService.getAll(1, 500);
         posts.value = res.data?.posts || [];
       } catch (e) {
         console.error('Error cargando posts:', e);
@@ -573,13 +578,15 @@ export default {
     const saveUserEdit = async () => {
       savingUser.value = true;
       try {
-        // Llamada real: await userService.adminUpdate(editingUser.value.id, editingUser.value);
+        const res = await userService.adminUpdate(editingUser.value.id, editingUser.value);
+        const updated = res.data?.user;
         const idx = users.value.findIndex(u => u.id === editingUser.value.id);
-        if (idx !== -1) users.value[idx] = { ...editingUser.value };
+        if (idx !== -1) users.value[idx] = { ...users.value[idx], ...updated };
         Modal.getInstance(editUserModalRef.value)?.hide();
         showToast('Usuario actualizado correctamente', 'success');
       } catch (e) {
-        showToast('Error al actualizar el usuario', 'error');
+        const msg = e.response?.data?.message || 'Error al actualizar el usuario';
+        showToast(msg, 'error');
       } finally {
         savingUser.value = false;
       }
@@ -607,7 +614,7 @@ export default {
 
       try {
         if (type === 'deleteUser') {
-          // await userService.adminDelete(target.id);
+          await userService.adminDelete(target.id);
           users.value = users.value.filter(u => u.id !== target.id);
           showToast('Usuario eliminado', 'success');
         } else if (type === 'deletePost') {
@@ -615,12 +622,12 @@ export default {
           posts.value = posts.value.filter(p => p.id !== target.id);
           showToast('Publicación eliminada', 'success');
         } else if (type === 'makeAdmin') {
-          // await userService.adminUpdate(target.id, { role: 'admin' });
+          await userService.adminUpdate(target.id, { role: 'admin' });
           const u = users.value.find(u => u.id === target.id);
           if (u) u.role = 'admin';
           showToast('Rol de administrador asignado', 'success');
         } else if (type === 'removeAdmin') {
-          // await userService.adminUpdate(target.id, { role: 'user' });
+          await userService.adminUpdate(target.id, { role: 'user' });
           const u = users.value.find(u => u.id === target.id);
           if (u) u.role = 'user';
           showToast('Rol de administrador eliminado', 'success');
@@ -656,6 +663,7 @@ export default {
     };
 
     return {
+      currentUserId,
       activeTab, tabs, users, posts,
       loadingStats, loadingUsers, loadingPosts,
       userSearch, userRoleFilter, postSearch, postCategoryFilter,

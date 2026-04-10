@@ -20,6 +20,21 @@ class UserService {
     const response = await api.get(`/users/${userId}/stats`);
     return response.data;
   }
+
+  async adminGetAll() {
+    const response = await api.get('/admin/users');
+    return response.data;
+  }
+
+  async adminUpdate(id, data) {
+    const response = await api.put(`/admin/users/${id}`, data);
+    return response.data;
+  }
+
+  async adminDelete(id) {
+    const response = await api.delete(`/admin/users/${id}`);
+    return response.data;
+  }
 }
 
 export default new UserService();
