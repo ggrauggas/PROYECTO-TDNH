@@ -5,13 +5,13 @@ async function implementBots() {
   const client = await pool.connect();
 
   try {
-    console.log('🤖 Implementando bots y conversaciones...');
+    console.log('IMPLEMENTANDO BOTS Y CONVERSACIONES...');
     await client.query('BEGIN');
 
     // Verificar que no existan ya bots (por email de ejemplo)
     const botCheck = await client.query(`SELECT COUNT(*) FROM users WHERE email LIKE '%@example.com'`);
     if (parseInt(botCheck.rows[0].count) > 0) {
-      console.log('⚠️  Los bots ya existen. Ejecuta "npm run db:bots:delete" primero.');
+      console.log('Los bots ya existen. Ejecuta "npm run db:bots:delete" primero.');
       await client.query('COMMIT');
       return;
     }
@@ -19,7 +19,7 @@ async function implementBots() {
     // =============================================
     // 1. Crear 13 usuarios bot
     // =============================================
-    console.log('👤 Creando usuarios bot...');
+    console.log('CREANDO BOTS...');
 
     const botUsers = [
       {
@@ -163,7 +163,7 @@ async function implementBots() {
          user.diabetes_type, user.diagnosis_date, user.bio, user.role]
       );
       userIds.push(result.rows[0].id);
-      console.log(`   ✅ Bot creado: ${user.username}`);
+      console.log(`   Bot creado: ${user.username}`);
     }
 
     // Índices de bots (0-based): carlos=0, ana=1, miguel=2, lucia=3, diego=4,
@@ -172,7 +172,7 @@ async function implementBots() {
     // =============================================
     // 2. Crear publicaciones (solo de bots)
     // =============================================
-    console.log('\n📝 Creando publicaciones...');
+    console.log('\nCreando publicaciones...');
 
     const posts = [
       // Carlos (0)
@@ -226,7 +226,7 @@ async function implementBots() {
         [post.user_id, post.title, post.content, post.category, post.tags]
       );
       postIds.push(result.rows[0].id);
-      console.log(`   ✅ Post: ${post.title.substring(0, 50)}...`);
+      console.log(` Post: ${post.title.substring(0, 50)}...`);
     }
 
     // postIds índices: 0-2 Carlos, 3-5 Ana, 6-8 Miguel, 9-10 Lucia, 11-12 Diego,
@@ -236,7 +236,7 @@ async function implementBots() {
     // =============================================
     // 3. Crear comentarios (solo entre bots)
     // =============================================
-    console.log('\n💬 Creando comentarios...');
+    console.log('\nCreando comentarios...');
     let commentCount = 0;
 
     const addComment = async (post_id, user_id, content, parent_id = null) => {
@@ -391,12 +391,12 @@ async function implementBots() {
         await client.query(`INSERT INTO follows (follower_id, following_id) VALUES ($1, $2)`, [followerId, followingId]);
       } catch (e) { /* ignorar duplicados */ }
     }
-    console.log(`   ✅ ${follows.length} follows creados`);
+    console.log(`   ${follows.length} follows creados`);
 
     await client.query('COMMIT');
 
-    console.log('\n🎉 Bots implementados correctamente!');
-    console.log('📊 Resumen:');
+    console.log('\nBots implementados correctamente!');
+    console.log('Resumen:');
     console.log(`   - 13 usuarios bot creados`);
     console.log(`   - ${posts.length} publicaciones creadas`);
     console.log(`   - ${commentCount} comentarios creados`);
@@ -404,7 +404,7 @@ async function implementBots() {
 
   } catch (error) {
     await client.query('ROLLBACK');
-    console.error('❌ Error implementando bots:', error);
+    console.error('ERROR implementando bots:', error);
     throw error;
   } finally {
     client.release();
