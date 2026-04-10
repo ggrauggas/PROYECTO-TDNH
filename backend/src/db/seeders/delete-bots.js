@@ -4,7 +4,7 @@ async function deleteBots() {
   const client = await pool.connect();
 
   try {
-    console.log('🗑️  Eliminando bots y sus conversaciones...');
+    console.log('ELIMINANDO BOTS Y SUS CONVERSACIONES...');
     await client.query('BEGIN');
 
     // Obtener IDs de bots (todos los usuarios con email @example.com)
@@ -13,7 +13,7 @@ async function deleteBots() {
     );
 
     if (botResult.rows.length === 0) {
-      console.log('⚠️  No hay bots en la base de datos.');
+      console.log('No hay bots en la base de datos.');
       await client.query('COMMIT');
       return;
     }
@@ -29,12 +29,12 @@ async function deleteBots() {
 
     await client.query('COMMIT');
 
-    console.log(`\n✅ ${deleted.rows.length} bots eliminados (posts, comentarios, likes y follows incluidos)`);
+    console.log(`\n${deleted.rows.length} bots eliminados (posts, comentarios, likes y follows incluidos)`);
     deleted.rows.forEach(r => console.log(`   - ${r.username}`));
 
   } catch (error) {
     await client.query('ROLLBACK');
-    console.error('❌ Error eliminando bots:', error);
+    console.error('ERROR eliminando bots:', error);
     throw error;
   } finally {
     client.release();
