@@ -45,7 +45,6 @@ frontend/node_modules/
 
 # Database
 database/data/
-*.sql
 *.dump
 
 # Testing
