@@ -33,7 +33,7 @@ async function runSeeders() {
         role: 'admin'
       },
       {
-        username: 'gerardgrau',
+        username: 'gerard',
         email: 'gerardgrau2004@gmail.com',
         password: await bcrypt.hash('admin', 10),
         full_name: 'Gerard Grau Gascón',
