@@ -9,9 +9,9 @@
             <div class="quiz-icon mb-4">
               <i class="bi bi-patch-question-fill"></i>
             </div>
-            <h2 class="fw-bold mb-2">Test para principiantes</h2>
+            <h2 class="fw-bold mb-2">Test para diabetes tipo 3</h2>
             <p class="text-muted mb-4">
-              Pon a prueba lo que sabes sobre la diabetes.
+              ¿Convives con alguien con diabetes? La diabetes tipo 3 hace referencia a las personas que acompañan y cuidan a quienes la padecen. Pon a prueba lo que sabes.
               {{ questions.length }} preguntas · Respuesta inmediata · Sin límite de tiempo
             </p>
             <div class="row g-3 mb-4 text-start">
