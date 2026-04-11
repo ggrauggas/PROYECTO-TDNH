@@ -23,7 +23,7 @@
       <div class="mb-4 d-flex justify-content-between align-items-center">
         <h5 class="mb-0">
           <i class="bi bi-collection-fill text-primary me-2"></i>
-          Publicaciones ({{ posts.length }})
+          Publicaciones
         </h5>
         <router-link v-if="authStore.isAuthenticated && showCreateButton" to="/create-post" class="btn btn-primary btn-sm">
           <i class="bi bi-plus-circle me-2"></i>Nueva publicación
