@@ -1,7 +1,13 @@
 <template>
   <div class="comment-item" :class="{ 'is-reply': isReply }">
     <div class="d-flex">
-      <div class="avatar-circle me-2" :style="comment.author_avatar ? {} : { backgroundColor: getAvatarColor(comment.author_name) }">
+      <div
+        class="avatar-circle me-2"
+        :style="comment.author_avatar ? {} : { backgroundColor: getAvatarColor(comment.author_name) }"
+        style="cursor: pointer;"
+        :title="`Ver foto de ${comment.author_name}`"
+        @click="$refs.userModal.openAvatar({ avatarUrl: comment.author_avatar, authorName: comment.author_name })"
+      >
         <img v-if="comment.author_avatar" :src="comment.author_avatar" alt="avatar" class="avatar-img" />
         <span v-else>{{ comment.author_name?.charAt(0) || 'U' }}</span>
       </div>
@@ -9,7 +15,11 @@
       <div class="flex-grow-1">
         <div class="d-flex justify-content-between align-items-start">
           <div class="d-flex align-items-center flex-wrap gap-2">
-            <strong>{{ comment.author_name }}</strong>
+            <strong
+              class="author-name-link"
+              :title="`Ver perfil de ${comment.author_name}`"
+              @click="$refs.userModal.openProfile(comment.user_id)"
+            >{{ comment.author_name }}</strong>
             <span v-if="comment.author_role === 'admin'" class="badge badge-admin">
               <i class="bi bi-shield-check me-1"></i>Admin verificado
             </span>
@@ -75,17 +85,20 @@
       </div>
     </div>
   </div>
+
+  <UserProfileModal ref="userModal" />
 </template>
 
 <script>
 import { ref, computed } from 'vue';
 import LikeButton from './LikeButton.vue';
+import UserProfileModal from './UserProfileModal.vue';
 import authStore from '../stores/authStore';
 import commentService from '../services/commentService';
 
 export default {
   name: 'CommentItem',
-  components: { LikeButton },
+  components: { LikeButton, UserProfileModal },
   props: {
     comment: {
       type: Object,
@@ -215,6 +228,13 @@ export default {
       border-radius: 50%;
     }
   }
+}
+
+.author-name-link {
+  cursor: pointer;
+  transition: color 0.15s;
+
+  &:hover { color: $primary; text-decoration: underline; }
 }
 
 .badge-admin {

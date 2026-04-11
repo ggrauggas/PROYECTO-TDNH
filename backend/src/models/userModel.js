@@ -105,6 +105,23 @@ class UserModel {
     await pool.query('DELETE FROM users WHERE id = $1', [id]);
   }
 
+  // Perfil público de un usuario (para ver el perfil de otro)
+  async getPublicProfile(id) {
+    const query = `
+      SELECT u.id, u.username, u.full_name, u.avatar_url, u.diabetes_type,
+             u.bio, u.created_at,
+             COUNT(DISTINCT p.id)::int AS post_count,
+             COUNT(DISTINCT c.id)::int AS comment_count
+      FROM users u
+      LEFT JOIN posts p ON p.user_id = u.id
+      LEFT JOIN comments c ON c.user_id = u.id
+      WHERE u.id = $1
+      GROUP BY u.id
+    `;
+    const result = await pool.query(query, [id]);
+    return result.rows[0] || null;
+  }
+
   // Obtener estadísticas de un usuario
   async getStats(id) {
     const query = `

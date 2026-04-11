@@ -8,8 +8,17 @@
     <!-- Formulario de nuevo comentario -->
     <div v-if="authStore.isAuthenticated" class="new-comment mb-4">
       <div class="d-flex">
-        <div class="avatar-circle me-2" :style="{ backgroundColor: getAvatarColor(authStore.user?.full_name) }">
-          {{ authStore.user?.full_name?.charAt(0) || authStore.user?.username?.charAt(0) }}
+        <div
+          class="avatar-circle me-2"
+          :style="authStore.user?.avatar_url ? {} : { backgroundColor: getAvatarColor(authStore.user?.full_name) }"
+        >
+          <img
+            v-if="authStore.user?.avatar_url"
+            :src="authStore.user.avatar_url"
+            :alt="authStore.user.username"
+            class="avatar-img"
+          />
+          <span v-else>{{ authStore.user?.full_name?.charAt(0) || authStore.user?.username?.charAt(0) }}</span>
         </div>
         <div class="flex-grow-1">
           <textarea
@@ -106,7 +115,8 @@ export default {
       required: true
     }
   },
-  setup(props) {
+  emits: ['comment-count-changed'],
+  setup(props, { emit }) {
     const comments = ref([]);
     const loading = ref(true);
     const submitting = ref(false);
@@ -181,7 +191,8 @@ export default {
         
         // Añadir el nuevo comentario a la lista
         comments.value.push(response.data.comment);
-        
+        emit('comment-count-changed', comments.value.length);
+
         // Limpiar formulario
         newCommentContent.value = '';
         replyTo.value = null;
@@ -243,6 +254,14 @@ export default {
   justify-content: center;
   font-weight: bold;
   flex-shrink: 0;
+  overflow: hidden;
+}
+
+.avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
 }
 
 .replies {

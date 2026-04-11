@@ -21,6 +21,11 @@ class UserService {
     return response.data;
   }
 
+  async getPublicProfile(id) {
+    const response = await api.get(`/users/${id}/profile`);
+    return response.data;
+  }
+
   async adminGetAll() {
     const response = await api.get('/admin/users');
     return response.data;

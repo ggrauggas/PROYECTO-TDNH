@@ -67,14 +67,17 @@ class CommentModel {
       SELECT
         c.*,
         u.username,
-        u.full_name as author_name,
-        u.avatar_url as author_avatar,
-        u.role as author_role
+        u.full_name  AS author_name,
+        u.avatar_url AS author_avatar,
+        u.role       AS author_role,
+        COUNT(DISTINCT l.id)::int AS like_count
       FROM comments c
       JOIN users u ON c.user_id = u.id
+      LEFT JOIN likes l ON l.comment_id = c.id
       WHERE c.id = $1
+      GROUP BY c.id, u.username, u.full_name, u.avatar_url, u.role
     `;
-    
+
     const result = await pool.query(query, [id]);
     return result.rows[0];
   }

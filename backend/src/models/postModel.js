@@ -104,15 +104,20 @@ class PostModel {
   // Obtener publicaciones por usuario
   async findByUserId(user_id, limit = 20, offset = 0) {
     const query = `
-      SELECT 
+      SELECT
         p.*,
-        COUNT(DISTINCT c.id) as comment_count,
-        COUNT(DISTINCT l.id) as like_count
+        u.username,
+        u.full_name  AS author_name,
+        u.avatar_url AS author_avatar,
+        u.role       AS author_role,
+        COUNT(DISTINCT c.id) AS comment_count,
+        COUNT(DISTINCT l.id) AS like_count
       FROM posts p
+      JOIN users u ON p.user_id = u.id
       LEFT JOIN comments c ON p.id = c.post_id
       LEFT JOIN likes l ON p.id = l.post_id
       WHERE p.user_id = $1
-      GROUP BY p.id
+      GROUP BY p.id, u.username, u.full_name, u.avatar_url, u.role
       ORDER BY p.created_at DESC
       LIMIT $2 OFFSET $3
     `;

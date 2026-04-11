@@ -1,0 +1,13 @@
+[build]
+  base    = "frontend"
+  publish = "dist"
+  command = "npm ci && npm run build"
+
+[build.environment]
+  NODE_VERSION = "18"
+
+# Vue Router history mode: todas las rutas SPA caen en index.html
+[[redirects]]
+  from = "/*"
+  to   = "/index.html"
+  status = 200

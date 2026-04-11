@@ -57,7 +57,7 @@
             </div>
             <h4>Guía para nuevos diagnosticados</h4>
             <p class="text-muted">
-              Recursos y consejos para quienes comienzan su camino con diabetes tipo 1.
+              Recursos y consejos para quienes comienzan su camino con diabetes.
             </p>
           </div>
         </div>
@@ -112,7 +112,6 @@ export default {
       const now = new Date();
       const diffTime = Math.abs(now - date);
       const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-      
       if (diffDays === 0) return 'Hoy';
       if (diffDays === 1) return 'Ayer';
       if (diffDays < 7) return `Hace ${diffDays} días`;
@@ -120,26 +119,16 @@ export default {
     };
 
     const truncateContent = (content) => {
-      if (content.length > 100) {
-        return content.substring(0, 100) + '...';
-      }
+      if (content.length > 100) return content.substring(0, 100) + '...';
       return content;
     };
 
     const getAvatarColor = (name) => {
       const colors = ['#2c7da0', '#61a5c2', '#2a9d8f', '#e9c46a', '#e76f51'];
-      const index = (name?.length || 0) % colors.length;
-      return colors[index];
+      return colors[(name?.length || 0) % colors.length];
     };
 
-    return {
-      recentPosts,
-      loading,
-      authStore,
-      formatDate,
-      truncateContent,
-      getAvatarColor
-    };
+    return { recentPosts, loading, authStore, formatDate, truncateContent, getAvatarColor };
   }
 };
 </script>
@@ -183,14 +172,4 @@ export default {
   margin-bottom: -1.5rem;
 }
 
-.avatar-circle {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-}
 </style>

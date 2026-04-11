@@ -19,6 +19,7 @@
     <div v-else>
       <PostList
         :user-id="authStore.user?.id"
+        :show-create-button="false"
         @post-deleted="handlePostDeleted"
       />
     </div>

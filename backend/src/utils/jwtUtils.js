@@ -1,34 +1,39 @@
 const jwt = require('jsonwebtoken');
 
-const JWT_SECRET = process.env.JWT_SECRET || 'tu_secreto_jwt_super_seguro_cambiame_en_produccion';
+const JWT_SECRET = process.env.JWT_SECRET;
 const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN || '7d';
 
+if (!JWT_SECRET) {
+  if (process.env.NODE_ENV === 'production') {
+    throw new Error('JWT_SECRET no está definido. Es obligatorio en producción.');
+  }
+  console.warn('[jwtUtils] JWT_SECRET no definido — usando valor de desarrollo inseguro.');
+}
+
+const SECRET = JWT_SECRET || 'dev_only_insecure_secret_change_me';
+
 class JWTUtils {
-  // Generar token
   generateToken(payload) {
-    return jwt.sign(payload, JWT_SECRET, { expiresIn: JWT_EXPIRES_IN });
+    return jwt.sign(payload, SECRET, { expiresIn: JWT_EXPIRES_IN });
   }
 
-  // Verificar token
   verifyToken(token) {
     try {
-      return jwt.verify(token, JWT_SECRET);
+      return jwt.verify(token, SECRET);
     } catch (error) {
       return null;
     }
   }
 
-  // Decodificar token sin verificar (útil para depuración)
   decodeToken(token) {
     return jwt.decode(token);
   }
 
-  // Extraer token del header de autorización
   extractTokenFromHeader(authHeader) {
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
       return null;
     }
-    return authHeader.substring(7); // Quita 'Bearer ' del inicio
+    return authHeader.substring(7);
   }
 }
 

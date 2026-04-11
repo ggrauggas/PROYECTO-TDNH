@@ -19,11 +19,22 @@
       <div class="card post-card mb-4">
         <div class="card-header d-flex justify-content-between align-items-center">
           <div class="d-flex align-items-center">
-            <div class="avatar-circle me-2" :style="{ backgroundColor: getAvatarColor(post.author_name) }">
-              {{ post.author_name?.charAt(0) || 'U' }}
+            <div
+              class="avatar-circle me-2"
+              :style="post.author_avatar ? {} : { backgroundColor: getAvatarColor(post.author_name) }"
+              style="cursor: pointer;"
+              :title="`Ver foto de ${post.author_name}`"
+              @click="$refs.userModal.openAvatar({ avatarUrl: post.author_avatar, authorName: post.author_name })"
+            >
+              <img v-if="post.author_avatar" :src="post.author_avatar" :alt="post.author_name" class="avatar-img" />
+              <span v-else>{{ post.author_name?.charAt(0) || 'U' }}</span>
             </div>
             <div>
-              <h6 class="mb-0">{{ post.author_name }}</h6>
+              <span
+                class="author-name-link fw-semibold"
+                :title="`Ver perfil de ${post.author_name}`"
+                @click="$refs.userModal.openProfile(post.user_id)"
+              >{{ post.author_name }}</span>
               <small class="text-muted">
                 {{ formatDate(post.created_at) }}
                 <span v-if="post.updated_at !== post.created_at" class="ms-2">
@@ -75,10 +86,6 @@
                 :initial-liked="post.user_has_liked"
               />
               
-              <span class="ms-3 text-muted">
-                <i class="bi bi-eye me-1"></i>
-                {{ post.view_count || 0 }} vistas
-              </span>
             </div>
             
             <small class="text-muted">
@@ -90,7 +97,7 @@
       </div>
 
       <!-- Sección de comentarios -->
-      <CommentSection :post-id="post.id" />
+      <CommentSection :post-id="post.id" @comment-count-changed="post.comment_count = $event" />
     </div>
 
     <div v-else class="text-center py-5">
@@ -102,6 +109,8 @@
       </router-link>
     </div>
   </div>
+
+  <UserProfileModal ref="userModal" />
 </template>
 
 <script>
@@ -109,12 +118,13 @@ import { ref, computed, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import CommentSection from '../components/CommentSection.vue';
 import LikeButton from '../components/LikeButton.vue';
+import UserProfileModal from '../components/UserProfileModal.vue';
 import authStore from '../stores/authStore';
 import postService from '../services/postService';
 
 export default {
   name: 'PostDetailView',
-  components: { CommentSection, LikeButton },
+  components: { CommentSection, LikeButton, UserProfileModal },
   props: {
     id: {
       type: [String, Number],
@@ -204,6 +214,24 @@ export default {
   justify-content: center;
   font-weight: bold;
   font-size: 1.2rem;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.author-name-link {
+  cursor: pointer;
+  font-size: 1rem;
+  color: inherit;
+  transition: color 0.15s;
+
+  &:hover { color: $primary; text-decoration: underline; }
 }
 
 .card-title {

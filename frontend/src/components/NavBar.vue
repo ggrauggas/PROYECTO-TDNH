@@ -2,8 +2,8 @@
   <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <div class="container">
       <router-link class="navbar-brand" to="/">
-        <i class="bi bi-heart-pulse-fill me-2"></i>
-        <span class="brand-tu">TU</span> diabetes 
+        <img src="/TD-NH.ico" alt="Logo" class="brand-logo me-2" />
+        <span class="brand-tu">TU</span> diabetes
         <span class="brand-nuestra">NUESTRA</span> historia
       </router-link>
       
@@ -140,6 +140,7 @@ export default {
     font-weight: 600;
     font-size: 1.2rem;
 
+    .brand-logo { width: 28px; height: 28px; object-fit: contain; vertical-align: middle; }
     .brand-tu   { color: $pink-pastel;       font-weight: 700; }
     .brand-nuestra { color: $pink-pastel-light; font-weight: 700; }
   }

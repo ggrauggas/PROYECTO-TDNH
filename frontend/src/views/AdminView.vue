@@ -275,7 +275,6 @@
                 <th>Categoría</th>
                 <th>Likes</th>
                 <th>Comentarios</th>
-                <th>Vistas</th>
                 <th>Fecha</th>
                 <th class="text-end">Acciones</th>
               </tr>
@@ -298,9 +297,6 @@
                 <td>
                   <span class="text-muted small"><i class="bi bi-chat me-1"></i>{{ post.comment_count || 0 }}</span>
                 </td>
-                <td>
-                  <span class="text-muted small"><i class="bi bi-eye me-1"></i>{{ post.view_count || 0 }}</span>
-                </td>
                 <td class="text-muted small">{{ formatDate(post.created_at) }}</td>
                 <td class="text-end">
                   <div class="btn-group btn-group-sm">
@@ -318,7 +314,7 @@
                 </td>
               </tr>
               <tr v-if="filteredPosts.length === 0">
-                <td colspan="8" class="text-center py-4 text-muted">
+                <td colspan="7" class="text-center py-4 text-muted">
                   <i class="bi bi-file-text fs-2 d-block mb-2"></i>
                   No se encontraron publicaciones
                 </td>

@@ -139,7 +139,7 @@ export default {
         if (error.response?.data?.message) {
           errorMessage.value = error.response.data.message;
         } else if (error.message === 'Network Error') {
-          errorMessage.value = 'No se puede conectar al servidor. Asegúrate de que el backend está corriendo en http://localhost:3000';
+          errorMessage.value = 'No se puede conectar al servidor. Inténtalo de nuevo en unos momentos.';
         } else {
           errorMessage.value = 'Error al iniciar sesión. Inténtalo de nuevo.';
         }

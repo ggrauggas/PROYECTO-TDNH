@@ -3,13 +3,23 @@
     <div class="card-body">
       <div class="d-flex justify-content-between align-items-start mb-2">
         <div class="d-flex align-items-center">
-          <div class="avatar-circle me-2" :style="post.author_avatar ? {} : { backgroundColor: getAvatarColor(post.author_name) }">
+          <div
+            class="avatar-circle me-2"
+            :style="post.author_avatar ? {} : { backgroundColor: getAvatarColor(post.author_name) }"
+            style="cursor: pointer;"
+            :title="`Ver foto de ${post.author_name}`"
+            @click="$refs.userModal.openAvatar({ avatarUrl: post.author_avatar, authorName: post.author_name })"
+          >
             <img v-if="post.author_avatar" :src="post.author_avatar" alt="avatar" class="avatar-img" />
             <span v-else>{{ post.author_name?.charAt(0) || post.username?.charAt(0) || 'U' }}</span>
           </div>
           <div>
             <div class="d-flex align-items-center gap-2">
-              <h6 class="mb-0">{{ post.author_name || post.username }}</h6>
+              <span
+                class="mb-0 fw-semibold author-name-link"
+                :title="`Ver perfil de ${post.author_name}`"
+                @click="$refs.userModal.openProfile(post.user_id)"
+              >{{ post.author_name || post.username }}</span>
               <span v-if="post.author_role === 'admin'" class="badge badge-admin">
                 <i class="bi bi-shield-check me-1"></i>Admin verificado
               </span>
@@ -61,25 +71,24 @@
           </routerLink>
         </div>
         
-        <small class="text-muted">
-          <i class="bi bi-eye me-1"></i>
-          {{ post.view_count || 0 }} vistas
-        </small>
       </div>
     </div>
   </div>
+
+  <UserProfileModal ref="userModal" />
 </template>
 
 <script>
 import { computed } from 'vue';
 import { useRouter } from 'vue-router';
 import LikeButton from './LikeButton.vue';
+import UserProfileModal from './UserProfileModal.vue';
 import authStore from '../stores/authStore';
 import postService from '../services/postService';
 
 export default {
   name: 'PostItem',
-  components: { LikeButton },
+  components: { LikeButton, UserProfileModal },
   props: {
     post: {
       type: Object,
@@ -162,6 +171,15 @@ export default {
     object-fit: cover;
     border-radius: 50%;
   }
+}
+
+.author-name-link {
+  cursor: pointer;
+  font-size: 0.95rem;
+  color: inherit;
+  transition: color 0.15s;
+
+  &:hover { color: $primary; text-decoration: underline; }
 }
 
 .badge-admin {
