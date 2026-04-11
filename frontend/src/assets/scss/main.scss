@@ -84,20 +84,33 @@ body {
   border-radius: $border-radius-lg;
   padding: 2rem;
   box-shadow: $box-shadow;
-  
+
   h1 {
     color: $primary;
     margin-bottom: 1.5rem;
   }
-  
+
   .info-section {
     margin-bottom: 2rem;
-    
+
     h2 {
       color: $secondary;
       font-size: 1.5rem;
       margin-bottom: 1rem;
     }
+  }
+}
+
+// ── Responsive mobile overrides ─────────────────────────────────────────────
+@media (max-width: 575.98px) {
+  .auth-form {
+    margin: 1rem;
+    padding: 1.25rem;
+  }
+
+  .info-page {
+    padding: 1rem;
+    border-radius: $border-radius;
   }
 }
 

@@ -140,9 +140,13 @@ export default {
 
   .navbar-brand {
     font-weight: 600;
-    font-size: 1.2rem;
+    font-size: 0.95rem;
 
-    .brand-logo { width: 28px; height: 28px; object-fit: contain; vertical-align: middle; }
+    @media (min-width: 576px) {
+      font-size: 1.2rem;
+    }
+
+    .brand-logo { width: 24px; height: 24px; object-fit: contain; vertical-align: middle; }
     .brand-tu   { color: $pink-pastel;       font-weight: 700; }
     .brand-nuestra { color: $pink-pastel-light; font-weight: 700; }
   }

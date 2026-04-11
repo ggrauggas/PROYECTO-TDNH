@@ -13,7 +13,7 @@
           <h3 class="fw-bold mb-2">¡Cuestionario completado!</h3>
           <p class="text-muted mb-4">Gracias por compartir tu información. Esto nos ayuda a ofrecerte contenido más relevante.</p>
           <div class="row g-3 mb-4" v-if="summary">
-            <div class="col-md-4" v-for="item in summary" :key="item.label">
+            <div class="col-6 col-md-4" v-for="item in summary" :key="item.label">
               <div class="summary-chip p-3 rounded-3 text-center">
                 <i :class="`bi ${item.icon} fs-4 mb-2 d-block`" :style="{ color: item.color }"></i>
                 <div class="small text-muted">{{ item.label }}</div>
@@ -21,7 +21,7 @@
               </div>
             </div>
           </div>
-          <div class="d-flex gap-3 justify-content-center">
+          <div class="d-flex flex-wrap gap-3 justify-content-center">
             <router-link to="/forum" class="btn btn-primary">
               <i class="bi bi-chat-dots me-2"></i>Ir al foro
             </router-link>
