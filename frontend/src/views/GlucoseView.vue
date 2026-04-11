@@ -81,9 +81,9 @@
     <!-- Dashboard con datos cargados -->
     <div v-else>
       <!-- Barra de acciones -->
-      <div class="d-flex justify-content-between align-items-center mb-4">
-        <div class="d-flex align-items-center gap-3">
-          <span class="badge bg-success px-3 py-2 fs-6">
+      <div class="d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center gap-2 mb-4">
+        <div class="d-flex flex-wrap align-items-center gap-2">
+          <span class="badge bg-success px-3 py-2">
             <i class="bi bi-check-circle me-1"></i>{{ csvData.length }} registros cargados
           </span>
           <span class="text-muted small">
@@ -91,7 +91,7 @@
             {{ formatDate(dateRange.start) }} — {{ formatDate(dateRange.end) }}
           </span>
         </div>
-        <div class="d-flex gap-2">
+        <div class="d-flex flex-wrap gap-2">
           <!-- Selector de periodo -->
           <div class="btn-group btn-group-sm">
             <button
@@ -144,11 +144,11 @@
             <div class="card-header bg-transparent border-bottom fw-semibold">
               <i class="bi bi-pie-chart-fill text-warning me-2"></i>Distribución por rango
             </div>
-            <div class="card-body d-flex align-items-center justify-content-center">
-              <div class="chart-container" style="height: 220px; width: 220px; position: relative;">
+            <div class="card-body d-flex flex-column flex-sm-row align-items-center justify-content-center gap-3">
+              <div class="chart-container pie-chart-canvas" style="position: relative;">
                 <canvas ref="pieChartRef"></canvas>
               </div>
-              <div class="ms-4">
+              <div>
                 <div v-for="d in distributionData" :key="d.label" class="d-flex align-items-center gap-2 mb-2">
                   <div class="legend-dot" :style="{ background: d.color }"></div>
                   <div class="small">
@@ -602,6 +602,11 @@ export default {
   align-items: center;
   justify-content: center;
 
+  @media (max-width: 575.98px) {
+    min-height: 200px;
+    border-radius: 12px !important;
+  }
+
   &.dragging {
     border-color: #2c7da0 !important;
     background: rgba(44, 125, 160, 0.04) !important;
@@ -624,6 +629,16 @@ export default {
   height: 12px;
   border-radius: 3px;
   flex-shrink: 0;
+}
+
+.pie-chart-canvas {
+  width: 180px;
+  height: 180px;
+
+  @media (min-width: 576px) {
+    width: 220px;
+    height: 220px;
+  }
 }
 
 .card {

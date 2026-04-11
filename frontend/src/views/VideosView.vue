@@ -14,7 +14,7 @@
         <div class="col-12">
           <h2 class="mb-4">Conceptos básicos</h2>
           <div class="row g-4">
-            <div class="col-md-4">
+            <div class="col-12 col-sm-6 col-md-4">
               <div class="card video-card">
                 <a href="https://www.youtube.com/watch?v=fazeCkUgkwQ" target="_blank">
                   <img src="https://img.youtube.com/vi/fazeCkUgkwQ/hqdefault.jpg" class="card-img-top" alt="Video">
@@ -26,7 +26,7 @@
               </div>
             </div>
 
-            <div class="col-md-4">
+            <div class="col-12 col-sm-6 col-md-4">
               <div class="card video-card">
                 <a href="https://www.youtube.com/watch?v=22UKK0m-YCE" target="_blank">
                   <img src="https://img.youtube.com/vi/22UKK0m-YCE/hqdefault.jpg" class="card-img-top" alt="Video">
@@ -38,7 +38,7 @@
               </div>
             </div>
 
-            <div class="col-md-4">
+            <div class="col-12 col-sm-6 col-md-4">
               <div class="card video-card">
                 <a href="https://www.youtube.com/watch?v=uU4SuI1SmUw" target="_blank">
                   <img src="https://img.youtube.com/vi/uU4SuI1SmUw/hqdefault.jpg" class="card-img-top" alt="Video">
@@ -57,7 +57,7 @@
         <div class="col-12">
           <h2 class="mb-4">Alimentación y conteo de carbohidratos</h2>
           <div class="row g-4">
-            <div class="col-md-4">
+            <div class="col-12 col-sm-6 col-md-4">
               <div class="card video-card">
                 <a href="https://www.youtube.com/watch?v=D5wHMKG33Mc" target="_blank">
                   <img src="https://img.youtube.com/vi/D5wHMKG33Mc/hqdefault.jpg" class="card-img-top" alt="Video">
@@ -69,7 +69,7 @@
               </div>
             </div>
 
-            <div class="col-md-4">
+            <div class="col-12 col-sm-6 col-md-4">
               <div class="card video-card">
                 <a href="https://www.youtube.com/watch?v=fm0GrMOfN10" target="_blank">
                   <img src="https://img.youtube.com/vi/fm0GrMOfN10/hqdefault.jpg" class="card-img-top" alt="Video">
@@ -81,7 +81,7 @@
               </div>
             </div>
 
-            <div class="col-md-4">
+            <div class="col-12 col-sm-6 col-md-4">
               <div class="card video-card">
                 <a href="https://www.youtube.com/watch?v=Avp6zEG8PJo" target="_blank">
                   <img src="https://img.youtube.com/vi/Avp6zEG8PJo/hqdefault.jpg" class="card-img-top" alt="Video">
@@ -100,7 +100,7 @@
         <div class="col-12">
           <h2 class="mb-4">Ejercicio y deporte</h2>
           <div class="row g-4">
-            <div class="col-md-4">
+            <div class="col-12 col-sm-6 col-md-4">
               <div class="card video-card">
                 <a href="https://www.youtube.com/watch?v=dnqXfDvvPKY" target="_blank">
                   <img src="https://img.youtube.com/vi/dnqXfDvvPKY/hqdefault.jpg" class="card-img-top" alt="Video">
@@ -112,7 +112,7 @@
               </div>
             </div>
 
-            <div class="col-md-4">
+            <div class="col-12 col-sm-6 col-md-4">
               <div class="card video-card">
                 <a href="https://www.youtube.com/watch?v=kKYLTzqZOd8" target="_blank">
                   <img src="https://img.youtube.com/vi/kKYLTzqZOd8/hqdefault.jpg" class="card-img-top" alt="Video">
@@ -124,7 +124,7 @@
               </div>
             </div>
 
-            <div class="col-md-4">
+            <div class="col-12 col-sm-6 col-md-4">
               <div class="card video-card">
                 <a href="https://www.youtube.com/watch?v=pUF2jfUhKjI" target="_blank">
                   <img src="https://img.youtube.com/vi/pUF2jfUhKjI/hqdefault.jpg" class="card-img-top" alt="Video">

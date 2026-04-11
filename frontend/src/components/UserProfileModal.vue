@@ -238,14 +238,19 @@ export default {
 .upm-card {
   position: relative;
   background: #fff;
-  border-radius: 20px;
+  border-radius: 16px;
   box-shadow: 0 8px 40px rgba(0,0,0,0.2);
-  padding: 2rem 1.75rem 1.5rem;
+  padding: 1.25rem 1rem 1rem;
   width: 100%;
   max-width: 360px;
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  @media (min-width: 480px) {
+    padding: 2rem 1.75rem 1.5rem;
+    border-radius: 20px;
+  }
 }
 
 .upm-close {
