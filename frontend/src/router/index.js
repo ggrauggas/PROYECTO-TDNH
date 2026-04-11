@@ -33,7 +33,8 @@ const routes = [
   { path: '/register', name: 'Register', component: RegisterView, meta: { guest: true } },
   { path: '/guide', name: 'Guide', component: GuideView },
   { path: '/about', name: 'About', component: AboutView },
-  { path: '/donate', name: 'Donate', component: DonateView },
+  // { path: '/donate', name: 'Donate', component: DonateView }, // DESHABILITADO TEMPORALMENTE
+  { path: '/donate', redirect: '/' },
   { path: '/videos', name: 'Videos', component: VideosView },
   { path: '/profile', name: 'Profile', component: ProfileView, meta: { requiresAuth: true } },
   { path: '/my-posts', name: 'MyPosts', component: MyPostsView, meta: { requiresAuth: true } },

@@ -44,11 +44,13 @@
               <i class="bi bi-play-circle me-1"></i> Videos
             </router-link>
           </li>
+          <!-- DONACIONES - DESHABILITADO TEMPORALMENTE
           <li class="nav-item">
             <router-link class="nav-link" to="/donate" :class="{ active: $route.path === '/donate' }">
               <i class="bi bi-heart me-1"></i> Donaciones
             </router-link>
           </li>
+          -->
         </ul>
         
         <ul class="navbar-nav">
