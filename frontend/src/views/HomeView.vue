@@ -3,15 +3,15 @@
     <!-- Hero Section con rosa pastel plano -->
     <section class="hero-section bg-primary text-white text-center py-5 mb-5">
       <div class="container">
-        <h1 class="display-4 fw-bold mb-4">
-          <span class="hero-tu">TU</span> diabetes 
+        <h1 class="hero-title fw-bold mb-4">
+          <span class="hero-tu">TU</span> diabetes
           <span class="hero-nuestra">NUESTRA</span> historia
         </h1>
         <p class="lead mb-4">
-          Un espacio donde compartir experiencias, resolver dudas y encontrar apoyo 
+          Un espacio donde compartir experiencias, resolver dudas y encontrar apoyo
           en tu camino con la diabetes.
         </p>
-        <div class="d-flex justify-content-center gap-3">
+        <div class="d-flex flex-wrap justify-content-center gap-3">
           <router-link to="/forum" class="btn btn-light btn-lg">
             <i class="bi bi-chat-dots me-2"></i>Visitar el foro
           </router-link>
@@ -26,7 +26,7 @@
     <div class="container mb-5">
       <h2 class="text-center mb-5">¿Qué encontrarás en nuestra comunidad?</h2>
       <div class="row g-4">
-        <div class="col-md-4">
+        <div class="col-12 col-sm-6 col-md-4">
           <div class="feature-card text-center p-4">
             <div class="feature-icon mb-3">
               <i class="bi bi-people-fill"></i>
@@ -37,8 +37,8 @@
             </p>
           </div>
         </div>
-        
-        <div class="col-md-4">
+
+        <div class="col-12 col-sm-6 col-md-4">
           <div class="feature-card text-center p-4">
             <div class="feature-icon mb-3">
               <i class="bi bi-chat-dots-fill"></i>
@@ -49,8 +49,8 @@
             </p>
           </div>
         </div>
-        
-        <div class="col-md-4">
+
+        <div class="col-12 col-sm-6 col-md-4">
           <div class="feature-card text-center p-4">
             <div class="feature-icon mb-3">
               <i class="bi bi-book-fill"></i>
@@ -138,15 +138,23 @@ export default {
 
 .hero-section {
   margin-top: -1.5rem;
-  
+
   .hero-tu {
     color: $pink-pastel;
     font-weight: 800;
   }
-  
+
   .hero-nuestra {
     color: $pink-pastel-light;
     font-weight: 800;
+  }
+}
+
+.hero-title {
+  font-size: 2.5rem;
+
+  @media (min-width: 768px) {
+    font-size: 3.5rem;
   }
 }
 

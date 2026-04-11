@@ -61,7 +61,7 @@
         <div class="col-12">
           <h2 class="text-center mb-4">Nuestros valores</h2>
           <div class="row g-4">
-            <div class="col-md-3">
+            <div class="col-6 col-md-3">
               <div class="card text-center h-100">
                 <div class="card-body">
                   <i class="bi bi-heart-fill text-primary" style="font-size: 2.5rem;"></i>
@@ -73,7 +73,7 @@
               </div>
             </div>
             
-            <div class="col-md-3">
+            <div class="col-6 col-md-3">
               <div class="card text-center h-100">
                 <div class="card-body">
                   <i class="bi bi-shield-fill text-primary" style="font-size: 2.5rem;"></i>
@@ -85,7 +85,7 @@
               </div>
             </div>
             
-            <div class="col-md-3">
+            <div class="col-6 col-md-3">
               <div class="card text-center h-100">
                 <div class="card-body">
                   <i class="bi bi-people-fill text-primary" style="font-size: 2.5rem;"></i>
@@ -97,7 +97,7 @@
               </div>
             </div>
             
-            <div class="col-md-3">
+            <div class="col-6 col-md-3">
               <div class="card text-center h-100">
                 <div class="card-body">
                   <i class="bi bi-lightbulb-fill text-primary" style="font-size: 2.5rem;"></i>

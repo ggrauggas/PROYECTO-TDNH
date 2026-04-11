@@ -17,7 +17,7 @@
 
       <!-- Publicación -->
       <div class="card post-card mb-4">
-        <div class="card-header d-flex justify-content-between align-items-center">
+        <div class="card-header d-flex justify-content-between align-items-start align-items-sm-center gap-2">
           <div class="d-flex align-items-center">
             <div
               class="avatar-circle me-2"
@@ -238,6 +238,10 @@ export default {
 
 .card-text {
   line-height: 1.8;
-  font-size: 1.1rem;
+  font-size: 1rem;
+
+  @media (min-width: 576px) {
+    font-size: 1.1rem;
+  }
 }
 </style>

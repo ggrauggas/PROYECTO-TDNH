@@ -2,22 +2,23 @@
   <div class="admin-view container-fluid py-4">
 
     <!-- Header -->
-    <div class="admin-header mb-4 p-4 rounded-3">
-      <div class="d-flex justify-content-between align-items-center">
+    <div class="admin-header mb-4 p-3 p-md-4 rounded-3">
+      <div class="d-flex justify-content-between align-items-start align-items-md-center gap-2">
         <div>
-          <h2 class="mb-1 fw-bold text-white">
+          <h2 class="mb-1 fw-bold text-white fs-4 fs-md-2">
             <i class="bi bi-shield-lock-fill me-2"></i>Panel de Administración
           </h2>
-          <p class="text-white-50 mb-0">Gestión de usuarios, publicaciones y estadísticas</p>
+          <p class="text-white-50 mb-0 small">Gestión de usuarios, publicaciones y estadísticas</p>
         </div>
-        <span class="badge admin-badge px-3 py-2 fs-6">
+        <span class="badge admin-badge px-2 px-md-3 py-2 flex-shrink-0">
           <i class="bi bi-person-fill-gear me-1"></i>Admin
         </span>
       </div>
     </div>
 
     <!-- Tabs de navegación -->
-    <ul class="nav nav-tabs admin-tabs mb-4" id="adminTabs">
+    <div class="admin-tabs-wrapper mb-4">
+    <ul class="nav nav-tabs admin-tabs" id="adminTabs">
       <li class="nav-item" v-for="tab in tabs" :key="tab.key">
         <button
           class="nav-link"
@@ -31,6 +32,7 @@
         </button>
       </li>
     </ul>
+    </div>
 
     <!-- ======================== TAB: ESTADÍSTICAS ======================== -->
     <div v-if="activeTab === 'stats'">
@@ -39,7 +41,7 @@
         <p class="mt-2 text-muted">Cargando estadísticas...</p>
       </div>
       <div v-else class="row g-4">
-        <div class="col-md-3" v-for="stat in statCards" :key="stat.label">
+        <div class="col-6 col-md-3" v-for="stat in statCards" :key="stat.label">
           <div class="card stat-card h-100 border-0">
             <div class="card-body d-flex align-items-center gap-3 p-4">
               <div class="stat-icon rounded-3 p-3" :style="{ backgroundColor: stat.color + '22', color: stat.color }">
@@ -60,6 +62,7 @@
               <i class="bi bi-trophy-fill text-warning me-2"></i>Usuarios más activos
             </div>
             <div class="card-body p-0">
+              <div class="table-responsive">
               <table class="table table-hover mb-0">
                 <thead class="table-light">
                   <tr>
@@ -93,6 +96,7 @@
                   </tr>
                 </tbody>
               </table>
+              </div>
             </div>
           </div>
         </div>
@@ -126,7 +130,7 @@
                 <option value="admin">Admin</option>
               </select>
             </div>
-            <div class="col-md-4 text-end">
+            <div class="col-12 col-md-4 text-md-end">
               <span class="text-muted small">{{ filteredUsers.length }} usuarios encontrados</span>
             </div>
           </div>
@@ -327,7 +331,7 @@
 
     <!-- ======= MODAL: Editar Usuario ======= -->
     <div class="modal fade" id="editUserModal" tabindex="-1" ref="editUserModalRef">
-      <div class="modal-dialog modal-lg">
+      <div class="modal-dialog modal-lg modal-dialog-scrollable modal-fullscreen-sm-down">
         <div class="modal-content border-0 shadow-lg">
           <div class="modal-header border-0 pb-0">
             <h5 class="modal-title fw-bold">
@@ -687,8 +691,15 @@ export default {
   backdrop-filter: blur(4px);
 }
 
+.admin-tabs-wrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
 .admin-tabs {
   border-bottom: 2px solid #dee2e6;
+  flex-wrap: nowrap;
+  min-width: max-content;
 
   .nav-link {
     color: #6c757d;
@@ -696,7 +707,8 @@ export default {
     border: none;
     border-bottom: 2px solid transparent;
     margin-bottom: -2px;
-    padding: 0.6rem 1.2rem;
+    padding: 0.6rem 1rem;
+    white-space: nowrap;
     transition: all 0.2s;
 
     &:hover { color: #2c7da0; background: #f8f9fa; }

@@ -107,7 +107,7 @@
           También puedes ayudar compartiendo la plataforma en tus redes sociales 
           o invitando a otros a unirse a la comunidad.
         </p>
-        <div class="d-flex justify-content-center gap-3">
+        <div class="d-flex flex-wrap justify-content-center gap-3">
           <a :href="shareUrls.twitter" target="_blank" rel="noopener" class="btn btn-outline-primary">
             <i class="bi bi-twitter me-2"></i>Compartir
           </a>
