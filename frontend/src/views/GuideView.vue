@@ -204,13 +204,48 @@
           Comparte tu experiencia en el foro
         </router-link>
       </div>
+
+      <!-- Compartir la web -->
+      <div class="share-cta mt-5 p-4 rounded-3 text-center">
+        <div class="mb-3">
+          <i class="bi bi-share-fill" style="font-size: 2rem; color: #2c7da0;"></i>
+        </div>
+        <h4 class="fw-bold mb-2">¿Conoces a alguien recién diagnosticado?</h4>
+        <p class="text-muted mb-4">
+          Comparte esta guía y la comunidad con quien pueda necesitarla.
+          Un pequeño gesto puede marcar una gran diferencia.
+        </p>
+        <div class="d-flex flex-wrap justify-content-center gap-3">
+          <a :href="shareUrls.whatsapp" target="_blank" rel="noopener" class="btn btn-outline-success">
+            <i class="bi bi-whatsapp me-2"></i>WhatsApp
+          </a>
+          <a :href="shareUrls.twitter" target="_blank" rel="noopener" class="btn btn-outline-dark">
+            <i class="bi bi-twitter-x me-2"></i>Twitter / X
+          </a>
+          <a :href="shareUrls.facebook" target="_blank" rel="noopener" class="btn btn-outline-primary">
+            <i class="bi bi-facebook me-2"></i>Facebook
+          </a>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'GuideView'
+  name: 'GuideView',
+  data() {
+    const siteUrl = 'https://www.tudiabetesnuestrahistoria.es';
+    const text = encodeURIComponent('Guía para recién diagnosticados con diabetes — TU diabetes NUESTRA historia 💙');
+    const url = encodeURIComponent(siteUrl);
+    return {
+      shareUrls: {
+        whatsapp: `https://wa.me/?text=${text}%20${url}`,
+        twitter: `https://twitter.com/intent/tweet?text=${text}&url=${url}`,
+        facebook: `https://www.facebook.com/sharer/sharer.php?u=${url}`
+      }
+    };
+  }
 };
 </script>
 
@@ -218,5 +253,10 @@ export default {
 .questionnaire-cta {
   background: linear-gradient(135deg, rgba(44, 125, 160, 0.08) 0%, rgba(42, 157, 143, 0.08) 100%);
   border: 2px dashed rgba(44, 125, 160, 0.3);
+}
+
+.share-cta {
+  background: linear-gradient(135deg, rgba(37, 211, 102, 0.06) 0%, rgba(44, 125, 160, 0.06) 100%);
+  border: 2px dashed rgba(44, 125, 160, 0.2);
 }
 </style>
