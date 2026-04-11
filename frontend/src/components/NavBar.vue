@@ -114,13 +114,29 @@
 </template>
 
 <script>
-import { useRouter } from 'vue-router';
+import { useRouter, useRoute } from 'vue-router';
+import { watch } from 'vue';
 import authStore from '../stores/authStore';
 
 export default {
   name: 'NavBar',
   setup() {
     const router = useRouter();
+    const route = useRoute();
+
+    const closeNavbar = () => {
+      const navbarEl = document.getElementById('navbarNav');
+      if (navbarEl && navbarEl.classList.contains('show')) {
+        const { Collapse } = window.bootstrap || {};
+        if (Collapse) {
+          Collapse.getInstance(navbarEl)?.hide();
+        } else {
+          navbarEl.classList.remove('show');
+        }
+      }
+    };
+
+    watch(() => route.path, closeNavbar);
 
     const logout = () => {
       authStore.logout();
