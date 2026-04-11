@@ -265,7 +265,11 @@ export default {
 }
 
 .replies {
-  margin-left: 3rem;
+  margin-left: 1.5rem;
   margin-top: 1rem;
+
+  @media (max-width: 575.98px) {
+    margin-left: 0.5rem;
+  }
 }
 </style>

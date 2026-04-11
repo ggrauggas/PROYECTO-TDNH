@@ -202,9 +202,13 @@ export default {
   border-radius: $border-radius;
   
   &.is-reply {
-    margin-left: 3rem;
+    margin-left: 1.5rem;
     background-color: white;
     border-left: 3px solid $diabetes-light;
+
+    @media (max-width: 575.98px) {
+      margin-left: 0.5rem;
+    }
   }
   
   .avatar-circle {

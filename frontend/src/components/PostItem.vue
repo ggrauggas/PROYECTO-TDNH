@@ -2,7 +2,7 @@
   <div class="card post-card mb-3">
     <div class="card-body">
       <div class="d-flex justify-content-between align-items-start mb-2">
-        <div class="d-flex align-items-center">
+        <div class="d-flex align-items-center overflow-hidden">
           <div
             class="avatar-circle me-2"
             :style="post.author_avatar ? {} : { backgroundColor: getAvatarColor(post.author_name) }"
