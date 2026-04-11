@@ -80,6 +80,29 @@
         </router-link>
       </div>
     </section>
+
+    <!-- Compartir la web -->
+    <section class="share-section text-center py-5">
+      <div class="container">
+        <p class="text-muted mb-1 small text-uppercase fw-semibold letter-spacing-1">Difunde la comunidad</p>
+        <h3 class="fw-bold mb-2">¿Conoces a alguien que lo necesita?</h3>
+        <p class="text-muted mb-4">
+          Comparte esta plataforma con personas con diabetes o sus familias.
+          Cuantos más seamos, más nos ayudamos.
+        </p>
+        <div class="d-flex flex-wrap justify-content-center gap-3">
+          <a :href="shareUrls.whatsapp" target="_blank" rel="noopener" class="btn btn-share btn-whatsapp">
+            <i class="bi bi-whatsapp me-2"></i>WhatsApp
+          </a>
+          <a :href="shareUrls.twitter" target="_blank" rel="noopener" class="btn btn-share btn-twitter">
+            <i class="bi bi-twitter-x me-2"></i>Twitter / X
+          </a>
+          <a :href="shareUrls.facebook" target="_blank" rel="noopener" class="btn btn-share btn-facebook">
+            <i class="bi bi-facebook me-2"></i>Facebook
+          </a>
+        </div>
+      </div>
+    </section>
   </div>
 </template>
 
@@ -128,7 +151,16 @@ export default {
       return colors[(name?.length || 0) % colors.length];
     };
 
-    return { recentPosts, loading, authStore, formatDate, truncateContent, getAvatarColor };
+    const siteUrl = 'https://www.tudiabetesnuestrahistoria.es';
+    const text = encodeURIComponent('¡Únete a TU diabetes NUESTRA historia! Una comunidad para personas con diabetes. 💙');
+    const url = encodeURIComponent(siteUrl);
+    const shareUrls = {
+      whatsapp: `https://wa.me/?text=${text}%20${url}`,
+      twitter: `https://twitter.com/intent/tweet?text=${text}&url=${url}`,
+      facebook: `https://www.facebook.com/sharer/sharer.php?u=${url}`
+    };
+
+    return { recentPosts, loading, authStore, formatDate, truncateContent, getAvatarColor, shareUrls };
   }
 };
 </script>
@@ -177,7 +209,44 @@ export default {
 }
 
 .cta-section {
-  margin-bottom: -1.5rem;
+  margin-bottom: 0;
+}
+
+.share-section {
+  background: #f5f9ff;
+
+  h3 { color: #1a1a2e; }
+}
+
+.btn-share {
+  font-weight: 500;
+  border-width: 2px;
+  padding: 0.5rem 1.25rem;
+  border-radius: 8px;
+  transition: transform 0.15s, box-shadow 0.15s;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+  }
+}
+
+.btn-whatsapp {
+  color: #25d366;
+  border-color: #25d366;
+  &:hover { background: #25d366; color: white; }
+}
+
+.btn-twitter {
+  color: #000;
+  border-color: #000;
+  &:hover { background: #000; color: white; }
+}
+
+.btn-facebook {
+  color: #1877f2;
+  border-color: #1877f2;
+  &:hover { background: #1877f2; color: white; }
 }
 
 </style>
