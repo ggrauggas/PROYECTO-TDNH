@@ -76,12 +76,6 @@
                 </div>
               </div>
 
-              <div class="mb-3 form-check">
-                <input type="checkbox" class="form-check-input" id="notifications" v-model="form.notifications">
-                <label class="form-check-label" for="notifications">
-                  Recibir notificaciones cuando alguien comente
-                </label>
-              </div>
 
               <div class="d-flex justify-content-end gap-2">
                 <router-link to="/forum" class="btn btn-secondary">
@@ -134,7 +128,6 @@ export default {
       content: '',
       category: '',
       tags: '',
-      notifications: true
     });
 
     const validateForm = () => {
