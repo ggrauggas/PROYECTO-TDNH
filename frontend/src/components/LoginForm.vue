@@ -55,23 +55,6 @@
         <router-link to="/register">Regístrate aquí</router-link>
       </p>
     </div>
-    
-    <!-- Botones de prueba -->
-    <div class="mt-4 p-3 bg-light rounded">
-      <small class="text-muted d-block mb-2">🧪 Usuarios de prueba:</small>
-      <div class="d-grid gap-2">
-        <button class="btn btn-outline-secondary btn-sm" @click="fillTestUser('carlos@example.com')">
-          Usuario: carlos@example.com
-        </button>
-        <button class="btn btn-outline-secondary btn-sm" @click="fillTestUser('ana@example.com')">
-          Usuario: ana@example.com
-        </button>
-        <button class="btn btn-outline-secondary btn-sm" @click="fillTestUser('miguel@example.com')">
-          Usuario: miguel@example.com
-        </button>
-        <small class="text-muted">Contraseña: password123</small>
-      </div>
-    </div>
 
     <!-- Mensaje de error -->
     <div v-if="errorMessage" class="alert alert-danger mt-3">
