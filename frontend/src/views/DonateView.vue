@@ -128,7 +128,7 @@ export default {
   name: 'DonateView',
   data() {
     const siteUrl = 'https://www.tudiabetesnuestrahistoria.es';
-    const text = encodeURIComponent('¡Únete a TU diabetes NUESTRA historia! Una comunidad para personas con diabetes tipo 1. 💙');
+    const text = encodeURIComponent('¡Únete a TU diabetes NUESTRA historia! Una comunidad para personas con diabetes. 💙');
     const url = encodeURIComponent(siteUrl);
     return {
       shareUrls: {

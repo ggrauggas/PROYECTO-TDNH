@@ -13,7 +13,7 @@
               <span class="footer-nuestra">NUESTRA</span> historia
             </h6>
             <p class="small text-muted">
-              Una comunidad de apoyo para personas con diabetes tipo 1.
+              Una comunidad de apoyo para personas con diabetes.
             </p>
           </div>
           <div class="col-md-3">

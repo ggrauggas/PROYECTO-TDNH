@@ -18,9 +18,9 @@
           Primeros pasos después del diagnóstico
         </h2>
         <p>
-          Recibir un diagnóstico de diabetes tipo 1 puede ser abrumador. Es normal sentir miedo, 
-          confusión o incluso enfado. Pero recuerda: no estás solo. Millones de personas viven 
-          con diabetes tipo 1 y llevan una vida plena y activa.
+          Recibir un diagnóstico de diabetes puede ser abrumador. Es normal sentir miedo,
+          confusión o incluso enfado. Pero recuerda: no estás solo. Millones de personas viven
+          con diabetes y llevan una vida plena y activa.
         </p>
         <ul>
           <li class="mb-2">

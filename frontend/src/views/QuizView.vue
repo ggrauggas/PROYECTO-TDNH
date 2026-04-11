@@ -11,7 +11,7 @@
             </div>
             <h2 class="fw-bold mb-2">Test para principiantes</h2>
             <p class="text-muted mb-4">
-              Pon a prueba lo que sabes sobre la diabetes tipo 1. 
+              Pon a prueba lo que sabes sobre la diabetes.
               {{ questions.length }} preguntas · Respuesta inmediata · Sin límite de tiempo
             </p>
             <div class="row g-3 mb-4 text-start">
@@ -385,7 +385,7 @@ export default {
     });
 
     const resultMessage = computed(() => {
-      if (scorePercent.value >= 80) return 'Conoces muy bien los conceptos clave de la diabetes tipo 1. ¡Sigue así!';
+      if (scorePercent.value >= 80) return 'Conoces muy bien los conceptos clave de la diabetes. ¡Sigue así!';
       if (scorePercent.value >= 60) return 'Tienes una buena base. Te recomendamos repasar los temas donde has fallado.';
       return 'No te preocupes, todo el mundo empieza desde cero. La guía y el foro son tus mejores aliados.';
     });

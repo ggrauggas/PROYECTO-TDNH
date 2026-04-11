@@ -7,7 +7,7 @@
       </h1>
 
       <p class="lead text-center mb-5">
-        Recopilación de videos útiles sobre diabetes tipo 1. Todos los videos son de fuentes confiables.
+        Recopilación de videos útiles sobre diabetes. Todos los videos son de fuentes confiables.
       </p>
 
       <div class="row mb-5">

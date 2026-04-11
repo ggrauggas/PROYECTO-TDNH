@@ -10,7 +10,7 @@
         <div class="col-lg-8 mx-auto">
           <p class="lead text-center">
             "TU diabetes NUESTRA historia" nace de la necesidad de crear un espacio seguro 
-            y de apoyo mutuo para personas con diabetes tipo 1 y sus familias.
+            y de apoyo mutuo para personas con diabetes y sus familias.
           </p>
         </div>
       </div>
@@ -21,7 +21,7 @@
           <p>
             Este proyecto comenzó como un Trabajo de Fin de Grado en Ingeniería de Software, 
             pero rápidamente se convirtió en algo más grande. Detrás del código hay personas 
-            que entienden lo que significa vivir con diabetes tipo 1, ya sea por experiencia 
+            que entienden lo que significa vivir con diabetes, ya sea por experiencia
             propia o por cercanía con familiares y amigos.
           </p>
           <p>

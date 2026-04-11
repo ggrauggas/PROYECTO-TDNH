@@ -9,7 +9,7 @@
         </h1>
         <p class="lead mb-4">
           Un espacio donde compartir experiencias, resolver dudas y encontrar apoyo 
-          en tu camino con la diabetes tipo 1.
+          en tu camino con la diabetes.
         </p>
         <div class="d-flex justify-content-center gap-3">
           <router-link to="/forum" class="btn btn-light btn-lg">
