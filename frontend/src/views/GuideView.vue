@@ -100,9 +100,9 @@
               <div>
                 <h5>Alimentación</h5>
                 <p>
-                  Aprende a contar carbohidratos. No se trata de prohibir alimentos, sino de 
-                  aprender a compensarlos con insulina. Un nutricionista puede ayudarte mucho.
-                </p>
+                  Aprende a contar carbohidratos. No se trata de prohibir alimentos, 
+                  sino de aprender a ajustarlos con la dosis corrrespondiente de insulina.
+                  Una dieta equilibrada puede ayudarte mucho.</p>
               </div>
             </div>
           </div>
@@ -178,8 +178,8 @@
 
       <div class="alert alert-success mt-4">
         <i class="bi bi-heart-fill me-2"></i>
-        <strong>Recuerda:</strong> La diabetes no te define. Eres una persona con diabetes, 
-        y con apoyo, información y las herramientas adecuadas, puedes vivir la vida que deseas.
+        <strong>Recuerda:</strong> La diabetes no te define. Con apoyo, información y las herramientas adecuadas,
+        puedes vivir la vida que deseas.
       </div>
 
       <!-- Bloque cuestionario -->

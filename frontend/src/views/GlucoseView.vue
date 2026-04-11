@@ -261,8 +261,8 @@ export default {
       const headers = lines[0].toLowerCase().split(/[,;|\t]/).map(h => h.trim().replace(/"/g, ''));
 
       // Buscar columnas de fecha y glucosa (nombres comunes en distintos exportadores)
-      const dateAliases = ['timestamp', 'fecha', 'date', 'time', 'hora', 'datetime', 'device timestamp'];
-      const glucoseAliases = ['glucosa', 'glucose', 'valor', 'value', 'mg/dl', 'mmol', 'historic glucose mg/dl', 'scan glucose mg/dl', 'calculated value'];
+      const dateAliases = ['marca temporal', 'timestamp', 'fecha', 'date', 'datetime', 'device timestamp', 'time', 'hora'];
+      const glucoseAliases = ['nivel de glucosa', 'glucosa', 'glucose', 'valor', 'value', 'historic glucose mg/dl', 'scan glucose mg/dl', 'calculated value', 'mg/dl', 'mmol'];
 
       const dateCol = headers.findIndex(h => dateAliases.some(a => h.includes(a)));
       const glucoseCol = headers.findIndex(h => glucoseAliases.some(a => h.includes(a)));
