@@ -24,7 +24,6 @@
               <i class="bi bi-shield-check me-1"></i>Admin verificado
             </span>
             <small class="text-muted">{{ formatDate(comment.created_at) }}</small>
-            <span v-if="comment.is_edited" class="badge bg-light text-muted">editado</span>
           </div>
           
           <div v-if="isAuthor" class="dropdown">

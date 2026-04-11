@@ -37,9 +37,6 @@
               >{{ post.author_name }}</span>
               <small class="text-muted">
                 {{ formatDate(post.created_at) }}
-                <span v-if="post.updated_at !== post.created_at" class="ms-2">
-                  (editado)
-                </span>
               </small>
             </div>
           </div>
