@@ -384,7 +384,6 @@ export default {
         { label: 'Media glucosa', value: `${s.avg}`, sublabel: 'mg/dL', color: '#2c7da0' },
         { label: 'TIR (en rango)', value: `${s.tir}%`, sublabel: '70–180 mg/dL', color: s.tir >= 70 ? '#2a9d8f' : '#e76f51' },
         { label: 'HbA1c estimada', value: `${s.a1c}%`, sublabel: 'Aproximación', color: '#e9c46a' },
-        { label: 'Hipoglucemias', value: `${s.low}`, sublabel: 'registros < 70', color: '#e76f51' },
       ];
     });
 
