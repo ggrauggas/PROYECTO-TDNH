@@ -36,6 +36,7 @@ class PostModel {
       JOIN users u ON p.user_id = u.id
       LEFT JOIN comments c ON p.id = c.post_id
       LEFT JOIN likes l ON p.id = l.post_id
+      WHERE p.is_deleted = false
       GROUP BY p.id, u.username, u.full_name, u.avatar_url, u.role
       ORDER BY p.created_at DESC
       LIMIT $1 OFFSET $2
@@ -88,10 +89,19 @@ class PostModel {
     return result.rows[0];
   }
 
-  // Eliminar una publicación
-  async delete(id, user_id) {
-    const query = 'DELETE FROM posts WHERE id = $1 AND user_id = $2 RETURNING id';
-    const result = await pool.query(query, [id, user_id]);
+  // Soft delete: marcar como eliminado (el propietario solo puede borrar el suyo)
+  async softDelete(id, user_id, deletedBy) {
+    let query, values;
+    if (user_id) {
+      query = `UPDATE posts SET is_deleted = true, deleted_by = $1, updated_at = CURRENT_TIMESTAMP
+               WHERE id = $2 AND user_id = $3 RETURNING id`;
+      values = [deletedBy, id, user_id];
+    } else {
+      query = `UPDATE posts SET is_deleted = true, deleted_by = $1, updated_at = CURRENT_TIMESTAMP
+               WHERE id = $2 RETURNING id`;
+      values = [deletedBy, id];
+    }
+    const result = await pool.query(query, values);
     return result.rows[0];
   }
 
@@ -116,7 +126,7 @@ class PostModel {
       JOIN users u ON p.user_id = u.id
       LEFT JOIN comments c ON p.id = c.post_id
       LEFT JOIN likes l ON p.id = l.post_id
-      WHERE p.user_id = $1
+      WHERE p.user_id = $1 AND p.is_deleted = false
       GROUP BY p.id, u.username, u.full_name, u.avatar_url, u.role
       ORDER BY p.created_at DESC
       LIMIT $2 OFFSET $3
