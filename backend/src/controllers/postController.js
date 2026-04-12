@@ -73,9 +73,6 @@ class PostController {
     try {
       const { id } = req.params;
 
-      // Incrementar contador de vistas
-      await postModel.incrementViewCount(id);
-
       const post = await postModel.findById(id);
 
       if (!post) {
@@ -85,9 +82,12 @@ class PostController {
         });
       }
 
-      // Verificar likes del usuario si está autenticado
-      if (req.user) {
-        post.user_has_liked = await likeModel.hasLikedPost(req.user.id, id);
+      // Solo incrementar vistas y cargar likes si no está eliminada
+      if (!post.is_deleted) {
+        await postModel.incrementViewCount(id);
+        if (req.user) {
+          post.user_has_liked = await likeModel.hasLikedPost(req.user.id, id);
+        }
       }
 
       res.json({
@@ -140,13 +140,15 @@ class PostController {
     }
   }
 
-  // Eliminar una publicación
+  // Soft delete de una publicación (propietario o admin)
   async delete(req, res) {
     try {
       const { id } = req.params;
-      const user_id = req.user.id;
+      const isAdmin = req.user.role === 'admin';
 
-      const deletedPost = await postModel.delete(id, user_id);
+      const deletedPost = isAdmin
+        ? await postModel.softDelete(id, null, 'admin')
+        : await postModel.softDelete(id, req.user.id, 'user');
 
       if (!deletedPost) {
         return res.status(404).json({

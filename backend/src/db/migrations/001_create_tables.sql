@@ -57,6 +57,8 @@ CREATE TABLE IF NOT EXISTS posts (
     view_count INTEGER DEFAULT 0,
     is_pinned BOOLEAN DEFAULT false,
     is_closed BOOLEAN DEFAULT false,
+    is_deleted BOOLEAN DEFAULT false,
+    deleted_by VARCHAR(10) DEFAULT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
