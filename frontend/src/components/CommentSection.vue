@@ -78,23 +78,12 @@
       <div v-for="comment in rootComments" :key="comment.id" class="mb-3">
         <CommentItem
           :comment="comment"
+          :depth="0"
+          :all-replies="commentReplies"
           @reply="setReplyTo"
           @comment-updated="handleCommentUpdated"
           @comment-deleted="handleCommentDeleted"
         />
-        
-        <!-- Respuestas -->
-        <div v-if="commentReplies[comment.id]" class="replies">
-          <CommentItem
-            v-for="reply in commentReplies[comment.id]"
-            :key="reply.id"
-            :comment="reply"
-            :is-reply="true"
-            @reply="setReplyTo"
-            @comment-updated="handleCommentUpdated"
-            @comment-deleted="handleCommentDeleted"
-          />
-        </div>
       </div>
     </div>
   </div>
@@ -213,7 +202,16 @@ export default {
     };
 
     const handleCommentDeleted = (commentId) => {
-      comments.value = comments.value.filter(c => c.id !== commentId);
+      const idsToRemove = new Set();
+      const collectDescendants = (id) => {
+        idsToRemove.add(id);
+        comments.value.forEach(c => {
+          if (c.parent_comment_id === id) collectDescendants(c.id);
+        });
+      };
+      collectDescendants(commentId);
+      comments.value = comments.value.filter(c => !idsToRemove.has(c.id));
+      emit('comment-count-changed', comments.value.length);
     };
 
     return {
@@ -264,12 +262,4 @@ export default {
   border-radius: 50%;
 }
 
-.replies {
-  margin-left: 1.5rem;
-  margin-top: 1rem;
-
-  @media (max-width: 575.98px) {
-    margin-left: 0.5rem;
-  }
-}
 </style>
