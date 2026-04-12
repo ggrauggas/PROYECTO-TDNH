@@ -202,7 +202,7 @@
                       <i class="bi bi-shield-plus"></i>
                     </button>
                     <button
-                      v-if="user.role === 'admin'"
+                      v-if="user.role === 'admin' && user.id !== currentUserId"
                       class="btn btn-outline-secondary"
                       title="Quitar admin"
                       @click="confirmAction('removeAdmin', user)"
@@ -365,10 +365,18 @@
               </div>
               <div class="col-md-6">
                 <label class="form-label small fw-semibold">Rol</label>
-                <select class="form-select" v-model="editingUser.role">
+                <select
+                  class="form-select"
+                  v-model="editingUser.role"
+                  :disabled="editingUser.id === currentUserId"
+                  :title="editingUser.id === currentUserId ? 'No puedes modificar tu propio rol' : ''"
+                >
                   <option value="user">Usuario</option>
                   <option value="admin">Administrador</option>
                 </select>
+                <div v-if="editingUser.id === currentUserId" class="form-text text-warning">
+                  <i class="bi bi-exclamation-triangle me-1"></i>No puedes modificar tu propio rol.
+                </div>
               </div>
               <div class="col-md-6">
                 <label class="form-label small fw-semibold">Estado</label>
@@ -384,6 +392,17 @@
                 <div v-if="editingUser.id === currentUserId" class="form-text text-warning">
                   <i class="bi bi-exclamation-triangle me-1"></i>No puedes modificar tu propio estado.
                 </div>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label small fw-semibold">Nueva contraseña</label>
+                <input
+                  type="password"
+                  class="form-control"
+                  v-model="editingUser.newPassword"
+                  placeholder="Dejar en blanco para no cambiar"
+                  autocomplete="new-password"
+                />
+                <div class="form-text text-muted">Solo rellena si quieres cambiar la contraseña.</div>
               </div>
               <div class="col-12">
                 <label class="form-label small fw-semibold">Biografía</label>
@@ -568,7 +587,7 @@ export default {
 
     // ---- Edición de usuario ----
     const openEditUser = (user) => {
-      editingUser.value = { ...user };
+      editingUser.value = { ...user, newPassword: '' };
       nextTick(() => {
         const modal = new Modal(editUserModalRef.value);
         modal.show();
@@ -578,7 +597,9 @@ export default {
     const saveUserEdit = async () => {
       savingUser.value = true;
       try {
-        const res = await userService.adminUpdate(editingUser.value.id, editingUser.value);
+        const { newPassword, ...fields } = editingUser.value;
+        const payload = newPassword ? { ...fields, password: newPassword } : fields;
+        const res = await userService.adminUpdate(editingUser.value.id, payload);
         const updated = res.data?.user;
         const idx = users.value.findIndex(u => u.id === editingUser.value.id);
         if (idx !== -1) users.value[idx] = { ...users.value[idx], ...updated };
