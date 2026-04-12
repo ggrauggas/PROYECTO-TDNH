@@ -1,5 +1,5 @@
 <template>
-  <div class="comment-item" :class="{ 'is-reply': isReply }">
+  <div class="comment-item" :class="{ 'is-reply': depth > 0 }">
     <div class="d-flex">
       <div
         class="avatar-circle me-2"
@@ -73,8 +73,8 @@
             :initial-liked="comment.user_has_liked"
           />
           
-          <button 
-            v-if="authStore.isAuthenticated && !isReply" 
+          <button
+            v-if="authStore.isAuthenticated"
             class="btn btn-link btn-sm text-muted"
             @click="$emit('reply', comment)"
           >
@@ -83,6 +83,20 @@
         </div>
       </div>
     </div>
+  </div>
+
+  <!-- Respuestas anidadas (recursivo) -->
+  <div v-if="allReplies[comment.id]?.length" class="comment-replies">
+    <CommentItem
+      v-for="reply in allReplies[comment.id]"
+      :key="reply.id"
+      :comment="reply"
+      :all-replies="allReplies"
+      :depth="depth + 1"
+      @reply="$emit('reply', $event)"
+      @comment-updated="$emit('comment-updated', $event)"
+      @comment-deleted="$emit('comment-deleted', $event)"
+    />
   </div>
 
   <UserProfileModal ref="userModal" />
@@ -103,9 +117,13 @@ export default {
       type: Object,
       required: true
     },
-    isReply: {
-      type: Boolean,
-      default: false
+    depth: {
+      type: Number,
+      default: 0
+    },
+    allReplies: {
+      type: Object,
+      default: () => ({})
     }
   },
   emits: ['reply', 'comment-updated', 'comment-deleted'],
@@ -202,13 +220,8 @@ export default {
   border-radius: $border-radius;
   
   &.is-reply {
-    margin-left: 1.5rem;
     background-color: white;
     border-left: 3px solid $diabetes-light;
-
-    @media (max-width: 575.98px) {
-      margin-left: 0.5rem;
-    }
   }
   
   .avatar-circle {
@@ -230,6 +243,15 @@ export default {
       object-fit: cover;
       border-radius: 50%;
     }
+  }
+}
+
+.comment-replies {
+  margin-left: 1.5rem;
+  margin-top: 0.5rem;
+
+  @media (max-width: 575.98px) {
+    margin-left: 0.5rem;
   }
 }
 
