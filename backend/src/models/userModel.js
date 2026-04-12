@@ -82,7 +82,7 @@ class UserModel {
 
   // Actualizar usuario desde panel admin
   async adminUpdate(id, data) {
-    const { full_name, username, email, diabetes_type, bio, role, is_active } = data;
+    const { full_name, username, email, diabetes_type, bio, role, is_active, hashedPassword } = data;
     const query = `
       UPDATE users
       SET full_name   = COALESCE($1, full_name),
@@ -92,11 +92,12 @@ class UserModel {
           bio         = COALESCE($5, bio),
           role        = COALESCE($6, role),
           is_active   = COALESCE($7, is_active),
+          password    = COALESCE($8, password),
           updated_at  = CURRENT_TIMESTAMP
-      WHERE id = $8
+      WHERE id = $9
       RETURNING id, username, email, full_name, diabetes_type, bio, role, is_active, created_at
     `;
-    const result = await pool.query(query, [full_name, username, email, diabetes_type, bio, role, is_active, id]);
+    const result = await pool.query(query, [full_name, username, email, diabetes_type, bio, role, is_active, hashedPassword ?? null, id]);
     return result.rows[0];
   }
 

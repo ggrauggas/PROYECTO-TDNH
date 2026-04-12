@@ -6,7 +6,24 @@
       </div>
     </div>
 
-    <div v-else-if="post" class="post-detail">
+    <!-- Publicación eliminada -->
+    <div v-else-if="post && post.is_deleted" class="text-center py-5">
+      <i class="bi bi-trash3" style="font-size: 3rem; color: #adb5bd;"></i>
+      <h4 class="mt-3 text-muted">Esta publicación ha sido eliminada</h4>
+      <p class="text-muted mb-4">
+        <span v-if="post.deleted_by === 'admin'">
+          <i class="bi bi-shield-fill me-1 text-danger"></i>Un administrador eliminó esta publicación.
+        </span>
+        <span v-else>
+          <i class="bi bi-person-fill me-1"></i>El autor eliminó esta publicación.
+        </span>
+      </p>
+      <router-link to="/forum" class="btn btn-primary">
+        <i class="bi bi-arrow-left me-2"></i>Volver al foro
+      </router-link>
+    </div>
+
+    <div v-else-if="post && !post.is_deleted" class="post-detail">
       <!-- Navegación -->
       <div class="mb-3">
         <router-link to="/forum" class="text-decoration-none">
