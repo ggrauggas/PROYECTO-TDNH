@@ -14,7 +14,7 @@
               <span class="footer-nuestra">NUESTRA </span>  historia
             </div>
             <p class="footer-desc">
-              Una comunidad de apoyo para personas con diabetes tipo 1. Comparte, aprende y crece junto a otros.
+              Una comunidad de apoyo para personas con diabetes. Comparte, aprende y crece junto a otros.
             </p>
           </div>
           <div class="col-6 col-md-3 offset-md-1">
