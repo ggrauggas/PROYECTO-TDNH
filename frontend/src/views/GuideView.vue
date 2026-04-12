@@ -235,7 +235,7 @@
 export default {
   name: 'GuideView',
   data() {
-    const siteUrl = 'https://www.tudiabetesnuestrahistoria.es';
+    const siteUrl = 'https://tudiabetes.netlify.app/';
     const text = encodeURIComponent('Guía para recién diagnosticados con diabetes — TU diabetes NUESTRA historia 💙');
     const url = encodeURIComponent(siteUrl);
     return {
