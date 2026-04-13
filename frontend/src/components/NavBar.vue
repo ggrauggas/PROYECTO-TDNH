@@ -80,8 +80,8 @@
                     <i class="bi bi-file-text me-2"></i>Mis Publicaciones
                   </router-link>
                 </li>
-                <li><hr class="dropdown-divider"></li>
-                <li>
+                <li v-if="authStore.user?.glucose_enabled"><hr class="dropdown-divider"></li>
+                <li v-if="authStore.user?.glucose_enabled">
                   <router-link class="dropdown-item" to="/glucose">
                     <i class="bi bi-activity me-2 text-primary"></i>Mis datos de glucosa
                   </router-link>

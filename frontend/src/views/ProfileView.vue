@@ -91,6 +91,26 @@
                 <textarea class="form-control" v-model="editForm.bio" rows="3"></textarea>
               </div>
 
+              <div class="mb-3 p-3 rounded-3 border" style="background: #f8f9fa;">
+                <div class="form-check form-switch d-flex align-items-start gap-2 m-0">
+                  <input
+                    class="form-check-input mt-1 flex-shrink-0"
+                    type="checkbox"
+                    id="glucose-toggle"
+                    v-model="editForm.glucose_enabled"
+                    style="width: 2.5em; height: 1.4em;"
+                  />
+                  <label class="form-check-label" for="glucose-toggle">
+                    <span class="fw-semibold d-block mb-1">
+                      <i class="bi bi-activity text-primary me-1"></i>Activar sección "Mis datos de glucosa"
+                    </span>
+                    <span class="text-muted small">
+                      Actívalo si tienes diabetes para acceder a la sección de seguimiento de glucosa desde el menú.
+                    </span>
+                  </label>
+                </div>
+              </div>
+
               <div class="d-flex justify-content-end gap-2">
                 <button type="button" class="btn btn-secondary" @click="cancelEdit">
                   Cancelar
@@ -191,7 +211,8 @@ export default {
       full_name: '',
       diabetes_type: '',
       diagnosis_date: '',
-      bio: ''
+      bio: '',
+      glucose_enabled: false
     });
 
     const loadUserData = async () => {
@@ -203,6 +224,7 @@ export default {
         editForm.diabetes_type = user.value.diabetes_type || '';
         editForm.diagnosis_date = user.value.diagnosis_date || '';
         editForm.bio = user.value.bio || '';
+        editForm.glucose_enabled = user.value.glucose_enabled || false;
 
         // Cargar publicaciones recientes del usuario y estadísticas reales en paralelo
         const [postsResponse, statsResponse] = await Promise.all([
@@ -308,11 +330,11 @@ export default {
 
     const cancelEdit = () => {
       editing.value = false;
-      // Restaurar valores originales
       editForm.full_name = user.value.full_name || '';
       editForm.diabetes_type = user.value.diabetes_type || '';
       editForm.diagnosis_date = user.value.diagnosis_date || '';
       editForm.bio = user.value.bio || '';
+      editForm.glucose_enabled = user.value.glucose_enabled || false;
     };
 
     return {
