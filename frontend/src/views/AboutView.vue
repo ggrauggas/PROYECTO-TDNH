@@ -19,13 +19,13 @@
         <div class="col-md-6">
           <h2 class="mb-4">Nuestra historia</h2>
           <p>
-            Este proyecto comenzó como un Trabajo de Fin de Grado en Ingeniería de Software, 
-            pero rápidamente se convirtió en algo más grande. Detrás del código hay personas 
+            Este proyecto ha nacido como un Trabajo de Fin de Grado en Desarrollo de Aplicaciones Web.
+            . Detrás del código hay personas 
             que entienden lo que significa vivir con diabetes, ya sea por experiencia
             propia o por cercanía con familiares y amigos.
           </p>
           <p>
-            La diabetes tipo 1 es una condición que afecta a millones de personas en todo 
+            La diabetes es una condición que afecta a millones de personas en todo 
             el mundo. A menudo, quienes reciben el diagnóstico se sienten solos y abrumados. 
             Queremos cambiar eso.
           </p>

@@ -148,14 +148,15 @@ class AuthController {
   // Actualizar perfil
   async updateProfile(req, res) {
     try {
-      const { full_name, diabetes_type, diagnosis_date, bio, avatar_url } = req.body;
+      const { full_name, diabetes_type, diagnosis_date, bio, avatar_url, glucose_enabled } = req.body;
 
       const updatedUser = await userModel.update(req.user.id, {
         full_name,
         diabetes_type,
         diagnosis_date,
         bio,
-        avatar_url
+        avatar_url,
+        glucose_enabled: glucose_enabled !== undefined ? Boolean(glucose_enabled) : undefined
       });
 
       res.json({
