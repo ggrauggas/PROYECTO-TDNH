@@ -75,7 +75,11 @@
     </div>
     
     <div v-else class="comments-tree">
-      <div v-for="comment in rootComments" :key="comment.id" class="mb-3">
+      <div
+        v-for="comment in rootComments"
+        :key="comment.id"
+        class="comment-group"
+      >
         <CommentItem
           :comment="comment"
           :depth="0"
@@ -262,4 +266,12 @@ export default {
   border-radius: 50%;
 }
 
+/* Separador entre hilos de comentarios raíz */
+.comment-group {
+  border-bottom: 1px solid #e7e7e8;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
 </style>
