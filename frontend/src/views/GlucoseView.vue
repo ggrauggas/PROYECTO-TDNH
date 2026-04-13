@@ -68,11 +68,6 @@
               <li class="mb-1"><i class="bi bi-check-circle text-success me-2"></i>CSV genérico con fecha y valor</li>
             </ul>
 
-            <div class="mt-3">
-              <button class="btn btn-outline-secondary btn-sm w-100" @click="loadSampleData">
-                <i class="bi bi-play-circle me-2"></i>Cargar datos de ejemplo
-              </button>
-            </div>
           </div>
         </div>
       </div>
@@ -321,30 +316,6 @@ export default {
       handleFile(e.dataTransfer.files[0]);
     };
 
-    // ---- Datos de ejemplo ----
-    const loadSampleData = () => {
-      const now = new Date();
-      const data = [];
-      // Generar 14 días de datos simulados
-      for (let d = 13; d >= 0; d--) {
-        for (let h = 0; h < 24; h += 2) {
-          const ts = new Date(now);
-          ts.setDate(ts.getDate() - d);
-          ts.setHours(h, Math.floor(Math.random() * 60), 0, 0);
-
-          let base = 100;
-          if (h >= 7 && h <= 9) base = 160 + Math.random() * 40;    // Post desayuno
-          else if (h >= 12 && h <= 14) base = 155 + Math.random() * 35; // Post almuerzo
-          else if (h >= 19 && h <= 21) base = 145 + Math.random() * 40; // Post cena
-          else if (h >= 2 && h <= 4) base = 80 + Math.random() * 30;   // Madrugada
-
-          const glucose = Math.round(base + (Math.random() - 0.5) * 30);
-          data.push({ timestamp: ts, glucose: Math.max(55, Math.min(300, glucose)) });
-        }
-      }
-      csvData.value = data;
-    };
-
     const clearData = () => {
       csvData.value = [];
       parseError.value = '';
@@ -579,7 +550,7 @@ export default {
       selectedPeriod, periods, tableFilter,
       statsCards, distributionData, dateRange,
       filteredTableData,
-      handleFileInput, handleDrop, loadSampleData, clearData,
+      handleFileInput, handleDrop, clearData,
       getGlucoseColor, getGlucoseBadge, getGlucoseLabel,
       formatDate, formatDateTime
     };
