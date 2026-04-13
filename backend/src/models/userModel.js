@@ -42,9 +42,9 @@ class UserModel {
   // Buscar usuario por ID
   async findById(id) {
     const query = `
-      SELECT id, username, email, full_name, diabetes_type, diagnosis_date, 
-             bio, avatar_url, role, created_at
-      FROM users 
+      SELECT id, username, email, full_name, diabetes_type, diagnosis_date,
+             bio, avatar_url, role, glucose_enabled, created_at
+      FROM users
       WHERE id = $1
     `;
     const result = await pool.query(query, [id]);
@@ -143,21 +143,22 @@ class UserModel {
 
   // Actualizar perfil de usuario
   async update(id, userData) {
-    const { full_name, diabetes_type, diagnosis_date, bio, avatar_url } = userData;
-    
+    const { full_name, diabetes_type, diagnosis_date, bio, avatar_url, glucose_enabled } = userData;
+
     const query = `
-      UPDATE users 
+      UPDATE users
       SET full_name = COALESCE($1, full_name),
           diabetes_type = COALESCE($2, diabetes_type),
           diagnosis_date = COALESCE($3, diagnosis_date),
           bio = COALESCE($4, bio),
           avatar_url = COALESCE($5, avatar_url),
+          glucose_enabled = COALESCE($6, glucose_enabled),
           updated_at = CURRENT_TIMESTAMP
-      WHERE id = $6
-      RETURNING id, username, email, full_name, diabetes_type, diagnosis_date, bio, avatar_url
+      WHERE id = $7
+      RETURNING id, username, email, full_name, diabetes_type, diagnosis_date, bio, avatar_url, glucose_enabled
     `;
-    
-    const values = [full_name, diabetes_type, diagnosis_date, bio, avatar_url, id];
+
+    const values = [full_name, diabetes_type, diagnosis_date, bio, avatar_url, glucose_enabled ?? null, id];
     const result = await pool.query(query, values);
     return result.rows[0];
   }

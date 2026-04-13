@@ -54,11 +54,11 @@ const routes = [
     meta: { requiresAuth: true }
   },
   {
-    // Datos de glucosa: requiere login
+    // Datos de glucosa: requiere login y tener glucose_enabled
     path: '/glucose',
     name: 'Glucose',
     component: GlucoseView,
-    meta: { requiresAuth: true }
+    meta: { requiresAuth: true, requiresGlucose: true }
   },
   {
     // Test para principiantes: público, no requiere login
@@ -89,6 +89,9 @@ router.beforeEach((to, from, next) => {
   }
   if (to.meta.requiresAdmin && !isAdmin) {
     return next('/');
+  }
+  if (to.meta.requiresGlucose && !authStore.user?.glucose_enabled) {
+    return next('/profile');
   }
   if (to.meta.guest && isAuthenticated) {
     return next('/forum');
