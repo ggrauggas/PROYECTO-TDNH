@@ -94,15 +94,14 @@
         </button>
       </div>
 
-      <!-- Respuestas anidadas DENTRO de thread-right para que la línea las cubra -->
+      <!-- Respuestas aplanadas a 1 nivel (estilo YouTube/Twitter) -->
       <div v-if="hasReplies" class="thread-replies">
         <CommentItem
-          v-for="reply in allReplies[comment.id]"
+          v-for="reply in threadReplies[comment.id]"
           :key="reply.id"
           :comment="reply"
-          :all-replies="allReplies"
-          :depth="depth + 1"
-          :parent-author-name="comment.author_name"
+          :thread-replies="{}"
+          :comments-by-id="commentsById"
           @reply="$emit('reply', $event)"
           @comment-updated="$emit('comment-updated', $event)"
           @comment-deleted="$emit('comment-deleted', $event)"
@@ -129,17 +128,13 @@ export default {
       type: Object,
       required: true
     },
-    depth: {
-      type: Number,
-      default: 0
-    },
-    allReplies: {
+    threadReplies: {
       type: Object,
       default: () => ({})
     },
-    parentAuthorName: {
-      type: String,
-      default: null
+    commentsById: {
+      type: Object,
+      default: () => ({})
     }
   },
   emits: ['reply', 'comment-updated', 'comment-deleted'],
@@ -149,7 +144,14 @@ export default {
 
     const isAuthor = computed(() => authStore.user?.id === props.comment.user_id);
 
-    const hasReplies = computed(() => !!props.allReplies[props.comment.id]?.length);
+    // Solo los comentarios raíz tienen entradas en threadReplies
+    const hasReplies = computed(() => !!props.threadReplies[props.comment.id]?.length);
+
+    // El autor del comentario padre se obtiene del mapa de comentarios
+    const parentAuthorName = computed(() => {
+      if (!props.comment.parent_comment_id) return null;
+      return props.commentsById[props.comment.parent_comment_id]?.author_name || null;
+    });
 
     const formatDate = (dateString) => {
       const date = new Date(dateString);
@@ -209,6 +211,7 @@ export default {
       editedContent,
       isAuthor,
       hasReplies,
+      parentAuthorName,
       formatDate,
       getAvatarColor,
       startEditing,

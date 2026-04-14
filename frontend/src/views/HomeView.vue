@@ -55,9 +55,9 @@
             <div class="feature-icon mb-3">
               <i class="bi bi-book-fill"></i>
             </div>
-            <h4>Guía para nuevos diagnosticados</h4>
+            <h4>Guía para descubrir la diabetes</h4>
             <p class="text-muted">
-              Recursos y consejos para quienes comienzan su camino con diabetes.
+              Recursos y consejos para quienes buscan entender la condición.
             </p>
           </div>
         </div>

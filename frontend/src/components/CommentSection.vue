@@ -82,8 +82,8 @@
       >
         <CommentItem
           :comment="comment"
-          :depth="0"
-          :all-replies="commentReplies"
+          :thread-replies="threadReplies"
+          :comments-by-id="commentsById"
           @reply="setReplyTo"
           @comment-updated="handleCommentUpdated"
           @comment-deleted="handleCommentDeleted"
@@ -135,17 +135,44 @@ export default {
       return comments.value.filter(c => !c.parent_comment_id);
     });
 
-    const commentReplies = computed(() => {
-      const replies = {};
-      comments.value.forEach(comment => {
-        if (comment.parent_comment_id) {
-          if (!replies[comment.parent_comment_id]) {
-            replies[comment.parent_comment_id] = [];
-          }
-          replies[comment.parent_comment_id].push(comment);
+    // Mapa id -> objeto comentario para lookups de autor
+    const commentsById = computed(() => {
+      const map = {};
+      comments.value.forEach(c => { map[c.id] = c; });
+      return map;
+    });
+
+    // Para cada comentario raíz, todos sus descendientes en orden (aplanados)
+    // Esto limita la indentación visual a 1 nivel, como YouTube/Twitter
+    const threadReplies = computed(() => {
+      const threads = {};
+
+      // Mapa de respuestas directas
+      const directReplies = {};
+      comments.value.forEach(c => {
+        if (c.parent_comment_id) {
+          if (!directReplies[c.parent_comment_id]) directReplies[c.parent_comment_id] = [];
+          directReplies[c.parent_comment_id].push(c);
         }
       });
-      return replies;
+
+      // Recoge todos los descendientes en profundidad (DFS) para cada raíz
+      const collectDescendants = (commentId, result) => {
+        (directReplies[commentId] || []).forEach(child => {
+          result.push(child);
+          collectDescendants(child.id, result);
+        });
+      };
+
+      rootComments.value.forEach(root => {
+        const descendants = [];
+        collectDescendants(root.id, descendants);
+        if (descendants.length > 0) {
+          threads[root.id] = descendants;
+        }
+      });
+
+      return threads;
     });
 
     const totalComments = computed(() => comments.value.length);
@@ -225,7 +252,8 @@ export default {
       newCommentContent,
       replyTo,
       rootComments,
-      commentReplies,
+      commentsById,
+      threadReplies,
       totalComments,
       authStore,
       getAvatarColor,
