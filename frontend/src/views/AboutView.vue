@@ -19,8 +19,7 @@
         <div class="col-md-6">
           <h2 class="mb-4">Nuestra historia</h2>
           <p>
-            Este proyecto ha nacido como un Trabajo de Fin de Grado en Desarrollo de Aplicaciones Web.
-            . Detrás del código hay personas 
+            Este proyecto ha nacido como un Trabajo de Fin de Grado en Desarrollo de Aplicaciones Web. Detrás del código hay personas 
             que entienden lo que significa vivir con diabetes, ya sea por experiencia
             propia o por cercanía con familiares y amigos.
           </p>
