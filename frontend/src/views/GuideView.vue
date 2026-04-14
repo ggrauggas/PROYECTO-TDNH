@@ -454,7 +454,7 @@
               <div class="card-body">
                 <ol class="mb-0 text-muted small">
                   <li class="mb-2">Dale <strong>15 g de azúcar rápida</strong>: un zumo pequeño, 3–4 sobres de azúcar, caramelos de glucosa o refresco con azúcar.</li>
-                  <li class="mb-2">Espera <strong>15 minutos</strong> sin dejarla sola.</li>
+                  <li class="mb-2">Espera <strong>15 minutos</strong> sin alejarte de su lado.</li>
                   <li class="mb-2">Si mejora, ofrécele algo más consistente (galleta, fruta, bocado).</li>
                   <li>Si no mejora o pierde el conocimiento, <strong>llama al 112</strong>.</li>
                 </ol>
@@ -766,7 +766,7 @@ export default {
         {
           icon: 'bi-calendar-event',
           title: 'No hagas un drama en comidas o eventos',
-          text: 'Ya gestiona ellos mismos qué comer y cuánta medicación necesitan. No hace falta vigilar su plato ni comentar lo que eligen.'
+          text: 'Ya saben qué comer y cuánta medicación necesitan. No hace falta vigilar su plato ni comentar lo que eligen.'
         },
         {
           icon: 'bi-patch-check',
@@ -807,7 +807,7 @@ export default {
           why: 'Ya se esfuerzan enormemente. Implica que el mal control es por dejadez, lo cual es injusto.'
         },
         {
-          avoid: 'Pero si no estás gordo/a, ¿cómo tienes diabetes?',
+          avoid: 'Pero si no tienes sobrepeso, ¿cómo tienes diabetes?',
           why: 'La tipo 1 no tiene relación con el peso. Y la tipo 2 tampoco es exclusiva de personas con sobrepeso.'
         },
         {

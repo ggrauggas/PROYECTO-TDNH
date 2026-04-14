@@ -91,6 +91,53 @@
                 <textarea class="form-control" v-model="editForm.bio" rows="3"></textarea>
               </div>
 
+              <!-- Sección desplegable para cambiar contraseña -->
+              <div class="mb-3">
+                <button
+                  type="button"
+                  class="btn btn-outline-secondary btn-sm w-100 d-flex align-items-center justify-content-between"
+                  @click="showPasswordSection = !showPasswordSection"
+                >
+                  <span><i class="bi bi-lock me-2"></i>Cambiar contraseña</span>
+                  <i :class="showPasswordSection ? 'bi bi-chevron-up' : 'bi bi-chevron-down'"></i>
+                </button>
+
+                <div v-if="showPasswordSection" class="border rounded-3 p-3 mt-2" style="background: #f8f9fa;">
+                  <div class="mb-3">
+                    <label class="form-label">Contraseña actual</label>
+                    <input
+                      type="password"
+                      class="form-control"
+                      v-model="editForm.current_password"
+                      placeholder="Introduce tu contraseña actual"
+                      autocomplete="current-password"
+                    >
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">Nueva contraseña</label>
+                    <input
+                      type="password"
+                      class="form-control"
+                      v-model="editForm.new_password"
+                      placeholder="Mínimo 6 caracteres"
+                      autocomplete="new-password"
+                    >
+                  </div>
+                  <div class="mb-0">
+                    <label class="form-label">Confirmar nueva contraseña</label>
+                    <input
+                      type="password"
+                      class="form-control"
+                      :class="{ 'is-invalid': editForm.confirm_password && editForm.new_password !== editForm.confirm_password }"
+                      v-model="editForm.confirm_password"
+                      placeholder="Repite la nueva contraseña"
+                      autocomplete="new-password"
+                    >
+                    <div class="invalid-feedback">Las contraseñas no coinciden</div>
+                  </div>
+                </div>
+              </div>
+
               <div class="mb-3 p-3 rounded-3 border" style="background: #f8f9fa;">
                 <div class="form-check form-switch d-flex align-items-start gap-2 m-0">
                   <input
@@ -204,6 +251,7 @@ export default {
     const editing = ref(false);
     const saving = ref(false);
     const uploadingAvatar = ref(false);
+    const showPasswordSection = ref(false);
     const stats = reactive({ posts: 0, comments: 0, likesReceived: 0 });
     const recentPosts = ref([]);
 
@@ -212,7 +260,10 @@ export default {
       diabetes_type: '',
       diagnosis_date: '',
       bio: '',
-      glucose_enabled: false
+      glucose_enabled: false,
+      current_password: '',
+      new_password: '',
+      confirm_password: ''
     });
 
     const loadUserData = async () => {
@@ -310,19 +361,49 @@ export default {
     };
 
     const updateProfile = async () => {
+      // Validar contraseñas si se quiere cambiar
+      if (editForm.new_password) {
+        if (editForm.new_password !== editForm.confirm_password) {
+          alert('Las contraseñas no coinciden');
+          return;
+        }
+        if (editForm.new_password.length < 6) {
+          alert('La nueva contraseña debe tener al menos 6 caracteres');
+          return;
+        }
+        if (!editForm.current_password) {
+          alert('Debes introducir tu contraseña actual para cambiarla');
+          return;
+        }
+      }
+
       saving.value = true;
       try {
-        const response = await userService.updateProfile(editForm);
+        const payload = {
+          full_name: editForm.full_name,
+          diabetes_type: editForm.diabetes_type,
+          diagnosis_date: editForm.diagnosis_date,
+          bio: editForm.bio,
+          glucose_enabled: editForm.glucose_enabled
+        };
+        if (editForm.new_password) {
+          payload.current_password = editForm.current_password;
+          payload.new_password = editForm.new_password;
+        }
+
+        const response = await userService.updateProfile(payload);
         const updatedUser = { ...authStore.user, ...response.data.user };
         authStore.setUser(updatedUser);
         localStorage.setItem('user', JSON.stringify(updatedUser));
         user.value = updatedUser;
 
         editing.value = false;
+        showPasswordSection.value = false;
         alert('Perfil actualizado correctamente');
       } catch (error) {
         console.error('Error actualizando perfil:', error);
-        alert('Error al actualizar el perfil');
+        const msg = error.response?.data?.message || 'Error al actualizar el perfil';
+        alert(msg);
       } finally {
         saving.value = false;
       }
@@ -330,11 +411,15 @@ export default {
 
     const cancelEdit = () => {
       editing.value = false;
+      showPasswordSection.value = false;
       editForm.full_name = user.value.full_name || '';
       editForm.diabetes_type = user.value.diabetes_type || '';
       editForm.diagnosis_date = user.value.diagnosis_date || '';
       editForm.bio = user.value.bio || '';
       editForm.glucose_enabled = user.value.glucose_enabled || false;
+      editForm.current_password = '';
+      editForm.new_password = '';
+      editForm.confirm_password = '';
     };
 
     return {
@@ -343,6 +428,7 @@ export default {
       editing,
       saving,
       uploadingAvatar,
+      showPasswordSection,
       stats,
       recentPosts,
       editForm,
