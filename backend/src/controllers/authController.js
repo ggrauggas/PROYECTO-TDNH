@@ -5,7 +5,7 @@ class AuthController {
   // Registro de nuevo usuario
   async register(req, res) {
     try {
-      const { username, email, password, full_name, diabetes_type, diagnosis_date, bio } = req.body;
+      const { username, email, password, full_name, diabetes_type, diagnosis_date, bio, glucose_enabled } = req.body;
 
       // Verificar si el email ya existe
       const existingEmail = await userModel.findByEmail(email);
@@ -33,7 +33,8 @@ class AuthController {
         full_name,
         diabetes_type,
         diagnosis_date,
-        bio
+        bio,
+        glucose_enabled: glucose_enabled !== undefined ? Boolean(glucose_enabled) : false
       });
 
       // Generar token
