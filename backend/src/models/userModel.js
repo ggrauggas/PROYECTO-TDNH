@@ -4,18 +4,18 @@ const bcrypt = require('bcrypt');
 class UserModel {
   // Crear un nuevo usuario
   async create(userData) {
-    const { username, email, password, full_name, diabetes_type, diagnosis_date, bio } = userData;
-    
+    const { username, email, password, full_name, diabetes_type, diagnosis_date, bio, glucose_enabled } = userData;
+
     // Hash de la contraseña
     const hashedPassword = await bcrypt.hash(password, 10);
-    
+
     const query = `
-      INSERT INTO users (username, email, password, full_name, diabetes_type, diagnosis_date, bio)
-      VALUES ($1, $2, $3, $4, $5, $6, $7)
-      RETURNING id, username, email, full_name, role, created_at
+      INSERT INTO users (username, email, password, full_name, diabetes_type, diagnosis_date, bio, glucose_enabled)
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+      RETURNING id, username, email, full_name, role, glucose_enabled, created_at
     `;
-    
-    const values = [username, email, hashedPassword, full_name, diabetes_type, diagnosis_date, bio];
+
+    const values = [username, email, hashedPassword, full_name, diabetes_type, diagnosis_date, bio, glucose_enabled ?? false];
     
     try {
       const result = await pool.query(query, values);
@@ -143,7 +143,7 @@ class UserModel {
 
   // Actualizar perfil de usuario
   async update(id, userData) {
-    const { full_name, diabetes_type, diagnosis_date, bio, avatar_url, glucose_enabled } = userData;
+    const { full_name, diabetes_type, diagnosis_date, bio, avatar_url, glucose_enabled, hashedPassword } = userData;
 
     const query = `
       UPDATE users
@@ -153,12 +153,13 @@ class UserModel {
           bio = COALESCE($4, bio),
           avatar_url = COALESCE($5, avatar_url),
           glucose_enabled = COALESCE($6, glucose_enabled),
+          password = COALESCE($7, password),
           updated_at = CURRENT_TIMESTAMP
-      WHERE id = $7
+      WHERE id = $8
       RETURNING id, username, email, full_name, diabetes_type, diagnosis_date, bio, avatar_url, glucose_enabled
     `;
 
-    const values = [full_name, diabetes_type, diagnosis_date, bio, avatar_url, glucose_enabled ?? null, id];
+    const values = [full_name, diabetes_type, diagnosis_date, bio, avatar_url, glucose_enabled ?? null, hashedPassword ?? null, id];
     const result = await pool.query(query, values);
     return result.rows[0];
   }

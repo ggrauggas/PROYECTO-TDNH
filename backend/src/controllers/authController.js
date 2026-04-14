@@ -5,7 +5,7 @@ class AuthController {
   // Registro de nuevo usuario
   async register(req, res) {
     try {
-      const { username, email, password, full_name, diabetes_type, diagnosis_date, bio } = req.body;
+      const { username, email, password, full_name, diabetes_type, diagnosis_date, bio, glucose_enabled } = req.body;
 
       // Verificar si el email ya existe
       const existingEmail = await userModel.findByEmail(email);
@@ -33,7 +33,8 @@ class AuthController {
         full_name,
         diabetes_type,
         diagnosis_date,
-        bio
+        bio,
+        glucose_enabled: glucose_enabled !== undefined ? Boolean(glucose_enabled) : false
       });
 
       // Generar token
@@ -148,7 +149,28 @@ class AuthController {
   // Actualizar perfil
   async updateProfile(req, res) {
     try {
-      const { full_name, diabetes_type, diagnosis_date, bio, avatar_url, glucose_enabled } = req.body;
+      const { full_name, diabetes_type, diagnosis_date, bio, avatar_url, glucose_enabled, current_password, new_password } = req.body;
+
+      let hashedPassword = null;
+
+      if (new_password) {
+        const user = await userModel.findByEmail(req.user.email);
+        const isValid = await userModel.verifyPassword(current_password || '', user.password);
+        if (!isValid) {
+          return res.status(400).json({
+            status: 'error',
+            message: 'La contraseña actual es incorrecta'
+          });
+        }
+        if (new_password.length < 6) {
+          return res.status(400).json({
+            status: 'error',
+            message: 'La nueva contraseña debe tener al menos 6 caracteres'
+          });
+        }
+        const bcrypt = require('bcrypt');
+        hashedPassword = await bcrypt.hash(new_password, 10);
+      }
 
       const updatedUser = await userModel.update(req.user.id, {
         full_name,
@@ -156,7 +178,8 @@ class AuthController {
         diagnosis_date,
         bio,
         avatar_url,
-        glucose_enabled: glucose_enabled !== undefined ? Boolean(glucose_enabled) : undefined
+        glucose_enabled: glucose_enabled !== undefined ? Boolean(glucose_enabled) : undefined,
+        hashedPassword
       });
 
       res.json({
