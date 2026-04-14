@@ -143,7 +143,7 @@ class UserModel {
 
   // Actualizar perfil de usuario
   async update(id, userData) {
-    const { full_name, diabetes_type, diagnosis_date, bio, avatar_url, glucose_enabled } = userData;
+    const { full_name, diabetes_type, diagnosis_date, bio, avatar_url, glucose_enabled, hashedPassword } = userData;
 
     const query = `
       UPDATE users
@@ -153,12 +153,13 @@ class UserModel {
           bio = COALESCE($4, bio),
           avatar_url = COALESCE($5, avatar_url),
           glucose_enabled = COALESCE($6, glucose_enabled),
+          password = COALESCE($7, password),
           updated_at = CURRENT_TIMESTAMP
-      WHERE id = $7
+      WHERE id = $8
       RETURNING id, username, email, full_name, diabetes_type, diagnosis_date, bio, avatar_url, glucose_enabled
     `;
 
-    const values = [full_name, diabetes_type, diagnosis_date, bio, avatar_url, glucose_enabled ?? null, id];
+    const values = [full_name, diabetes_type, diagnosis_date, bio, avatar_url, glucose_enabled ?? null, hashedPassword ?? null, id];
     const result = await pool.query(query, values);
     return result.rows[0];
   }
