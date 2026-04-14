@@ -341,8 +341,8 @@ docker-compose exec backend npm run db:bots:add
 
 | Usuario | Email | Contraseña | Rol |
 |---|---|---|---|
-| `admin` | admin@admin.com | `admin` | Administrador |
-| `gerardgrau` | gerardgrau2004@gmail.com | `admin` | Administrador |
+| `admin` | admin@admin.com | `*******` | Administrador |
+| `gerardgrau` | gerardgrau2004@gmail.com | ``*******`` | Administrador |
 | Bots | `*@example.com` | `password123` | Usuario |
 
 > Cambia las contraseñas y el `JWT_SECRET` antes de desplegar en producción.
