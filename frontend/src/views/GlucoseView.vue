@@ -56,8 +56,8 @@
 
             <div class="format-example p-3 rounded-2 mb-3">
               <code class="small text-success">timestamp, glucosa</code><br>
-              <code class="small text-muted">2024-01-15 08:30, 120</code><br>
-              <code class="small text-muted">2024-01-15 12:00, 145</code>
+              <code class="small text-success">2024-01-15 08:30, 120</code><br>
+              <code class="small text-success">2024-01-15 12:00, 145</code>
             </div>
 
             <p class="text-muted small mb-2 fw-semibold">Dispositivos compatibles:</p>

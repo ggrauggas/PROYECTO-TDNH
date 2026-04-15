@@ -91,3 +91,9 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.btn-like {
+  text-decoration: none;
+}
+</style>
