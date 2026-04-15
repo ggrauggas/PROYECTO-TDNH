@@ -36,6 +36,11 @@ class UserService {
     return response.data;
   }
 
+  async deleteOwnAccount() {
+    const response = await api.delete('/users/me');
+    return response.data;
+  }
+
   async adminDelete(id) {
     const response = await api.delete(`/admin/users/${id}`);
     return response.data;

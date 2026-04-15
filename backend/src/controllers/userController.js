@@ -15,6 +15,16 @@ class UserController {
     }
   }
 
+  async deleteOwnAccount(req, res) {
+    try {
+      await userModel.adminDelete(req.user.id);
+      res.json({ status: 'success', message: 'Cuenta eliminada correctamente' });
+    } catch (error) {
+      console.error('Error al eliminar cuenta:', error);
+      res.status(500).json({ status: 'error', message: 'Error al eliminar la cuenta' });
+    }
+  }
+
   async getStats(req, res) {
     try {
       const userId = parseInt(req.params.id);
