@@ -3,6 +3,7 @@ const router = express.Router();
 const userController = require('../controllers/userController');
 const authMiddleware = require('../middlewares/authMiddleware');
 
+router.delete('/me', authMiddleware.authenticate, userController.deleteOwnAccount);
 router.get('/:id/profile', userController.getPublicProfile);
 router.get('/:id/stats', authMiddleware.authenticate, userController.getStats);
 
