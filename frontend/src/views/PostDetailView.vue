@@ -52,7 +52,7 @@
                 :title="`Ver perfil de ${post.author_name}`"
                 @click="$refs.userModal.openProfile(post.user_id)"
               >{{ post.author_name }}</span>
-              <small class="text-muted">
+              <small class="text-muted ms-2">
                 {{ formatDate(post.created_at) }}
               </small>
             </div>

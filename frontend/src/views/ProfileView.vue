@@ -50,6 +50,9 @@
             <button class="btn btn-outline-primary w-100" @click="editing = true" v-if="!editing">
               <i class="bi bi-pencil me-2"></i>Editar perfil
             </button>
+            <button class="btn btn-outline-danger w-100 mt-2" @click="deleteAccount" v-if="!editing">
+              <i class="bi bi-trash me-2"></i>Eliminar cuenta
+            </button>
           </div>
         </div>
       </div>
@@ -238,6 +241,7 @@
 
 <script>
 import { ref, reactive, onMounted } from 'vue';
+import { useRouter } from 'vue-router';
 import authStore from '../stores/authStore';
 import userService from '../services/userService';
 import postService from '../services/postService';
@@ -246,6 +250,7 @@ import authService from '../services/authService';
 export default {
   name: 'ProfileView',
   setup() {
+    const router = useRouter();
     const user = ref(null);
     const loading = ref(true);
     const editing = ref(false);
@@ -409,6 +414,22 @@ export default {
       }
     };
 
+    const deleteAccount = async () => {
+      const first = confirm('¿Seguro que quieres eliminar tu cuenta? Esta acción no se puede deshacer y perderás todos tus datos, publicaciones y comentarios.');
+      if (!first) return;
+      const second = confirm('Última confirmación: ¿eliminar la cuenta de forma permanente?');
+      if (!second) return;
+
+      try {
+        await userService.deleteOwnAccount();
+        authService.logout();
+        router.push('/');
+      } catch (error) {
+        console.error('Error al eliminar cuenta:', error);
+        alert('Error al eliminar la cuenta. Inténtalo de nuevo.');
+      }
+    };
+
     const cancelEdit = () => {
       editing.value = false;
       showPasswordSection.value = false;
@@ -437,7 +458,8 @@ export default {
       getAvatarColor,
       handleAvatarChange,
       updateProfile,
-      cancelEdit
+      cancelEdit,
+      deleteAccount
     };
   }
 };
