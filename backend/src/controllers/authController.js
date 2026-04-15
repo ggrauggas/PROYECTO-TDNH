@@ -175,7 +175,7 @@ class AuthController {
       const updatedUser = await userModel.update(req.user.id, {
         full_name,
         diabetes_type,
-        diagnosis_date,
+        diagnosis_date: diagnosis_date || null,
         bio,
         avatar_url,
         glucose_enabled: glucose_enabled !== undefined ? Boolean(glucose_enabled) : undefined,
