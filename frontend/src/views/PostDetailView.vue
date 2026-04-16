@@ -89,7 +89,7 @@
             </span>
           </div>
 
-          <div class="card-text mb-4" v-html="formattedContent"></div>
+          <div class="card-text mb-4 post-content">{{ post.content }}</div>
 
           <div class="d-flex justify-content-between align-items-center">
             <div>
@@ -169,11 +169,6 @@ export default {
       return authStore.user?.id === post.value?.user_id;
     });
 
-    const formattedContent = computed(() => {
-      if (!post.value?.content) return '';
-      // Convertir saltos de línea a <br>
-      return post.value.content.replace(/\n/g, '<br>');
-    });
 
     const formatDate = (dateString) => {
       const date = new Date(dateString);
@@ -208,7 +203,6 @@ export default {
       post,
       loading,
       isAuthor,
-      formattedContent,
       formatDate,
       getAvatarColor,
       confirmDelete
@@ -218,6 +212,11 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.post-content {
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
 .avatar-circle {
   width: 45px;
   height: 45px;
