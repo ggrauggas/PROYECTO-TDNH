@@ -84,6 +84,7 @@
           type="comment"
           :initial-count="comment.like_count"
           :initial-liked="comment.user_has_liked"
+          :show-count="false"
         />
         <button
           v-if="authStore.isAuthenticated"
