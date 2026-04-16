@@ -6,7 +6,7 @@
     :disabled="!authStore.isAuthenticated || loading"
   >
     <i class="bi" :class="isLiked ? 'bi-heart-fill' : 'bi-heart'"></i>
-    <span class="ms-1">{{ likeCount }}</span>
+    <span v-if="showCount" class="ms-1">{{ likeCount }}</span>
   </button>
 </template>
 
@@ -34,6 +34,10 @@ export default {
     initialLiked: {
       type: Boolean,
       default: false
+    },
+    showCount: {
+      type: Boolean,
+      default: true
     }
   },
   setup(props) {

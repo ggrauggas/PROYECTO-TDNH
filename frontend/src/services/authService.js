@@ -13,7 +13,8 @@ class AuthService {
         full_name: userData.full_name || '',
         diabetes_type: userData.diabetes_type || '',
         diagnosis_date: userData.diagnosis_date || null,
-        bio: userData.bio || ''
+        bio: userData.bio || '',
+        glucose_enabled: userData.glucose_enabled ?? false
       };
       
       const response = await api.post('/auth/register', dataToSend);
