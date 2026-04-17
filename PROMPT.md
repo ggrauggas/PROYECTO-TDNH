@@ -31,6 +31,7 @@ Debes analizar la estructura completa del proyecto, centrándote en:
 - Todos los Dockerfile  
 - docker-compose.yml
 - db/src
+
   > db/src contiene algunos scripts ausiliares y el init, no ha sido muy util pero por si acaso
 
 ### Documentación de despliegue
