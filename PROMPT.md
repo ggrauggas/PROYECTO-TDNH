@@ -8,7 +8,7 @@ Vas a ayudar a recopilar y redactar información del proyecto para su documentac
 
 Debes analizar la estructura completa del proyecto, centrándote en:
 
-### Backend
+### Backend/src
 - Controllers  
 - Middlewares  
 - Models  
@@ -20,14 +20,18 @@ Debes analizar la estructura completa del proyecto, centrándote en:
 - Migraciones  
 - Tablas  
 
-### Frontend
+### Frontend/src/
 - Vistas  
 - Componentes  
-- Router  
+- Router
+- Assets
+- Services
 
 ### Infraestructura
 - Todos los Dockerfile  
-- docker-compose.yml  
+- docker-compose.yml
+- db/src
+  > db/src contiene algunos scripts ausiliares y el init, no ha sido muy util pero por si acaso
 
 ### Documentación de despliegue
 - DEPLOY.md: documento con toda la información sobre el despliegue web del proyecto  
