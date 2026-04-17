@@ -77,7 +77,9 @@ Para cada sección:
 - Título de la sección  
 - Contenido redactado en:
   - Párrafos  
-  - Listas si es necesario  
+  - Listas si es necesario
+
+> Si con algún comentario se te ha pedido un cambio en alguna sección devolverás la sección entera con los cambios, no solo los cambios
 
 ---
 
