@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
     <div class="container">
       <router-link class="navbar-brand" to="/">
         <img src="/TD-NH.ico" alt="Logo" class="brand-logo me-2" />
