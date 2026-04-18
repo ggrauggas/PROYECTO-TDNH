@@ -106,6 +106,18 @@ class LikeController {
     }
   }
 
+  // Obtener usuarios que dieron like a una publicación
+  async getPostLikers(req, res) {
+    try {
+      const { postId } = req.params;
+      const likers = await likeModel.getPostLikers(postId);
+      res.json({ status: 'success', data: { likers } });
+    } catch (error) {
+      console.error('Error obteniendo likers:', error);
+      res.status(500).json({ status: 'error', message: 'Error al obtener los likes' });
+    }
+  }
+
   // Quitar like de un comentario
   async unlikeComment(req, res) {
     try {

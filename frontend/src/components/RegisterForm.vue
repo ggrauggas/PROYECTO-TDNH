@@ -119,7 +119,6 @@
 import { ref, reactive } from 'vue';
 import { useRouter } from 'vue-router';
 import authService from '../services/authService';
-import authStore from '../stores/authStore';
 
 export default {
   name: 'RegisterForm',
@@ -146,6 +145,10 @@ export default {
       
       if (!form.username) {
         errors.username = 'El nombre de usuario es requerido';
+        return false;
+      }
+      if (!/^[a-zA-Z0-9_]+$/.test(form.username)) {
+        errors.username = 'El nombre de usuario solo puede contener letras, números y guiones bajos (sin espacios)';
         return false;
       }
       if (!form.email) {
@@ -184,8 +187,7 @@ export default {
         });
         
         console.log('Registro response:', response);
-        authStore.setUser(response.data.user);
-        router.push('/forum');
+        router.push({ path: '/verify-email', query: { email: form.email } });
         
       } catch (error) {
         console.error('Error en registro:', error);

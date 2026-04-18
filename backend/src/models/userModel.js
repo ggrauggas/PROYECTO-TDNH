@@ -57,6 +57,37 @@ class UserModel {
     await pool.query(query, [id]);
   }
 
+  // Guardar código de verificación de email
+  async saveVerificationCode(id, code, expiresAt) {
+    const query = `
+      UPDATE users
+      SET verification_code = $1, verification_code_expires = $2
+      WHERE id = $3
+    `;
+    await pool.query(query, [code, expiresAt, id]);
+  }
+
+  // Verificar código y marcar usuario como verificado
+  async verifyEmailCode(email, code) {
+    const query = `
+      SELECT id, verification_code, verification_code_expires, is_verified
+      FROM users WHERE email = $1
+    `;
+    const result = await pool.query(query, [email]);
+    const user = result.rows[0];
+
+    if (!user) return { success: false, reason: 'user_not_found' };
+    if (user.is_verified) return { success: false, reason: 'already_verified' };
+    if (user.verification_code !== code) return { success: false, reason: 'invalid_code' };
+    if (new Date() > new Date(user.verification_code_expires)) return { success: false, reason: 'expired' };
+
+    await pool.query(
+      'UPDATE users SET is_verified = true, verification_code = NULL, verification_code_expires = NULL WHERE id = $1',
+      [user.id]
+    );
+    return { success: true };
+  }
+
   // Verificar contraseña
   async verifyPassword(plainPassword, hashedPassword) {
     return await bcrypt.compare(plainPassword, hashedPassword);

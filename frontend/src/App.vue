@@ -30,8 +30,8 @@
           <div class="col-6 col-md-3">
             <h6 class="footer-heading">Legal</h6>
             <ul class="list-unstyled footer-links">
-              <li><a href="#">Términos de uso</a></li>
-              <li><a href="#">Política de privacidad</a></li>
+              <li><button class="footer-btn-link" @click="showTerms = true">Términos de uso</button></li>
+              <li><button class="footer-btn-link" @click="showPrivacy = true">Política de privacidad</button></li>
             </ul>
           </div>
         </div>
@@ -42,15 +42,27 @@
         </div>
       </div>
     </footer>
+
+    <LegalModal v-model="showTerms" type="terms" />
+    <LegalModal v-model="showPrivacy" type="privacy" />
+    <CookieBanner @open-privacy="showPrivacy = true" />
   </div>
 </template>
 
 <script>
 import NavBar from './components/NavBar.vue';
+import LegalModal from './components/LegalModal.vue';
+import CookieBanner from './components/CookieBanner.vue';
 
 export default {
   name: 'App',
-  components: { NavBar }
+  components: { NavBar, LegalModal, CookieBanner },
+  data() {
+    return {
+      showTerms: false,
+      showPrivacy: false
+    };
+  }
 };
 </script>
 
@@ -122,6 +134,21 @@ main {
       &:hover {
         color: #fff;
       }
+    }
+  }
+
+  .footer-btn-link {
+    background: none;
+    border: none;
+    padding: 0;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: color 0.15s;
+    text-align: left;
+
+    &:hover {
+      color: #fff;
     }
   }
 

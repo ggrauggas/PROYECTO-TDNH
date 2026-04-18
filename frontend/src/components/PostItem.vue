@@ -1,5 +1,5 @@
 <template>
-  <div class="card post-card mb-3">
+  <div class="card post-card mb-3" :class="{ 'post-card--verified': post.author_role === 'admin' }">
     <div class="card-body">
       <div class="d-flex justify-content-between align-items-start mb-2">
         <div class="d-flex align-items-center overflow-hidden">
@@ -63,6 +63,7 @@
             type="post"
             :initial-count="post.like_count || 0"
             :initial-liked="post.user_has_liked || false"
+            :is-author="isAuthor"
           />
           
           <routerLink :to="`/post/${post.id}`" class="btn btn-link text-decoration-none ms-3">
@@ -199,5 +200,10 @@ export default {
 .card-text {
   color: $dark;
   line-height: 1.6;
+}
+
+.post-card--verified {
+  background-color: #eaf4fb;
+  border-color: #b6d9f0;
 }
 </style>
