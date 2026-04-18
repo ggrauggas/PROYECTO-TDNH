@@ -85,6 +85,10 @@ body {
   padding: 2rem;
   box-shadow: $box-shadow;
 
+  p {
+    text-align: justify;
+  }
+
   h1 {
     color: $primary;
     margin-bottom: 1.5rem;
