@@ -68,6 +68,19 @@ class LikeModel {
     const result = await pool.query(query, [comment_id]);
     return parseInt(result.rows[0].count);
   }
+
+  // Obtener usuarios que han dado like a una publicación
+  async getPostLikers(post_id) {
+    const query = `
+      SELECT u.id, u.username, u.full_name, u.avatar_url
+      FROM likes l
+      JOIN users u ON u.id = l.user_id
+      WHERE l.post_id = $1
+      ORDER BY l.created_at DESC
+    `;
+    const result = await pool.query(query, [post_id]);
+    return result.rows;
+  }
 }
 
 module.exports = new LikeModel();

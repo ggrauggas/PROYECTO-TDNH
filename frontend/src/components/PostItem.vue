@@ -63,6 +63,7 @@
             type="post"
             :initial-count="post.like_count || 0"
             :initial-liked="post.user_has_liked || false"
+            :is-author="isAuthor"
           />
           
           <routerLink :to="`/post/${post.id}`" class="btn btn-link text-decoration-none ms-3">
