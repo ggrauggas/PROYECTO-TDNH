@@ -196,15 +196,19 @@ export default {
   box-shadow: $box-shadow;
   height: 100%;
   transition: transform 0.2s;
-  
+
   &:hover {
     transform: translateY(-5px);
     box-shadow: $box-shadow-lg;
   }
-  
+
   .feature-icon {
     font-size: 3rem;
     color: $primary;
+  }
+
+  p {
+    text-align: justify;
   }
 }
 
