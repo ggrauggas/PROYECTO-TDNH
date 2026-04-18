@@ -20,6 +20,11 @@ class LikeService {
     const response = await api.delete(`/likes/comment/${commentId}`);
     return response.data;
   }
+
+  async getPostLikers(postId) {
+    const response = await api.get(`/likes/post/${postId}/likers`);
+    return response.data;
+  }
 }
 
 export default new LikeService();

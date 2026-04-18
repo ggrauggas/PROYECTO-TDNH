@@ -7,6 +7,7 @@ const authMiddleware = require('../middlewares/authMiddleware');
 router.use(authMiddleware.authenticate);
 
 // Likes en posts
+router.get('/post/:postId/likers', likeController.getPostLikers);
 router.post('/post/:postId', likeController.likePost);
 router.delete('/post/:postId', likeController.unlikePost);
 
