@@ -839,6 +839,14 @@ export default {
 
 .info-section {
   scroll-margin-top: 80px;
+
+  > p,
+  .card-body p,
+  .list-group-item div,
+  .alert p,
+  .d-flex p {
+    text-align: justify;
+  }
 }
 
 .type1-section {
