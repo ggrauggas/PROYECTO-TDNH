@@ -148,6 +148,10 @@ export default {
         errors.username = 'El nombre de usuario es requerido';
         return false;
       }
+      if (!/^[a-zA-Z0-9_]+$/.test(form.username)) {
+        errors.username = 'El nombre de usuario solo puede contener letras, números y guiones bajos (sin espacios)';
+        return false;
+      }
       if (!form.email) {
         errors.email = 'El email es requerido';
         return false;
