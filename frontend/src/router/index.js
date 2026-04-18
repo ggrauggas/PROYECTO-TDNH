@@ -17,6 +17,7 @@ import ProfileView from '../views/ProfileView.vue';
 import MyPostsView from '../views/MyPostsView.vue';
 
 // Nuevas vistas
+import VerifyEmailView from '../views/VerifyEmailView.vue';
 import AdminView from '../views/AdminView.vue';
 import QuestionnaireView from '../views/QuestionnaireView.vue';
 import GlucoseView from '../views/GlucoseView.vue';
@@ -31,6 +32,7 @@ const routes = [
   { path: '/edit-post/:id', name: 'EditPost', component: EditPostView, props: true, meta: { requiresAuth: true } },
   { path: '/login', name: 'Login', component: LoginView, meta: { guest: true } },
   { path: '/register', name: 'Register', component: RegisterView, meta: { guest: true } },
+  { path: '/verify-email', name: 'VerifyEmail', component: VerifyEmailView },
   { path: '/guide', name: 'Guide', component: GuideView },
   { path: '/about', name: 'About', component: AboutView },
   // { path: '/donate', name: 'Donate', component: DonateView }, // DESHABILITADO TEMPORALMENTE
