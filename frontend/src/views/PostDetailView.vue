@@ -98,6 +98,7 @@
                 type="post"
                 :initial-count="post.like_count"
                 :initial-liked="post.user_has_liked"
+                :is-author="isAuthor"
               />
               
             </div>

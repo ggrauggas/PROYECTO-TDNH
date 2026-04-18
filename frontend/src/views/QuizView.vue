@@ -475,6 +475,13 @@ export default {
   border-left: 4px solid;
   &-correct { border-color: #2a9d8f; background: rgba(42, 157, 143, 0.06); }
   &-wrong   { border-color: #e76f51; background: rgba(231, 111, 81, 0.06); }
+
+  p { text-align: justify; }
+}
+
+.quiz-intro-card p,
+.results-card p {
+  text-align: justify;
 }
 
 .fade-enter-active, .fade-leave-active { transition: opacity 0.3s; }
