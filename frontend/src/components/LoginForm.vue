@@ -119,8 +119,11 @@ export default {
         
       } catch (error) {
         console.error('Error en login:', error);
-        if (error.response?.data?.message) {
-          errorMessage.value = error.response.data.message;
+        const data = error.response?.data;
+        if (data?.data?.requiresVerification) {
+          router.push({ path: '/verify-email', query: { email: data.data.email } });
+        } else if (data?.message) {
+          errorMessage.value = data.message;
         } else if (error.message === 'Network Error') {
           errorMessage.value = 'No se puede conectar al servidor. Inténtalo de nuevo en unos momentos.';
         } else {

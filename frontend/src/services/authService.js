@@ -20,14 +20,33 @@ class AuthService {
       const response = await api.post('/auth/register', dataToSend);
       console.log('✅ Registro exitoso:', response.data);
       
+      return response.data;
+    } catch (error) {
+      console.error('❌ Error en registro:', error.response?.data || error.message);
+      throw error;
+    }
+  }
+
+  async verifyEmail({ email, code }) {
+    try {
+      const response = await api.post('/auth/verify-email', { email, code });
       if (response.data.data?.token) {
         localStorage.setItem('token', response.data.data.token);
         localStorage.setItem('user', JSON.stringify(response.data.data.user));
       }
-      
       return response.data;
     } catch (error) {
-      console.error('❌ Error en registro:', error.response?.data || error.message);
+      console.error('❌ Error en verificación:', error.response?.data || error.message);
+      throw error;
+    }
+  }
+
+  async resendVerification(email) {
+    try {
+      const response = await api.post('/auth/resend-verification', { email });
+      return response.data;
+    } catch (error) {
+      console.error('❌ Error al reenviar:', error.response?.data || error.message);
       throw error;
     }
   }

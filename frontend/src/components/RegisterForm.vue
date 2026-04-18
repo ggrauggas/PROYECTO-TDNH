@@ -119,7 +119,6 @@
 import { ref, reactive } from 'vue';
 import { useRouter } from 'vue-router';
 import authService from '../services/authService';
-import authStore from '../stores/authStore';
 
 export default {
   name: 'RegisterForm',
@@ -188,8 +187,7 @@ export default {
         });
         
         console.log('Registro response:', response);
-        authStore.setUser(response.data.user);
-        router.push('/forum');
+        router.push({ path: '/verify-email', query: { email: form.email } });
         
       } catch (error) {
         console.error('Error en registro:', error);
