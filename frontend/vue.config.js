@@ -3,10 +3,10 @@ const { defineConfig } = require('@vue/cli-service');
 module.exports = defineConfig({
   transpileDependencies: true,
   devServer: {
-    port: 8080,
+    port: 8082,
     proxy: {
       '/api': {
-        target: process.env.VUE_APP_API_URL || 'http://backend:3000',
+        target: 'https://tudiabetes-api.onrender.com',
         changeOrigin: true
       }
     }
