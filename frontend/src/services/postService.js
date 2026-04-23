@@ -58,6 +58,16 @@ class PostService {
     }
   }
 
+  async search(query, page = 1, limit = 20) {
+    try {
+      const response = await api.get(`/posts/search?q=${encodeURIComponent(query)}&page=${page}&limit=${limit}`);
+      return response.data;
+    } catch (error) {
+      console.error('❌ Error buscando posts:', error);
+      throw error;
+    }
+  }
+
   async getByUser(userId, page = 1, limit = 20) {
     try {
       console.log(`👤 Cargando posts del usuario ${userId}`);
