@@ -111,6 +111,39 @@ class PostModel {
     await pool.query(query, [id]);
   }
 
+  // Buscar publicaciones por texto (título, contenido o comentarios)
+  async search(query, limit = 20, offset = 0) {
+    const term = `%${query}%`;
+    const sql = `
+      SELECT
+        p.*,
+        u.username,
+        u.full_name  AS author_name,
+        u.avatar_url AS author_avatar,
+        u.role       AS author_role,
+        COUNT(DISTINCT c.id) AS comment_count,
+        COUNT(DISTINCT l.id) AS like_count
+      FROM posts p
+      JOIN users u ON p.user_id = u.id
+      LEFT JOIN comments c ON p.id = c.post_id
+      LEFT JOIN likes l ON p.id = l.post_id
+      WHERE p.is_deleted = false
+        AND (
+          p.title   ILIKE $1
+          OR p.content ILIKE $1
+          OR EXISTS (
+            SELECT 1 FROM comments sc
+            WHERE sc.post_id = p.id AND sc.content ILIKE $1
+          )
+        )
+      GROUP BY p.id, u.username, u.full_name, u.avatar_url, u.role
+      ORDER BY p.created_at DESC
+      LIMIT $2 OFFSET $3
+    `;
+    const result = await pool.query(sql, [term, limit, offset]);
+    return result.rows;
+  }
+
   // Obtener publicaciones por usuario
   async findByUserId(user_id, limit = 20, offset = 0) {
     const query = `

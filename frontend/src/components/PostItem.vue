@@ -153,22 +153,25 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import "~@/assets/scss/variables.scss";
+
 .avatar-circle {
-  width: 40px;
-  height: 40px;
+  width: 38px;
+  height: 38px;
   border-radius: 50%;
   color: white;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: bold;
-  font-size: 1.2rem;
+  font-weight: 700;
+  font-size: 1rem;
   overflow: hidden;
   flex-shrink: 0;
+  border: 2px solid rgba(255,255,255,0.8);
+  box-shadow: 0 0 0 1px $border-color;
 
   .avatar-img {
-    width: 100%;
-    height: 100%;
+    width: 100%; height: 100%;
     object-fit: cover;
     border-radius: 50%;
   }
@@ -176,34 +179,40 @@ export default {
 
 .author-name-link {
   cursor: pointer;
-  font-size: 0.95rem;
-  color: inherit;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: $dark;
   transition: color 0.15s;
-
   &:hover { color: $primary; text-decoration: underline; }
 }
 
 .badge-admin {
-  background-color: #6f42c1;
-  color: white;
+  background: rgba(#7c3aed, 0.1);
+  color: #6d28d9;
   font-size: 0.7rem;
-  padding: 0.25em 0.5em;
-  border-radius: 0.4rem;
+  font-weight: 600;
+  padding: 0.2em 0.55em;
+  border-radius: 999px;
+  border: 1px solid rgba(#7c3aed, 0.2);
 }
 
 .card-title {
-  color: $primary;
-  font-weight: 600;
-  margin: 0.5rem 0;
+  color: $dark;
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: -0.01em;
+  margin: 0.5rem 0 0.375rem;
+  line-height: 1.4;
 }
 
 .card-text {
-  color: $dark;
-  line-height: 1.6;
+  color: #475569;
+  line-height: 1.65;
+  font-size: 0.9rem;
 }
 
 .post-card--verified {
-  background-color: #eaf4fb;
-  border-color: #b6d9f0;
+  border-left-color: $diabetes-teal !important;
+  background-color: #f0fdfc;
 }
 </style>

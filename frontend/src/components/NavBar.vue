@@ -1,10 +1,10 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+  <nav class="navbar navbar-expand-lg fixed-top">
     <div class="container">
       <router-link class="navbar-brand" to="/">
         <img src="/TD-NH.ico" alt="Logo" class="brand-logo me-2" />
         <span class="brand-tu">TU</span> diabetes
-        <span class="brand-nuestra">NUESTRA</span> historia
+        <span class="brand-tu">NUESTRA</span> historia
       </router-link>
       
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -151,49 +151,11 @@ export default {
 <style scoped lang="scss">
 @import "~@/assets/scss/variables.scss";
 
-.navbar {
-  box-shadow: $box-shadow;
-
-  .navbar-brand {
-    font-weight: 600;
-    font-size: 0.95rem;
-
-    @media (min-width: 576px) {
-      font-size: 1.2rem;
-    }
-
-    .brand-logo { width: 24px; height: 24px; object-fit: contain; vertical-align: middle; }
-    .brand-tu   { color: $pink-pastel;       font-weight: 700; }
-    .brand-nuestra { color: $pink-pastel-light; font-weight: 700; }
-  }
-
-  .nav-link {
-    font-weight: 500;
-    &.active {
-      color: white;
-      background-color: rgba(255, 255, 255, 0.1);
-      border-radius: $border-radius;
-    }
-  }
-
-  .admin-link {
-    color: #ffd166 !important;
-    font-weight: 600;
-    &:hover, &.active {
-      color: #fff !important;
-      background-color: rgba(255, 209, 102, 0.15);
-      border-radius: $border-radius;
-    }
-  }
-}
-
-.dropdown-item i { width: 1.5rem; }
-
 .nav-avatar {
-  width: 26px;
-  height: 26px;
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
   object-fit: cover;
-  border: 2px solid rgba(255,255,255,0.5);
+  border: 2px solid $border-color;
 }
 </style>
