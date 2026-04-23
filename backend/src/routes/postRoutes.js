@@ -5,6 +5,7 @@ const authMiddleware = require('../middlewares/authMiddleware');
 
 // Rutas públicas
 router.get('/', authMiddleware.optionalAuth, postController.getAll);
+router.get('/search', authMiddleware.optionalAuth, postController.search);
 router.get('/user/:userId', postController.getByUser);
 router.get('/:id', authMiddleware.optionalAuth, postController.getById);
 

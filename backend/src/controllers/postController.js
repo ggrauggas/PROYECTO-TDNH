@@ -171,6 +171,33 @@ class PostController {
     }
   }
 
+  // Buscar publicaciones
+  async search(req, res) {
+    try {
+      const { q } = req.query;
+      if (!q || !q.trim()) {
+        return res.status(400).json({ status: 'error', message: 'Se requiere un término de búsqueda' });
+      }
+
+      const page = parseInt(req.query.page) || 1;
+      const limit = parseInt(req.query.limit) || 20;
+      const offset = (page - 1) * limit;
+
+      const posts = await postModel.search(q.trim(), limit, offset);
+
+      res.json({
+        status: 'success',
+        data: {
+          posts,
+          pagination: { page, limit, hasMore: posts.length === limit }
+        }
+      });
+    } catch (error) {
+      console.error('Error al buscar publicaciones:', error);
+      res.status(500).json({ status: 'error', message: 'Error al buscar publicaciones' });
+    }
+  }
+
   // Obtener publicaciones por usuario
   async getByUser(req, res) {
     try {
