@@ -1,30 +1,42 @@
-// Colores principales
-$primary: #2c7da0;
-$secondary: #61a5c2;
-$success: #2a9d8f;
-$info: #89c2d9;
-$warning: #e9c46a;
-$danger: #e76f51;
-$light: #f8f9fa;
-$dark: #343a40;
+// ── Paleta principal ─────────────────────────────────────────────────────────
+$primary:   #0369a1;   // sky-700 — azul océano
+$secondary: #0891b2;   // cyan-600 — acento cielo
+$success:   #0d9488;   // teal-600
+$info:      #38bdf8;   // sky-400
+$warning:   #f59e0b;   // amber-500
+$danger:    #ef4444;   // red-500
+$light:     #f8fafc;   // slate-50
+$dark:      #0369a1;   // slate-900
 
-// Colores de diabetes
-$diabetes-blue: #2c7da0;
-$diabetes-light: #a9d6e5;
-$diabetes-teal: #2a9d8f;
+// ── Marca diabetes ───────────────────────────────────────────────────────────
+$diabetes-blue:  #0369a1;
+$diabetes-light: #bae6fd;   // sky-200
+$diabetes-teal:  #0d9488;
 
-// ROSA PASTEL PLANO (sin gradientes)
-$pink-pastel: #e69898;     // Rosa pastel suave
-$pink-pastel-light: #e69898; // Rosa pastel más claro
+// ── Acento rosa de marca ──────────────────────────────────────────────────────
+$pink-pastel:       #e69898;   // pink-400 — más vibrante
+$pink-pastel-light: #d3a3a3;   // pink-200
 
-// Tipografía
-$font-family-base: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+// ── Superficie y bordes ───────────────────────────────────────────────────────
+$body-bg:    #f0f6fb;
+$card-bg:    #ffffff;
+$border-color: #e2e8f0;   // slate-200
 
-// Bordes
-$border-radius: 0.5rem;
-$border-radius-lg: 1rem;
-$border-radius-sm: 0.25rem;
+// ── Tipografía ────────────────────────────────────────────────────────────────
+$font-family-base: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+$font-size-base:   1rem;
+$line-height-base: 1.6;
 
-// Sombras
-$box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-$box-shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+// ── Radios ────────────────────────────────────────────────────────────────────
+$border-radius:    0.5rem;
+$border-radius-lg: 0.875rem;
+$border-radius-sm: 0.3rem;
+$border-radius-xl: 1.25rem;
+
+// ── Sombras ───────────────────────────────────────────────────────────────────
+$box-shadow:    0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.05);
+$box-shadow-md: 0 4px 6px rgba(0,0,0,0.07), 0 2px 4px rgba(0,0,0,0.05);
+$box-shadow-lg: 0 10px 24px rgba(0,0,0,0.08), 0 4px 8px rgba(0,0,0,0.05);
+
+// ── Transiciones ─────────────────────────────────────────────────────────────
+$transition-base: all 0.2s ease;
