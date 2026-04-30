@@ -1,4 +1,4 @@
-// ── Paleta principal ─────────────────────────────────────────────────────────
+// ── Paleta original (azul océano + rosa pastel) ───────────────────────────────
 $primary:   #0369a1;   // sky-700 — azul océano
 $secondary: #0891b2;   // cyan-600 — acento cielo
 $success:   #0d9488;   // teal-600
@@ -6,37 +6,44 @@ $info:      #38bdf8;   // sky-400
 $warning:   #f59e0b;   // amber-500
 $danger:    #ef4444;   // red-500
 $light:     #f8fafc;   // slate-50
-$dark:      #0369a1;   // slate-900
+$dark:      #1e3a5f;   // azul marino oscuro para texto
 
-// ── Marca diabetes ───────────────────────────────────────────────────────────
+// ── Marca diabetes ────────────────────────────────────────────────────────────
 $diabetes-blue:  #0369a1;
 $diabetes-light: #bae6fd;   // sky-200
 $diabetes-teal:  #0d9488;
 
 // ── Acento rosa de marca ──────────────────────────────────────────────────────
-$pink-pastel:       #e69898;   // pink-400 — más vibrante
+$pink-pastel:       #e69898;   // pink-400
 $pink-pastel-light: #d3a3a3;   // pink-200
 
-// ── Superficie y bordes ───────────────────────────────────────────────────────
-$body-bg:    #f0f6fb;
-$card-bg:    #ffffff;
-$border-color: #e2e8f0;   // slate-200
+// ── Superficie ────────────────────────────────────────────────────────────────
+$body-bg:      #f0f6fb;   // azul muy claro
+$card-bg:      #ffffff;
+$border-color: rgba(3, 105, 161, 0.12);
 
-// ── Tipografía ────────────────────────────────────────────────────────────────
-$font-family-base: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+// ── Glass tokens ──────────────────────────────────────────────────────────────
+$glass-bg:     rgba(255, 255, 255, 0.72);
+$glass-border: rgba(255, 255, 255, 0.80);
+$glass-blur:   20px;
+
+// ── Tipografía — Apple system ─────────────────────────────────────────────────
+$font-family-base: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Inter', 'Segoe UI', system-ui, sans-serif;
 $font-size-base:   1rem;
 $line-height-base: 1.6;
 
-// ── Radios ────────────────────────────────────────────────────────────────────
-$border-radius:    0.5rem;
-$border-radius-lg: 0.875rem;
-$border-radius-sm: 0.3rem;
-$border-radius-xl: 1.25rem;
+// ── Radios — Apple rounded ────────────────────────────────────────────────────
+$border-radius:    0.75rem;   // 12px
+$border-radius-lg: 1.25rem;   // 20px
+$border-radius-sm: 0.5rem;    //  8px
+$border-radius-xl: 1.75rem;   // 28px
 
-// ── Sombras ───────────────────────────────────────────────────────────────────
-$box-shadow:    0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.05);
-$box-shadow-md: 0 4px 6px rgba(0,0,0,0.07), 0 2px 4px rgba(0,0,0,0.05);
-$box-shadow-lg: 0 10px 24px rgba(0,0,0,0.08), 0 4px 8px rgba(0,0,0,0.05);
+// ── Sombras — Apple difusas ───────────────────────────────────────────────────
+$box-shadow:    0 2px 8px rgba(3, 105, 161, 0.07), 0 1px 3px rgba(0,0,0,0.04);
+$box-shadow-md: 0 8px 24px rgba(3, 105, 161, 0.09), 0 2px 8px rgba(0,0,0,0.04);
+$box-shadow-lg: 0 20px 60px rgba(3, 105, 161, 0.11), 0 4px 12px rgba(0,0,0,0.06);
 
-// ── Transiciones ─────────────────────────────────────────────────────────────
-$transition-base: all 0.2s ease;
+// ── Transición ────────────────────────────────────────────────────────────────
+$transition-base:   all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+$transition-smooth: all 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+$transition-spring: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);

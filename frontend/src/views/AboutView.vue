@@ -136,3 +136,55 @@ export default {
   name: 'AboutView'
 };
 </script>
+
+<style scoped lang="scss">
+@import "~@/assets/scss/variables.scss";
+
+// Tarjetas de valores
+.card {
+  background: rgba(255, 255, 255, 0.60) !important;
+  backdrop-filter: blur(16px) saturate(160%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.78) !important;
+  border-radius: $border-radius-lg !important;
+  box-shadow: 0 2px 10px rgba(3, 105, 161, 0.07);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(3, 105, 161, 0.10);
+  }
+
+  .card-body {
+    padding: 1.5rem 1rem;
+  }
+
+  .card-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: $dark;
+    margin-bottom: 0.4rem;
+  }
+
+  .card-text {
+    font-size: 0.875rem;
+    color: #64748b;
+    line-height: 1.55;
+    text-align: center !important;
+  }
+}
+
+// Card de cita
+.card.bg-light {
+  background: rgba(3, 105, 161, 0.06) !important;
+  border-color: rgba(3, 105, 161, 0.14) !important;
+
+  .blockquote p {
+    text-align: center !important;
+    font-size: 1.05rem;
+    color: $dark;
+    font-style: italic;
+    line-height: 1.75;
+  }
+}
+</style>
