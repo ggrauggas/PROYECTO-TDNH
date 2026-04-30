@@ -70,14 +70,15 @@ export default {
 @import './assets/scss/main.scss';
 
 main {
-  padding-top: 60px; // altura del navbar fijo
+  padding-top: 60px;
   min-height: calc(100vh - 200px);
 }
 
-// ── Footer ────────────────────────────────────────────────────────────────────
+// ── Footer — Azul océano ──────────────────────────────────────────────────────
 .site-footer {
   background: #0369a1;
-  color: rgba(255, 255, 255, 0.7);
+  border-top: none;
+  color: rgba(255, 255, 255, 0.60);
   padding: 2.5rem 0 0;
 
   .footer-brand {
@@ -87,11 +88,12 @@ main {
     font-weight: 700;
     color: #fff;
     margin-bottom: 0.75rem;
-    letter-spacing: -0.01em;
+    letter-spacing: -0.02em;
   }
 
   .footer-logo {
-    width: 22px; height: 22px;
+    width: 22px;
+    height: 22px;
     object-fit: contain;
     vertical-align: middle;
   }
@@ -101,8 +103,8 @@ main {
 
   .footer-desc {
     font-size: 0.825rem;
-    color: rgba(255, 255, 255, 0.5);
-    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.42);
+    line-height: 1.65;
     max-width: 300px;
   }
 
@@ -110,18 +112,18 @@ main {
     font-size: 0.65rem;
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: rgba(255,255,255,0.4);
+    letter-spacing: 0.12em;
+    color: rgba(255, 255, 255, 0.32);
     margin-bottom: 0.75rem;
   }
 
   .footer-links {
     li { margin-bottom: 0.35rem; }
     a {
-      color: rgba(255, 255, 255, 0.6);
+      color: rgba(255, 255, 255, 0.52);
       text-decoration: none;
       font-size: 0.825rem;
-      transition: color 0.15s;
+      transition: color 0.2s ease;
       &:hover { color: #fff; }
     }
   }
@@ -130,26 +132,26 @@ main {
     background: none;
     border: none;
     padding: 0;
-    color: rgba(255, 255, 255, 0.6);
+    color: rgba(255, 255, 255, 0.52);
     font-size: 0.825rem;
     cursor: pointer;
-    transition: color 0.15s;
+    transition: color 0.2s ease;
     text-align: left;
     &:hover { color: #fff; }
   }
 
   .footer-bottom {
     margin-top: 2rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    border-top: 1px solid rgba(255, 255, 255, 0.07);
     padding: 0.875rem 0;
     font-size: 0.75rem;
-    color: rgba(255, 255, 255, 0.35);
+    color: rgba(255, 255, 255, 0.28);
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: 0.4rem;
   }
 
-  .footer-divider { opacity: 0.4; }
+  .footer-divider { opacity: 0.35; }
 }
 </style>

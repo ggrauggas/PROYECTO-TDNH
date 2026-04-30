@@ -40,32 +40,52 @@
       
       <div class="mb-3">
         <label for="password" class="form-label">Contraseña *</label>
-        <input
-          type="password"
-          class="form-control"
-          id="password"
-          v-model="form.password"
-          :class="{ 'is-invalid': errors.password }"
-          placeholder="********"
-          required
-        >
-        <div v-if="errors.password" class="invalid-feedback">
+        <div class="input-group" :class="{ 'is-invalid': errors.password }">
+          <input
+            :type="showPassword ? 'text' : 'password'"
+            class="form-control"
+            :class="{ 'is-invalid': errors.password }"
+            id="password"
+            v-model="form.password"
+            placeholder="********"
+            required
+          >
+          <button
+            type="button"
+            class="btn btn-outline-secondary"
+            @click="showPassword = !showPassword"
+            tabindex="-1"
+          >
+            <i :class="showPassword ? 'bi bi-eye-slash' : 'bi bi-eye'"></i>
+          </button>
+        </div>
+        <div v-if="errors.password" class="invalid-feedback d-block">
           {{ errors.password }}
         </div>
       </div>
-      
+
       <div class="mb-3">
         <label for="password_confirmation" class="form-label">Confirmar contraseña *</label>
-        <input
-          type="password"
-          class="form-control"
-          id="password_confirmation"
-          v-model="form.password_confirmation"
-          :class="{ 'is-invalid': errors.password_confirmation }"
-          placeholder="********"
-          required
-        >
-        <div v-if="errors.password_confirmation" class="invalid-feedback">
+        <div class="input-group" :class="{ 'is-invalid': errors.password_confirmation }">
+          <input
+            :type="showPasswordConfirm ? 'text' : 'password'"
+            class="form-control"
+            :class="{ 'is-invalid': errors.password_confirmation }"
+            id="password_confirmation"
+            v-model="form.password_confirmation"
+            placeholder="********"
+            required
+          >
+          <button
+            type="button"
+            class="btn btn-outline-secondary"
+            @click="showPasswordConfirm = !showPasswordConfirm"
+            tabindex="-1"
+          >
+            <i :class="showPasswordConfirm ? 'bi bi-eye-slash' : 'bi bi-eye'"></i>
+          </button>
+        </div>
+        <div v-if="errors.password_confirmation" class="invalid-feedback d-block">
           {{ errors.password_confirmation }}
         </div>
       </div>
@@ -127,6 +147,8 @@ export default {
     const loading = ref(false);
     const errorMessage = ref('');
     const errors = reactive({});
+    const showPassword = ref(false);
+    const showPasswordConfirm = ref(false);
     
     const form = reactive({
       username: '',
@@ -208,6 +230,8 @@ export default {
       loading,
       errors,
       errorMessage,
+      showPassword,
+      showPasswordConfirm,
       handleSubmit
     };
   }
