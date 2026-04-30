@@ -176,127 +176,158 @@ export default {
 <style scoped lang="scss">
 @import "~@/assets/scss/variables.scss";
 
-// ── Hero ──────────────────────────────────────────────────────────────────────
+// ── Hero — glass sobre mesh gradient ─────────────────────────────────────────
 .hero-section {
   margin-top: -1.5rem;
-  background: linear-gradient(160deg, #e0f2fe 0%, #f0f6fb 50%, #e8fdf9 100%);
-  padding-bottom: 4rem !important;
+  padding-top: 5rem !important;
+  padding-bottom: 5rem !important;
+  background: transparent;
+  position: relative;
+  isolation: isolate;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 70% 80% at 50% 0%, rgba(3, 105, 161, 0.10) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 50% at 10% 60%, rgba(230, 152, 152, 0.09) 0%, transparent 50%),
+      radial-gradient(ellipse 50% 50% at 90% 40%, rgba(8, 145, 178, 0.08) 0%, transparent 50%);
+    z-index: -1;
+  }
 }
 
 .hero-badge {
   display: inline-flex;
   align-items: center;
-  background: rgba($primary, 0.1);
+  background: rgba(255, 255, 255, 0.60);
+  backdrop-filter: blur(12px) saturate(180%);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
   color: $primary;
   font-size: 0.8rem;
   font-weight: 600;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  padding: 0.4em 1em;
-  border-radius: 999px;
-  border: 1px solid rgba($primary, 0.2);
+  padding: 0.45em 1.1em;
+  border-radius: 50rem;
+  border: 1px solid rgba(3, 105, 161, 0.20);
+  box-shadow: 0 2px 8px rgba(3, 105, 161, 0.12);
 }
 
 .hero-title {
   font-size: 2.75rem;
-  letter-spacing: -0.03em;
-  line-height: 1.1;
+  letter-spacing: -0.04em;
+  line-height: 1.07;
   color: $dark;
+  font-weight: 800;
 
   @media (min-width: 768px) { font-size: 4rem; }
-  @media (min-width: 992px) { font-size: 4.75rem; }
+  @media (min-width: 992px) { font-size: 5rem; }
 }
 
 .hero-tu      { color: $pink-pastel; }
 .hero-nuestra { color: $primary; }
 
 .hero-subtitle {
-  font-size: 1.1rem;
-  color: #475569;
+  font-size: 1.125rem;
+  color: rgba(28, 28, 30, 0.60);
   max-width: 520px;
   margin-left: auto;
   margin-right: auto;
+  font-weight: 400;
 }
 
 .btn-hero {
-  padding: 0.7rem 1.75rem;
+  padding: 0.75rem 1.75rem;
   font-weight: 600;
-  font-size: 0.975rem;
-  border-radius: $border-radius;
+  font-size: 1rem;
 }
 
 // ── Section headers ────────────────────────────────────────────────────────────
 .section-label {
   font-size: 0.75rem;
   font-weight: 700;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: $secondary;
   margin-bottom: 0.5rem;
 }
 
 .section-title {
-  font-size: 1.75rem;
+  font-size: 1.85rem;
   font-weight: 700;
   color: $dark;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
 }
 
-// ── Feature cards ─────────────────────────────────────────────────────────────
+// ── Feature cards — Liquid Glass ──────────────────────────────────────────────
 .feature-card {
-  background: #fff;
-  border: 1px solid $border-color;
+  background: rgba(255, 255, 255, 0.70);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.82);
   border-radius: $border-radius-lg;
-  box-shadow: $box-shadow;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.9);
   height: 100%;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: $transition-smooth;
 
   &:hover {
-    transform: translateY(-4px);
-    box-shadow: $box-shadow-lg;
+    transform: translateY(-5px) scale(1.01);
+    box-shadow: 0 16px 40px rgba(0,0,0,0.09), inset 0 1px 0 rgba(255,255,255,0.9);
   }
 
-  p { text-align: left; color: #64748b; font-size: 0.925rem; }
+  p { text-align: left; color: rgba(28,28,30,0.55); font-size: 0.925rem; }
 }
 
 .feature-icon-wrap {
-  width: 52px;
-  height: 52px;
-  background: rgba($primary, 0.1);
+  width: 54px;
+  height: 54px;
+  background: linear-gradient(145deg, rgba($primary, 0.16) 0%, rgba($primary, 0.08) 100%);
   border-radius: $border-radius;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 1.5rem;
   color: $primary;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.6);
 }
 
 .feature-title {
   font-size: 1rem;
   font-weight: 700;
   color: $dark;
+  letter-spacing: -0.01em;
   margin-bottom: 0.5rem;
 }
 
-// ── CTA ───────────────────────────────────────────────────────────────────────
-.cta-section { background: $body-bg; }
+// ── CTA — Glass gradient ──────────────────────────────────────────────────────
+.cta-section { background: transparent; }
 
 .cta-inner {
-  background: linear-gradient(135deg, $primary 0%, $secondary 100%);
+  background: linear-gradient(135deg,
+    rgba($primary, 0.88) 0%,
+    rgba($secondary, 0.90) 100%
+  );
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.25);
   border-radius: $border-radius-xl;
-  padding: 3.5rem 2rem;
+  padding: 4rem 2rem;
   color: white;
+  box-shadow:
+    0 24px 60px rgba($primary, 0.28),
+    inset 0 1px 0 rgba(255,255,255,0.22);
 }
 
 .cta-title {
-  font-size: 1.75rem;
+  font-size: 1.85rem;
   font-weight: 700;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
 }
 
 .cta-subtitle {
   font-size: 1.05rem;
-  opacity: 0.9;
+  opacity: 0.88;
   max-width: 520px;
   margin: 0 auto;
 }
@@ -304,42 +335,49 @@ export default {
 .cta-inner .btn-primary {
   background: #fff;
   color: $primary;
-  border-color: #fff;
-  font-weight: 600;
-  &:hover { background: #f0f6fb; border-color: #f0f6fb; }
+  border: 2px solid #fff;
+  font-weight: 700;
+
+  &:hover {
+    background: rgba(255,255,255,0.88);
+    border-color: rgba(255,255,255,0.88);
+    color: darken($primary, 6%);
+  }
 }
 
-// ── Share section ─────────────────────────────────────────────────────────────
-.share-section { background: #fff; border-top: 1px solid $border-color; }
+// ── Share section — Glass ─────────────────────────────────────────────────────
+.share-section {
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-top: 1px solid rgba(255,255,255,0.70);
+}
 
 .share-title { color: $dark; font-size: 1.4rem; letter-spacing: -0.02em; }
 
 .btn-share {
   font-weight: 500;
   font-size: 0.9rem;
-  border-width: 1.5px;
+  border-width: 2px;
   padding: 0.5rem 1.25rem;
-  border-radius: $border-radius;
-  transition: transform 0.15s, box-shadow 0.15s;
-
-  &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  }
+  transition: $transition-smooth;
 }
 
 .btn-whatsapp {
-  color: #16a34a; border-color: #16a34a;
-  &:hover { background: #16a34a; color: white; }
+  color: #16a34a; border-color: rgba(22, 163, 74, 0.5);
+  background: rgba(22, 163, 74, 0.05);
+  &:hover { background: #16a34a; border-color: #16a34a; color: white; }
 }
 
 .btn-twitter {
-  color: #0f172a; border-color: #0f172a;
-  &:hover { background: #0f172a; color: white; }
+  color: #0f172a; border-color: rgba(15, 23, 42, 0.4);
+  background: rgba(15, 23, 42, 0.04);
+  &:hover { background: #0f172a; border-color: #0f172a; color: white; }
 }
 
 .btn-facebook {
-  color: #1877f2; border-color: #1877f2;
-  &:hover { background: #1877f2; color: white; }
+  color: #1877f2; border-color: rgba(24, 119, 242, 0.45);
+  background: rgba(24, 119, 242, 0.04);
+  &:hover { background: #1877f2; border-color: #1877f2; color: white; }
 }
 </style>
