@@ -132,6 +132,10 @@ class UserModel {
     return result.rows[0];
   }
 
+  async deleteById(id) {
+    await pool.query('DELETE FROM users WHERE id = $1', [id]);
+  }
+
   // Eliminar usuario (admin)
   async adminDelete(id) {
     await pool.query('DELETE FROM users WHERE id = $1', [id]);

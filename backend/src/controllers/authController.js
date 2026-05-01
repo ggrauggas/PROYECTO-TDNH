@@ -14,7 +14,10 @@ class AuthController {
 
       const existingEmail = await userModel.findByEmail(email);
       if (existingEmail) {
-        return res.status(400).json({ status: 'error', message: 'El email ya está registrado' });
+        if (existingEmail.is_verified) {
+          return res.status(400).json({ status: 'error', message: 'El email ya está registrado' });
+        }
+        await userModel.deleteById(existingEmail.id);
       }
 
       const existingUsername = await userModel.findByUsername(username);
@@ -31,12 +34,14 @@ class AuthController {
       const expiresAt = new Date(Date.now() + 15 * 60 * 1000);
       await userModel.saveVerificationCode(newUser.id, code, expiresAt);
 
-      await sendVerificationEmail(email, code);
-
       res.status(201).json({
         status: 'success',
         message: 'Registro completado. Hemos enviado un código de verificación a tu email.',
         data: { email }
+      });
+
+      sendVerificationEmail(email, code).catch(err => {
+        console.error('Error enviando email de verificación a', email, ':', err.message);
       });
 
     } catch (error) {
@@ -95,9 +100,12 @@ class AuthController {
       const code = generateCode();
       const expiresAt = new Date(Date.now() + 15 * 60 * 1000);
       await userModel.saveVerificationCode(user.id, code, expiresAt);
-      await sendVerificationEmail(email, code);
 
       res.json({ status: 'success', message: 'Código reenviado a tu email' });
+
+      sendVerificationEmail(email, code).catch(err => {
+        console.error('Error reenviando email de verificación a', email, ':', err.message);
+      });
 
     } catch (error) {
       console.error('Error al reenviar código:', error);
