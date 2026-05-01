@@ -1,13 +1,22 @@
 const nodemailer = require('nodemailer');
-const dns = require('dns');
+const { resolve4 } = require('dns').promises;
 
-dns.setDefaultResultOrder('ipv4first');
+async function sendVerificationEmail(email, code) {
+  const hostname = process.env.EMAIL_HOST || 'smtp.gmail.com';
+  let host;
+  try {
+    const addresses = await resolve4(hostname);
+    host = addresses[0];
+    console.log(`[Email] Resuelto ${hostname} → ${host}`);
+  } catch {
+    host = hostname;
+  }
 
-function createTransporter() {
-  return nodemailer.createTransport({
-    host: process.env.EMAIL_HOST || 'smtp.gmail.com',
+  const transporter = nodemailer.createTransport({
+    host,
     port: parseInt(process.env.EMAIL_PORT) || 465,
     secure: true,
+    tls: { servername: hostname },
     connectionTimeout: 10000,
     greetingTimeout: 10000,
     socketTimeout: 15000,
@@ -16,10 +25,7 @@ function createTransporter() {
       pass: (process.env.EMAIL_PASS || '').replace(/\s/g, '')
     }
   });
-}
 
-async function sendVerificationEmail(email, code) {
-  const transporter = createTransporter();
   const info = await transporter.sendMail({
     from: `"TU diabetes NUESTRA historia" <${process.env.EMAIL_FROM || process.env.EMAIL_USER}>`,
     to: email,
