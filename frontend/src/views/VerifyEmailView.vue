@@ -150,9 +150,9 @@ export default {
     }
 
     onMounted(() => {
-      if (!email.value) router.push('/register');
-      else inputs[0]?.focus();
-      startCooldown();
+      if (!email.value) { router.push('/register'); return; }
+      inputs[0]?.focus();
+      handleResend();
     });
 
     onUnmounted(() => clearInterval(cooldownTimer));
@@ -161,3 +161,24 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+input.form-control {
+  border: 2px solid #dee2e6;
+  border-radius: 8px;
+  box-shadow: none;
+  background-color: #fff;
+  transition: border-color 0.15s ease;
+}
+
+input.form-control:focus {
+  border-color: #0d6efd;
+  box-shadow: none;
+  outline: none;
+}
+
+input.form-control.is-invalid {
+  border-color: #dc3545;
+  box-shadow: none;
+}
+</style>
