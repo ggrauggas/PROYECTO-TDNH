@@ -1,33 +1,10 @@
-const nodemailer = require('nodemailer');
-const { resolve4 } = require('dns').promises;
+const { Resend } = require('resend');
+
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 async function sendVerificationEmail(email, code) {
-  const hostname = process.env.EMAIL_HOST || 'smtp.gmail.com';
-  let host;
-  try {
-    const addresses = await resolve4(hostname);
-    host = addresses[0];
-    console.log(`[Email] Resuelto ${hostname} → ${host}`);
-  } catch {
-    host = hostname;
-  }
-
-  const transporter = nodemailer.createTransport({
-    host,
-    port: parseInt(process.env.EMAIL_PORT) || 465,
-    secure: true,
-    tls: { servername: hostname },
-    connectionTimeout: 10000,
-    greetingTimeout: 10000,
-    socketTimeout: 15000,
-    auth: {
-      user: process.env.EMAIL_USER,
-      pass: (process.env.EMAIL_PASS || '').replace(/\s/g, '')
-    }
-  });
-
-  const info = await transporter.sendMail({
-    from: `"TU diabetes NUESTRA historia" <${process.env.EMAIL_FROM || process.env.EMAIL_USER}>`,
+  const { data, error } = await resend.emails.send({
+    from: 'TU diabetes NUESTRA historia <onboarding@resend.dev>',
     to: email,
     subject: 'Tu código de verificación',
     html: `
@@ -44,7 +21,9 @@ async function sendVerificationEmail(email, code) {
       </div>
     `
   });
-  console.log(`[Email] Enviado a ${email} - MessageId: ${info.messageId}`);
+
+  if (error) throw new Error(error.message);
+  console.log(`[Email] Enviado a ${email} - ID: ${data.id}`);
 }
 
 module.exports = { sendVerificationEmail };
