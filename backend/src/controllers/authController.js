@@ -41,7 +41,7 @@ class AuthController {
       });
 
       sendVerificationEmail(email, code).catch(err => {
-        console.error('Error enviando email de verificación a', email, ':', err.message);
+        console.error('[Email] Error enviando verificación a', email, '-', err.message, err.code || '', err.responseCode || '');
       });
 
     } catch (error) {
@@ -104,7 +104,7 @@ class AuthController {
       res.json({ status: 'success', message: 'Código reenviado a tu email' });
 
       sendVerificationEmail(email, code).catch(err => {
-        console.error('Error reenviando email de verificación a', email, ':', err.message);
+        console.error('[Email] Error reenviando verificación a', email, '-', err.message, err.code || '', err.responseCode || '');
       });
 
     } catch (error) {

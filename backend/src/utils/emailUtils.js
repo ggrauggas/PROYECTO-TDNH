@@ -1,20 +1,20 @@
 const nodemailer = require('nodemailer');
 
-const transporter = nodemailer.createTransport({
-  host: process.env.EMAIL_HOST || 'smtp.gmail.com',
-  port: parseInt(process.env.EMAIL_PORT) || 587,
-  secure: false,
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS
-  },
-  connectionTimeout: 10000,
-  greetingTimeout: 10000,
-  socketTimeout: 10000
-});
+function createTransporter() {
+  return nodemailer.createTransport({
+    host: process.env.EMAIL_HOST || 'smtp.gmail.com',
+    port: parseInt(process.env.EMAIL_PORT) || 465,
+    secure: true,
+    auth: {
+      user: process.env.EMAIL_USER,
+      pass: (process.env.EMAIL_PASS || '').replace(/\s/g, '')
+    }
+  });
+}
 
 async function sendVerificationEmail(email, code) {
-  await transporter.sendMail({
+  const transporter = createTransporter();
+  const info = await transporter.sendMail({
     from: `"TU diabetes NUESTRA historia" <${process.env.EMAIL_FROM || process.env.EMAIL_USER}>`,
     to: email,
     subject: 'Tu código de verificación',
@@ -32,6 +32,7 @@ async function sendVerificationEmail(email, code) {
       </div>
     `
   });
+  console.log(`[Email] Enviado a ${email} - MessageId: ${info.messageId}`);
 }
 
 module.exports = { sendVerificationEmail };
