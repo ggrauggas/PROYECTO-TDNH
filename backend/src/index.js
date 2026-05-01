@@ -1,9 +1,10 @@
+require('dotenv').config();
+
 const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
 const rateLimit = require('express-rate-limit');
-const dotenv = require('dotenv');
 
 const errorMiddleware = require('./middlewares/errorMiddleware');
 
@@ -13,8 +14,6 @@ const commentRoutes = require('./routes/commentRoutes');
 const likeRoutes = require('./routes/likeRoutes');
 const userRoutes = require('./routes/userRoutes');
 const adminRoutes = require('./routes/adminRoutes');
-
-dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
