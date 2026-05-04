@@ -43,7 +43,7 @@
                 <a href="https://www.youtube.com/watch?v=uU4SuI1SmUw" target="_blank">
                   <img src="https://img.youtube.com/vi/uU4SuI1SmUw/hqdefault.jpg" class="card-img-top" alt="Video">
                   <div class="card-body">
-                    <h6 class="card-title">Medición de glucosa</h6>
+                    <h6 class="card-title">Medición de cuerpos cetónicos</h6>
                     <small class="text-muted">Educación en Diabetes</small>
                   </div>
                 </a>
