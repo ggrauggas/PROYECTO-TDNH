@@ -43,13 +43,13 @@
       <div v-else class="row g-4">
         <div class="col-6 col-md-3" v-for="stat in statCards" :key="stat.label">
           <div class="card stat-card h-100 border-0">
-            <div class="card-body d-flex align-items-center gap-3 p-4">
-              <div class="stat-icon rounded-3 p-3" :style="{ backgroundColor: stat.color + '22', color: stat.color }">
-                <i :class="`bi ${stat.icon} fs-4`"></i>
+            <div class="card-body d-flex flex-column align-items-center gap-2 p-3 text-center">
+              <div class="stat-icon rounded-3 p-2 flex-shrink-0" :style="{ backgroundColor: stat.color + '22', color: stat.color }">
+                <i :class="`bi ${stat.icon} fs-5`"></i>
               </div>
-              <div>
-                <div class="stat-number fw-bold fs-3">{{ stat.value }}</div>
-                <div class="text-muted small">{{ stat.label }}</div>
+              <div class="w-100 overflow-hidden">
+                <div class="stat-number fw-bold fs-5 lh-1">{{ stat.value }}</div>
+                <div class="text-muted mt-1 stat-label">{{ stat.label }}</div>
               </div>
             </div>
           </div>
@@ -68,10 +68,10 @@
                   <tr>
                     <th>#</th>
                     <th>Usuario</th>
-                    <th>Email</th>
-                    <th>Publicaciones</th>
+                    <th class="d-none d-md-table-cell">Email</th>
+                    <th>Posts</th>
                     <th>Comentarios</th>
-                    <th>Registro</th>
+                    <th class="d-none d-md-table-cell">Registro</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -89,10 +89,10 @@
                         <span class="fw-medium">{{ user.username }}</span>
                       </div>
                     </td>
-                    <td class="text-muted small">{{ user.email }}</td>
+                    <td class="text-muted small d-none d-md-table-cell">{{ user.email }}</td>
                     <td><span class="badge bg-primary-subtle text-primary">{{ user.post_count || 0 }}</span></td>
                     <td><span class="badge bg-success-subtle text-success">{{ user.comment_count || 0 }}</span></td>
-                    <td class="text-muted small">{{ formatDate(user.created_at) }}</td>
+                    <td class="text-muted small d-none d-md-table-cell">{{ formatDate(user.created_at) }}</td>
                   </tr>
                 </tbody>
               </table>
@@ -748,7 +748,13 @@ export default {
   }
 
   .stat-icon { border-radius: 10px; }
-  .stat-number { color: #1a1a2e; line-height: 1; }
+  .stat-number { color: #1a1a2e; }
+  .stat-label {
+    font-size: 0.72rem;
+    line-height: 1.2;
+    word-break: break-word;
+    overflow-wrap: break-word;
+  }
 }
 
 .mini-avatar {

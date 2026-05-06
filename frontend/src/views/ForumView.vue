@@ -83,35 +83,43 @@ export default {
 
 .search-bar {
   .input-group {
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+    border: 2px solid rgba($primary, 0.22);
     border-radius: $border-radius-lg;
     overflow: hidden;
+    background: #fff;
+    transition: border-color 0.2s;
+
+    &:focus-within {
+      border-color: $primary;
+    }
   }
 
   .search-icon {
     background: #fff;
-    border-right: none;
+    border: none;
     color: $primary;
     font-size: 1rem;
-    padding-left: 1rem;
+    padding-left: 1.1rem;
   }
 
   .search-input {
-    border-left: none;
+    background: #fff;
+    border: none;
     font-size: 0.95rem;
-    padding: 0.65rem 0.75rem;
+    padding: 0.7rem 0.75rem;
 
     &:focus {
       box-shadow: none;
-      border-color: #dee2e6;
+      background: #fff;
     }
   }
 
   .search-clear {
-    border-left: none;
+    background: #fff;
+    border: none;
     color: #94a3b8;
 
-    &:hover { color: $dark; }
+    &:hover { color: $dark; background: #fff; }
   }
 }
 </style>

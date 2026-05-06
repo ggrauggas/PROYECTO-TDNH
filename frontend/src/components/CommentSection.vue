@@ -22,10 +22,12 @@
         </div>
         <div class="flex-grow-1">
           <textarea
+            ref="commentTextarea"
             v-model="newCommentContent"
-            class="form-control"
+            class="form-control auto-grow-textarea"
             :placeholder="replyTo ? 'Escribe tu respuesta...' : 'Escribe un comentario...'"
             rows="2"
+            @input="autoResize"
           ></textarea>
           
           <div v-if="replyTo" class="mt-2 text-muted small">
@@ -94,7 +96,7 @@
 </template>
 
 <script>
-import { ref, computed, onMounted } from 'vue';
+import { ref, computed, onMounted, nextTick } from 'vue';
 import CommentItem from './CommentItem.vue';
 import authStore from '../stores/authStore';
 import commentService from '../services/commentService';
@@ -115,6 +117,19 @@ export default {
     const submitting = ref(false);
     const newCommentContent = ref('');
     const replyTo = ref(null);
+    const commentTextarea = ref(null);
+
+    const autoResize = (event) => {
+      const el = event.target;
+      el.style.height = 'auto';
+      el.style.height = el.scrollHeight + 'px';
+    };
+
+    const resetTextarea = () => {
+      if (commentTextarea.value) {
+        commentTextarea.value.style.height = '';
+      }
+    };
 
     const loadComments = async () => {
       loading.value = true;
@@ -190,6 +205,7 @@ export default {
     const cancelReply = () => {
       replyTo.value = null;
       newCommentContent.value = '';
+      resetTextarea();
     };
 
     const submitComment = async () => {
@@ -216,6 +232,8 @@ export default {
         // Limpiar formulario
         newCommentContent.value = '';
         replyTo.value = null;
+        await nextTick();
+        resetTextarea();
         
       } catch (error) {
         console.error('Error al crear comentario:', error);
@@ -251,6 +269,8 @@ export default {
       submitting,
       newCommentContent,
       replyTo,
+      commentTextarea,
+      autoResize,
       rootComments,
       commentsById,
       threadReplies,
@@ -272,6 +292,12 @@ export default {
   margin-top: 2rem;
   padding-top: 2rem;
   border-top: 1px solid #dee2e6;
+}
+
+.auto-grow-textarea {
+  min-height: 72px;
+  resize: none;
+  overflow: hidden;
 }
 
 .avatar-circle {

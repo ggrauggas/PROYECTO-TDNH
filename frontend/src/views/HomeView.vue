@@ -99,13 +99,13 @@
           Cuantos más seamos, más nos ayudamos.
         </p>
         <div class="d-flex flex-wrap justify-content-center gap-3">
-          <a :href="shareUrls.whatsapp" target="_blank" rel="noopener" class="btn btn-share btn-whatsapp">
+          <a :href="shareUrls.whatsapp" target="_blank" rel="noopener" class="btn btn-outline-success">
             <i class="bi bi-whatsapp me-2"></i>WhatsApp
           </a>
-          <a :href="shareUrls.twitter" target="_blank" rel="noopener" class="btn btn-share btn-twitter">
+          <a :href="shareUrls.twitter" target="_blank" rel="noopener" class="btn btn-outline-dark">
             <i class="bi bi-twitter-x me-2"></i>Twitter / X
           </a>
-          <a :href="shareUrls.facebook" target="_blank" rel="noopener" class="btn btn-share btn-facebook">
+          <a :href="shareUrls.facebook" target="_blank" rel="noopener" class="btn btn-outline-primary">
             <i class="bi bi-facebook me-2"></i>Facebook
           </a>
         </div>
@@ -276,12 +276,14 @@ export default {
     box-shadow: 0 16px 40px rgba(0,0,0,0.09), inset 0 1px 0 rgba(255,255,255,0.9);
   }
 
-  p { text-align: left; color: rgba(28,28,30,0.55); font-size: 0.925rem; }
+  text-align: center;
+  p { color: rgba(28,28,30,0.55); font-size: 0.925rem; }
 }
 
 .feature-icon-wrap {
   width: 54px;
   height: 54px;
+  margin: 0 auto;
   background: linear-gradient(145deg, rgba($primary, 0.16) 0%, rgba($primary, 0.08) 100%);
   border-radius: $border-radius;
   display: flex;
@@ -355,29 +357,4 @@ export default {
 
 .share-title { color: $dark; font-size: 1.4rem; letter-spacing: -0.02em; }
 
-.btn-share {
-  font-weight: 500;
-  font-size: 0.9rem;
-  border-width: 2px;
-  padding: 0.5rem 1.25rem;
-  transition: $transition-smooth;
-}
-
-.btn-whatsapp {
-  color: #16a34a; border-color: rgba(22, 163, 74, 0.5);
-  background: rgba(22, 163, 74, 0.05);
-  &:hover { background: #16a34a; border-color: #16a34a; color: white; }
-}
-
-.btn-twitter {
-  color: #0f172a; border-color: rgba(15, 23, 42, 0.4);
-  background: rgba(15, 23, 42, 0.04);
-  &:hover { background: #0f172a; border-color: #0f172a; color: white; }
-}
-
-.btn-facebook {
-  color: #1877f2; border-color: rgba(24, 119, 242, 0.45);
-  background: rgba(24, 119, 242, 0.04);
-  &:hover { background: #1877f2; border-color: #1877f2; color: white; }
-}
 </style>

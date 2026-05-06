@@ -1,5 +1,8 @@
 const commentModel = require('../models/commentModel');
 const likeModel = require('../models/likeModel');
+const postModel = require('../models/postModel');
+const userModel = require('../models/userModel');
+const { sendCommentNotification } = require('../utils/emailUtils');
 
 class CommentController {
   // Crear un comentario
@@ -23,6 +26,16 @@ class CommentController {
         message: 'Comentario agregado exitosamente',
         data: { comment: commentWithAuthor }
       });
+
+      // Notificación al autor del post (async, sin bloquear respuesta)
+      postModel.findById(post_id).then(async (post) => {
+        if (!post || post.user_id === user_id) return;
+        const owner = await userModel.findById(post.user_id);
+        if (!owner?.notifications_enabled) return;
+        sendCommentNotification(owner.email, req.user.username, post.title, post.id).catch(err => {
+          console.error('[Email] Error enviando notificación comentario:', err.message);
+        });
+      }).catch(() => {});
 
     } catch (error) {
       console.error('Error al crear comentario:', error);
