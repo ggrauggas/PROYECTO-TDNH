@@ -189,13 +189,15 @@
           Desde fuera puede parecer que solo "se pinchan insulina y ya". La realidad es
           bastante más compleja y exigente.
         </p>
-        <div class="row g-3 mb-2">
+        <div class="row g-3 mb-4">
           <div class="col-md-6" v-for="aspect in t1Aspects" :key="aspect.title">
-            <div class="d-flex gap-3">
-              <i :class="`bi ${aspect.icon} text-primary flex-shrink-0`" style="font-size:1.6rem; margin-top:2px;"></i>
-              <div>
-                <h6 class="fw-semibold mb-1">{{ aspect.title }}</h6>
-                <p class="text-muted small mb-0">{{ aspect.text }}</p>
+            <div class="card border-0 shadow-sm h-100">
+              <div class="card-body d-flex gap-3">
+                <i :class="`bi ${aspect.icon} text-primary flex-shrink-0`" style="font-size:1.6rem; margin-top:2px;"></i>
+                <div>
+                  <h6 class="fw-semibold mb-1">{{ aspect.title }}</h6>
+                  <p class="text-muted small mb-0">{{ aspect.text }}</p>
+                </div>
               </div>
             </div>
           </div>
@@ -334,8 +336,8 @@
           Mitos que conviene desmontar
         </h2>
 
-        <h5 class="mt-3 mb-3 d-flex align-items-center gap-2">
-          <span class="badge bg-primary">Tipo 1</span> Mitos específicos
+        <h5 class="mt-4 mb-3 d-flex align-items-center gap-2">
+          <span class="badge bg-primary fs-6">Tipo 1</span> Mitos específicos
         </h5>
         <div class="row g-3 mb-4">
           <div class="col-md-6" v-for="myth in mythsT1" :key="myth.myth">
@@ -353,8 +355,8 @@
           </div>
         </div>
 
-        <h5 class="mb-3 d-flex align-items-center gap-2">
-          <span class="badge bg-success">Tipo 2</span> Mitos específicos
+        <h5 class="mt-4 mb-3 d-flex align-items-center gap-2">
+          <span class="badge bg-success fs-6">Tipo 2</span> Mitos específicos
         </h5>
         <div class="row g-3 mb-4">
           <div class="col-md-6" v-for="myth in mythsT2" :key="myth.myth">
@@ -372,8 +374,8 @@
           </div>
         </div>
 
-        <h5 class="mb-3 d-flex align-items-center gap-2">
-          <span class="badge bg-secondary">General</span> Válidos para ambos tipos
+        <h5 class="mt-4 mb-3 d-flex align-items-center gap-2">
+          <span class="badge bg-secondary fs-6">General</span> Válidos para ambos tipos
         </h5>
         <div class="row g-3">
           <div class="col-md-6" v-for="myth in mythsGeneral" :key="myth.myth">
@@ -587,7 +589,7 @@ export default {
           text: 'El estrés, el calor, una infección, una emoción fuerte, dormir mal… cualquier cosa puede alterar los niveles. No siempre hay explicación lógica.'
         },
         {
-          icon: 'bi-brain',
+          icon: 'bi-emoji-dizzy',
           title: 'La carga mental es enorme',
           text: 'Se toman decenas de decisiones al día relacionadas con la diabetes. Este esfuerzo constante, invisible para los demás, se llama diabetes distress y es agotador.'
         },
@@ -840,12 +842,8 @@ export default {
 .info-section {
   scroll-margin-top: 80px;
 
-  > p,
-  .card-body p,
-  .list-group-item div,
-  .alert p,
-  .d-flex p {
-    text-align: justify;
+  > p {
+    text-align: left;
   }
 }
 
@@ -869,6 +867,11 @@ export default {
 
 .myth-card {
   border-left: 3px solid #e9ecef !important;
+}
+
+h5 .badge {
+  min-width: 4.5rem;
+  text-align: center;
 }
 
 .share-cta {

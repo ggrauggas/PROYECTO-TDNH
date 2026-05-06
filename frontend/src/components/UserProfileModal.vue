@@ -191,11 +191,11 @@ export default {
 }
 
 .ulb-img-wrap img {
-  max-width: min(400px, 85vw);
-  max-height: 80vh;
-  border-radius: 16px;
+  width: min(320px, 80vw);
+  height: min(320px, 80vw);
+  border-radius: 50%;
   box-shadow: 0 8px 40px rgba(0,0,0,0.5);
-  object-fit: contain;
+  object-fit: cover;
 }
 
 .ulb-initial {
