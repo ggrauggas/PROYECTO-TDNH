@@ -10,7 +10,7 @@ class AuthController {
   // Registro de nuevo usuario
   async register(req, res) {
     try {
-      const { username, email, password, full_name, diabetes_type, diagnosis_date, bio, glucose_enabled } = req.body;
+      const { username, email, password, full_name, diabetes_type, diagnosis_date, bio, glucose_enabled, notifications_enabled } = req.body;
 
       const existingEmail = await userModel.findByEmail(email);
       if (existingEmail) {
@@ -27,7 +27,8 @@ class AuthController {
 
       const newUser = await userModel.create({
         username, email, password, full_name, diabetes_type, diagnosis_date, bio,
-        glucose_enabled: glucose_enabled !== undefined ? Boolean(glucose_enabled) : false
+        glucose_enabled: glucose_enabled !== undefined ? Boolean(glucose_enabled) : false,
+        notifications_enabled: notifications_enabled !== undefined ? Boolean(notifications_enabled) : false
       });
 
       const code = generateCode();
@@ -166,7 +167,7 @@ class AuthController {
   // Actualizar perfil
   async updateProfile(req, res) {
     try {
-      const { full_name, diabetes_type, diagnosis_date, bio, avatar_url, glucose_enabled, current_password, new_password } = req.body;
+      const { full_name, diabetes_type, diagnosis_date, bio, avatar_url, glucose_enabled, notifications_enabled, current_password, new_password } = req.body;
 
       let hashedPassword = null;
 
@@ -188,6 +189,7 @@ class AuthController {
         diagnosis_date: diagnosis_date || null,
         bio, avatar_url,
         glucose_enabled: glucose_enabled !== undefined ? Boolean(glucose_enabled) : undefined,
+        notifications_enabled: notifications_enabled !== undefined ? Boolean(notifications_enabled) : undefined,
         hashedPassword
       });
 

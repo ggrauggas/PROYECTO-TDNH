@@ -110,6 +110,26 @@
         </div>
       </div>
 
+      <div class="mb-3 p-3 rounded-3 border" style="background: #f8f9fa;">
+        <div class="form-check form-switch d-flex align-items-start gap-2 m-0">
+          <input
+            class="form-check-input mt-1 flex-shrink-0"
+            type="checkbox"
+            id="notifications-toggle"
+            v-model="form.notifications_enabled"
+            style="width: 2.5em; height: 1.4em;"
+          />
+          <label class="form-check-label" for="notifications-toggle">
+            <span class="fw-semibold d-block mb-1">
+              <i class="bi bi-bell text-primary me-1"></i>Activar notificaciones por email
+            </span>
+            <span class="text-muted small">
+              Recibe un email cuando alguien comente o dé like a tus publicaciones.
+            </span>
+          </label>
+        </div>
+      </div>
+
       <button
         type="submit"
         class="btn btn-primary w-100"
@@ -155,7 +175,8 @@ export default {
       email: '',
       password: '',
       password_confirmation: '',
-      glucose_enabled: false
+      glucose_enabled: false,
+      notifications_enabled: false
     });
 
     const validateForm = () => {
@@ -205,7 +226,8 @@ export default {
           email: form.email,
           password: form.password,
           full_name: form.username,
-          glucose_enabled: form.glucose_enabled
+          glucose_enabled: form.glucose_enabled,
+          notifications_enabled: form.notifications_enabled
         });
         
         console.log('Registro response:', response);

@@ -161,6 +161,26 @@
                 </div>
               </div>
 
+              <div class="mb-3 p-3 rounded-3 border" style="background: #f8f9fa;">
+                <div class="form-check form-switch d-flex align-items-start gap-2 m-0">
+                  <input
+                    class="form-check-input mt-1 flex-shrink-0"
+                    type="checkbox"
+                    id="notifications-toggle"
+                    v-model="editForm.notifications_enabled"
+                    style="width: 2.5em; height: 1.4em;"
+                  />
+                  <label class="form-check-label" for="notifications-toggle">
+                    <span class="fw-semibold d-block mb-1">
+                      <i class="bi bi-bell text-primary me-1"></i>Notificaciones por email
+                    </span>
+                    <span class="text-muted small">
+                      Recibe un email cuando alguien comente o dé like a tus publicaciones.
+                    </span>
+                  </label>
+                </div>
+              </div>
+
               <div class="d-flex justify-content-end gap-2">
                 <button type="button" class="btn btn-secondary" @click="cancelEdit">
                   Cancelar
@@ -176,7 +196,7 @@
 
         <!-- Estadísticas -->
         <div class="card mb-4">
-          <div class="card-header bg-info text-white">
+          <div class="card-header bg-primary text-white">
             <h5 class="mb-0">
               <i class="bi bi-bar-chart me-2"></i>
               Mis estadísticas
@@ -202,7 +222,7 @@
 
         <!-- Mis últimas publicaciones -->
         <div class="card">
-          <div class="card-header bg-success text-white">
+          <div class="card-header bg-primary text-white">
             <h5 class="mb-0">
               <i class="bi bi-file-text me-2"></i>
               Mis últimas publicaciones
@@ -266,6 +286,7 @@ export default {
       diagnosis_date: '',
       bio: '',
       glucose_enabled: false,
+      notifications_enabled: false,
       current_password: '',
       new_password: '',
       confirm_password: ''
@@ -281,6 +302,7 @@ export default {
         editForm.diagnosis_date = user.value.diagnosis_date || '';
         editForm.bio = user.value.bio || '';
         editForm.glucose_enabled = user.value.glucose_enabled || false;
+        editForm.notifications_enabled = user.value.notifications_enabled || false;
 
         // Cargar publicaciones recientes del usuario y estadísticas reales en paralelo
         const [postsResponse, statsResponse] = await Promise.all([
@@ -389,7 +411,8 @@ export default {
           diabetes_type: editForm.diabetes_type,
           diagnosis_date: editForm.diagnosis_date,
           bio: editForm.bio,
-          glucose_enabled: editForm.glucose_enabled
+          glucose_enabled: editForm.glucose_enabled,
+          notifications_enabled: editForm.notifications_enabled
         };
         if (editForm.new_password) {
           payload.current_password = editForm.current_password;
@@ -438,6 +461,7 @@ export default {
       editForm.diagnosis_date = user.value.diagnosis_date || '';
       editForm.bio = user.value.bio || '';
       editForm.glucose_enabled = user.value.glucose_enabled || false;
+      editForm.notifications_enabled = user.value.notifications_enabled || false;
       editForm.current_password = '';
       editForm.new_password = '';
       editForm.confirm_password = '';
