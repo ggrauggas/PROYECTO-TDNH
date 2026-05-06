@@ -60,9 +60,11 @@
       <!-- Modo edición -->
       <div v-if="isEditing" class="mt-2">
         <textarea
+          ref="editTextarea"
           v-model="editedContent"
-          class="form-control form-control-sm"
+          class="form-control form-control-sm auto-grow-textarea"
           rows="2"
+          @input="autoResize"
         ></textarea>
         <div class="mt-2">
           <button class="btn btn-primary btn-sm me-2" @click="saveEdit">
@@ -115,7 +117,7 @@
 </template>
 
 <script>
-import { ref, computed } from 'vue';
+import { ref, computed, nextTick } from 'vue';
 import LikeButton from './LikeButton.vue';
 import UserProfileModal from './UserProfileModal.vue';
 import authStore from '../stores/authStore';
@@ -142,6 +144,13 @@ export default {
   setup(props, { emit }) {
     const isEditing = ref(false);
     const editedContent = ref(props.comment.content);
+    const editTextarea = ref(null);
+
+    const autoResize = (event) => {
+      const el = event.target;
+      el.style.height = 'auto';
+      el.style.height = el.scrollHeight + 'px';
+    };
 
     const isAuthor = computed(() => authStore.user?.id === props.comment.user_id);
 
@@ -173,9 +182,14 @@ export default {
       return colors[(name?.length || 0) % colors.length];
     };
 
-    const startEditing = () => {
+    const startEditing = async () => {
       editedContent.value = props.comment.content;
       isEditing.value = true;
+      await nextTick();
+      if (editTextarea.value) {
+        editTextarea.value.style.height = 'auto';
+        editTextarea.value.style.height = editTextarea.value.scrollHeight + 'px';
+      }
     };
 
     const cancelEdit = () => {
@@ -210,6 +224,8 @@ export default {
     return {
       isEditing,
       editedContent,
+      editTextarea,
+      autoResize,
       isAuthor,
       hasReplies,
       parentAuthorName,
@@ -318,6 +334,13 @@ export default {
 /* ── Respuestas anidadas (sin indentación extra) ────────── */
 .thread-replies {
   margin-top: 0;
+}
+
+/* ── Textarea auto-grow ──────────────────────────────────── */
+.auto-grow-textarea {
+  min-height: 72px;
+  resize: none;
+  overflow: hidden;
 }
 
 /* ── Utilidades ──────────────────────────────────────────── */
