@@ -39,7 +39,8 @@ async function sendVerificationEmail(email, code) {
 }
 
 async function sendCommentNotification(email, commenterUsername, postTitle, postId) {
-  const postUrl = `http://localhost:8080/post/${postId}`;
+  const baseUrl = process.env.FRONTEND_URL || 'https://tudiabetes.netlify.app';
+  const postUrl = `${baseUrl}/post/${postId}`;
   const response = await fetch('https://api.brevo.com/v3/smtp/email', {
     method: 'POST',
     headers: {
@@ -84,7 +85,8 @@ async function sendCommentNotification(email, commenterUsername, postTitle, post
 }
 
 async function sendLikeNotification(email, likerUsername, postTitle, postId) {
-  const postUrl = `http://localhost:8080/post/${postId}`;
+  const baseUrl = process.env.FRONTEND_URL || 'https://tudiabetes.netlify.app';
+  const postUrl = `${baseUrl}/post/${postId}`;
   const response = await fetch('https://api.brevo.com/v3/smtp/email', {
     method: 'POST',
     headers: {
