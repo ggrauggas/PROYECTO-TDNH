@@ -176,7 +176,7 @@
 
         <!-- Estadísticas -->
         <div class="card mb-4">
-          <div class="card-header bg-info text-white">
+          <div class="card-header bg-primary text-white">
             <h5 class="mb-0">
               <i class="bi bi-bar-chart me-2"></i>
               Mis estadísticas
@@ -202,7 +202,7 @@
 
         <!-- Mis últimas publicaciones -->
         <div class="card">
-          <div class="card-header bg-success text-white">
+          <div class="card-header bg-primary text-white">
             <h5 class="mb-0">
               <i class="bi bi-file-text me-2"></i>
               Mis últimas publicaciones
