@@ -38,7 +38,6 @@ export default {
     const loading = ref(false);
 
     const handlePostDeleted = (postId) => {
-      // El PostList ya maneja la eliminación
       console.log('Post eliminado:', postId);
     };
 

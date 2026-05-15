@@ -6,13 +6,13 @@ const authStore = reactive({
   isAuthenticated: authService.isAuthenticated(),
 
   setUser(user) {
-    console.log('👤 Usuario actualizado:', user);
+    console.log(' Usuario actualizado:', user);
     this.user = user;
     this.isAuthenticated = !!user;
   },
 
   logout() {
-    console.log('👋 Cerrando sesión');
+    console.log(' Cerrando sesión');
     authService.logout();
     this.user = null;
     this.isAuthenticated = false;

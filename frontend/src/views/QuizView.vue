@@ -487,7 +487,6 @@ export default {
 .fade-enter-active, .fade-leave-active { transition: opacity 0.3s; }
 .fade-enter-from, .fade-leave-to { opacity: 0; }
 
-// Círculo de puntuación
 .score-circle {
   position: relative;
   width: 140px;

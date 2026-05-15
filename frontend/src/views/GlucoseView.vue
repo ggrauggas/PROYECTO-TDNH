@@ -8,7 +8,7 @@
       <p class="text-muted mb-0">Importa tu archivo CSV y visualiza tus datos de glucosa de forma gráfica</p>
     </div>
 
-    <!-- Zona de carga / instrucciones (cuando no hay datos) -->
+    <!-- Zona de carga / instrucciones -->
     <div v-if="!csvData.length" class="row g-4">
 
       <!-- Dropzone -->
@@ -73,7 +73,7 @@
       </div>
     </div>
 
-    <!-- Dashboard con datos cargados -->
+    <!-- Dashboard con datos -->
     <div v-else>
       <!-- Barra de acciones -->
       <div class="d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center gap-2 mb-4">
@@ -255,7 +255,6 @@ export default {
 
       const headers = lines[0].toLowerCase().split(/[,;|\t]/).map(h => h.trim().replace(/"/g, ''));
 
-      // Buscar columnas de fecha y glucosa (nombres comunes en distintos exportadores)
       const dateAliases = ['marca temporal', 'timestamp', 'fecha', 'date', 'datetime', 'device timestamp', 'time', 'hora'];
       const glucoseAliases = ['nivel de glucosa', 'glucosa', 'glucose', 'valor', 'value', 'historic glucose mg/dl', 'scan glucose mg/dl', 'calculated value', 'mg/dl', 'mmol'];
 
@@ -343,7 +342,6 @@ export default {
       const tir = Math.round((inRange / values.length) * 100);
       const low = values.filter(v => v < 70).length;
       const high = values.filter(v => v > 180).length;
-      // eHbA1c aproximado
       const a1c = ((avg + 46.7) / 28.7).toFixed(1);
       return { avg, max, min, tir, low, high, a1c };
     });
@@ -390,7 +388,7 @@ export default {
       }).slice(-200).reverse();
     });
 
-    // ---- Helpers glucosa ----
+    // ---- Helpers ----
     const getGlucoseColor = (v) => v < 70 ? '#e76f51' : v > 180 ? '#e9c46a' : '#2a9d8f';
     const getGlucoseBadge = (v) => v < 70 ? 'bg-danger' : v > 180 ? 'bg-warning text-dark' : 'bg-success';
     const getGlucoseLabel = (v) => v < 70 ? 'Hipo' : v > 180 ? 'Hiper' : 'Normal';
@@ -411,14 +409,11 @@ export default {
       const data = filteredData.value;
       if (!data.length) return;
 
-      // Destruir gráficos anteriores
       [lineChart, pieChart, barChart].forEach(c => c?.destroy());
 
-      // Datos para línea (máx 200 puntos)
       const step = Math.max(1, Math.floor(data.length / 200));
       const lineData = data.filter((_, i) => i % step === 0);
 
-      // Línea principal
       const lineCtx = lineChartRef.value?.getContext('2d');
       if (lineCtx) {
         lineChart = new window.Chart(lineCtx, {
@@ -492,7 +487,6 @@ export default {
         });
       }
 
-      // Bar - patrón por hora
       const hourlyAvg = Array.from({ length: 24 }, (_, h) => {
         const hourData = data.filter(d => d.timestamp.getHours() === h);
         return hourData.length ? Math.round(hourData.reduce((s, d) => s + d.glucose, 0) / hourData.length) : null;

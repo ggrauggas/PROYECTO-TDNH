@@ -1,5 +1,5 @@
 <template>
-  <!-- ── Lightbox avatar ── -->
+  <!-- ── Avatar ── -->
   <Teleport to="body">
     <Transition name="ulb">
       <div v-if="avatarOpen" class="ulb-overlay" @click="avatarOpen = false">
@@ -33,7 +33,7 @@
           </div>
 
           <template v-else-if="profile">
-            <!-- Avatar clickable -->
+            <!-- Avatar -->
             <div class="upm-avatar-wrap" @click="openAvatarFromProfile" title="Ver foto en grande">
               <div
                 class="upm-avatar"
@@ -108,14 +108,12 @@ export default {
       return new Date(d).toLocaleDateString('es-ES', { year: 'numeric', month: 'long' });
     };
 
-    /** Llamado desde el padre al pulsar el avatar */
     const openAvatar = ({ avatarUrl, authorName }) => {
       lightboxSrc.value  = avatarUrl || null;
       lightboxName.value = authorName || '';
       avatarOpen.value   = true;
     };
 
-    /** Llamado desde dentro del modal de perfil */
     const openAvatarFromProfile = () => {
       if (!profile.value) return;
       lightboxSrc.value  = profile.value.avatar_url || null;
@@ -123,7 +121,6 @@ export default {
       avatarOpen.value   = true;
     };
 
-    /** Llamado desde el padre al pulsar el nombre */
     const openProfile = async (userId) => {
       profileOpen.value = true;
       loading.value     = true;
@@ -218,7 +215,7 @@ export default {
   margin: 0;
 }
 
-/* Lightbox transitions */
+/* Transitions */
 .ulb-enter-active, .ulb-leave-active { transition: opacity 0.2s ease; }
 .ulb-enter-from, .ulb-leave-to { opacity: 0; }
 

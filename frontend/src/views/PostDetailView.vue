@@ -24,7 +24,8 @@
     </div>
 
     <div v-else-if="post && !post.is_deleted" class="post-detail">
-      <!-- Navegación -->
+
+      <!-- Nav -->
       <div class="mb-3">
         <router-link to="/forum" class="text-decoration-none">
           <i class="bi bi-arrow-left me-2"></i>
@@ -111,7 +112,6 @@
         </div>
       </div>
 
-      <!-- Sección de comentarios -->
       <CommentSection :post-id="post.id" @comment-count-changed="post.comment_count = $event" />
     </div>
 

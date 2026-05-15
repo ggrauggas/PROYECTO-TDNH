@@ -145,20 +145,17 @@ export default {
 
     onMounted(loadComments);
 
-    // Organizar comentarios en árbol
     const rootComments = computed(() => {
       return comments.value.filter(c => !c.parent_comment_id);
     });
 
-    // Mapa id -> objeto comentario para lookups de autor
     const commentsById = computed(() => {
       const map = {};
       comments.value.forEach(c => { map[c.id] = c; });
       return map;
     });
 
-    // Para cada comentario raíz, todos sus descendientes en orden (aplanados)
-    // Esto limita la indentación visual a 1 nivel, como YouTube/Twitter
+
     const threadReplies = computed(() => {
       const threads = {};
 
@@ -171,7 +168,6 @@ export default {
         }
       });
 
-      // Recoge todos los descendientes en profundidad (DFS) para cada raíz
       const collectDescendants = (commentId, result) => {
         (directReplies[commentId] || []).forEach(child => {
           result.push(child);
@@ -225,11 +221,9 @@ export default {
         
         const response = await commentService.create(commentData);
         
-        // Añadir el nuevo comentario a la lista
         comments.value.push(response.data.comment);
         emit('comment-count-changed', comments.value.length);
 
-        // Limpiar formulario
         newCommentContent.value = '';
         replyTo.value = null;
         await nextTick();
@@ -320,7 +314,7 @@ export default {
   border-radius: 50%;
 }
 
-/* Separador entre hilos de comentarios raíz */
+/* Separador entre hilos de comentarios */
 .comment-group {
   border-bottom: 1px solid #e7e7e8;
 
