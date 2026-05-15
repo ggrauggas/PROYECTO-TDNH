@@ -532,7 +532,7 @@
         su vida. Entenderla es una forma de querer.
       </div>
 
-      <!-- CTA foro -->
+      <!-- foro -->
       <div class="text-center mt-4">
         <router-link to="/forum" class="btn btn-outline-primary btn-lg">
           <i class="bi bi-chat-dots me-2"></i>
@@ -540,7 +540,7 @@
         </router-link>
       </div>
 
-      <!-- CTA compartir -->
+      <!-- Compartir -->
       <div class="share-cta mt-5 p-4 rounded-3 text-center">
         <div class="mb-3">
           <i class="bi bi-share-fill" style="font-size: 2rem; color: #2c7da0;"></i>

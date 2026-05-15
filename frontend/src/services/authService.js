@@ -3,7 +3,7 @@ import api from './api';
 class AuthService {
   async register(userData) {
     try {
-      console.log('📝 Intentando registrar usuario:', userData.email);
+      console.log('Intentando registrar usuario:', userData.email);
       
       // Asegurarse de que los datos están en el formato correcto
       const dataToSend = {
@@ -18,11 +18,11 @@ class AuthService {
       };
       
       const response = await api.post('/auth/register', dataToSend);
-      console.log('✅ Registro exitoso:', response.data);
+      console.log('Registro exitoso:', response.data);
       
       return response.data;
     } catch (error) {
-      console.error('❌ Error en registro:', error.response?.data || error.message);
+      console.error('Error en registro:', error.response?.data || error.message);
       throw error;
     }
   }
@@ -36,7 +36,7 @@ class AuthService {
       }
       return response.data;
     } catch (error) {
-      console.error('❌ Error en verificación:', error.response?.data || error.message);
+      console.error('Error en verificación:', error.response?.data || error.message);
       throw error;
     }
   }
@@ -46,21 +46,21 @@ class AuthService {
       const response = await api.post('/auth/resend-verification', { email });
       return response.data;
     } catch (error) {
-      console.error('❌ Error al reenviar:', error.response?.data || error.message);
+      console.error('Error al reenviar:', error.response?.data || error.message);
       throw error;
     }
   }
 
   async login(credentials) {
     try {
-      console.log('🔑 Intentando login:', credentials.email);
+      console.log('Intentando login:', credentials.email);
       
       const response = await api.post('/auth/login', {
         email: credentials.email,
         password: credentials.password
       });
       
-      console.log('✅ Login exitoso:', response.data);
+      console.log('Login exitoso:', response.data);
       
       if (response.data.data?.token) {
         localStorage.setItem('token', response.data.data.token);
@@ -69,13 +69,13 @@ class AuthService {
       
       return response.data;
     } catch (error) {
-      console.error('❌ Error en login:', error.response?.data || error.message);
+      console.error('Error en login:', error.response?.data || error.message);
       throw error;
     }
   }
 
   logout() {
-    console.log('🚪 Cerrando sesión');
+    console.log('Cerrando sesión');
     localStorage.removeItem('token');
     localStorage.removeItem('user');
   }

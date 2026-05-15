@@ -6,7 +6,7 @@ async function runMigrations() {
   const client = await pool.connect();
   
   try {
-    console.log('🔄 Iniciando migraciones...');
+    console.log('Iniciando migraciones...');
     
     // Crear tabla de control de migraciones si no existe
     await client.query(`
@@ -29,7 +29,7 @@ async function runMigrations() {
     
     for (const file of migrationFiles) {
       if (!executedNames.includes(file)) {
-        console.log(`📦 Ejecutando migración: ${file}`);
+        console.log(`Ejecutando migración: ${file}`);
         
         const filePath = path.join(migrationsDir, file);
         const sql = fs.readFileSync(filePath, 'utf8');
@@ -39,20 +39,20 @@ async function runMigrations() {
           await client.query(sql);
           await client.query('INSERT INTO migrations (name) VALUES ($1)', [file]);
           await client.query('COMMIT');
-          console.log(`✅ Migración completada: ${file}`);
+          console.log(`Migración completada: ${file}`);
         } catch (error) {
           await client.query('ROLLBACK');
-          console.error(`❌ Error en migración ${file}:`, error.message);
+          console.error(`Error en migración ${file}:`, error.message);
           throw error;
         }
       } else {
-        console.log(`⏭️  Migración ya ejecutada: ${file}`);
+        console.log(`Migración ya ejecutada: ${file}`);
       }
     }
-    
-    console.log('🎉 Todas las migraciones completadas exitosamente');
+
+    console.log('Todas las migraciones completadas exitosamente');
   } catch (error) {
-    console.error('❌ Error ejecutando migraciones:', error);
+    console.error('Error ejecutando migraciones:', error);
     throw error;
   } finally {
     client.release(); // Solo liberamos el cliente, no cerramos el pool

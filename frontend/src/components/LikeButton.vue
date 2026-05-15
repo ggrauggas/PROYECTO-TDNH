@@ -193,7 +193,6 @@ export default {
   &:hover { color: $primary; }
 }
 
-/* Dialog overlay */
 .lkd-overlay {
   position: fixed;
   inset: 0;

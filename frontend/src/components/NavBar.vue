@@ -3,7 +3,7 @@
     <div class="container">
       <router-link class="navbar-brand" to="/">
         <img src="/TD-NH.ico" alt="Logo" class="brand-logo me-2" />
-        <span class="brand-tu">TU</span> diabetes
+        <span class="brand-tu">TU</span> <span class="hero-nuestra">DIABETES </span>
         <span class="brand-tu">NUESTRA</span> historia
       </router-link>
       
@@ -35,16 +35,16 @@
             </router-link>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link" to="/about" :class="{ active: $route.path === '/about' }">
-              <i class="bi bi-info-circle me-1"></i> Quiénes somos
-            </router-link>
-          </li>
-          <li class="nav-item">
             <router-link class="nav-link" to="/videos" :class="{ active: $route.path === '/videos' }">
               <i class="bi bi-play-circle me-1"></i> Videos
             </router-link>
           </li>
-          <!-- DONACIONES - DESHABILITADO TEMPORALMENTE
+          <li class="nav-item">
+            <router-link class="nav-link" to="/about" :class="{ active: $route.path === '/about' }">
+              <i class="bi bi-info-circle me-1"></i> Quiénes somos
+            </router-link>
+          </li>
+          <!-- DONACIONES - DESHABILITADO
           <li class="nav-item">
             <router-link class="nav-link" to="/donate" :class="{ active: $route.path === '/donate' }">
               <i class="bi bi-heart me-1"></i> Donaciones

@@ -1,7 +1,7 @@
 #!/bin/bash
 # Script para listar los backups disponibles
 
-echo "📋 Backups disponibles:"
+echo "Backups disponibles:"
 echo "================================"
 
 if [ ! -d "database/backups" ]; then
