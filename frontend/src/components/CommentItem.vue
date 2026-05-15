@@ -1,6 +1,6 @@
 <template>
   <div class="comment-thread">
-    <!-- Columna izquierda: avatar + línea de hilo -->
+    <!-- Columna izquierda -->
     <div class="thread-left">
       <div
         class="avatar-circle"
@@ -12,19 +12,19 @@
         <img v-if="comment.author_avatar" :src="comment.author_avatar" alt="avatar" class="avatar-img" />
         <span v-else>{{ comment.author_name?.charAt(0) || 'U' }}</span>
       </div>
-      <!-- Línea de hilo: se extiende automáticamente para cubrir todas las respuestas -->
+      <!-- Línea de hilo -->
       <div v-if="hasReplies" class="thread-line"></div>
     </div>
 
-    <!-- Columna derecha: contenido + respuestas anidadas -->
+    <!-- Columna derecha -->
     <div class="thread-right">
-      <!-- Indicador "En respuesta a" -->
+      <!-- "En respuesta a" -->
       <div v-if="parentAuthorName" class="reply-indicator">
         <i class="bi bi-arrow-return-right me-1"></i>
         En respuesta a <span class="reply-to-name">{{ parentAuthorName }}</span>
       </div>
 
-      <!-- Cabecera: nombre, badge, fecha, menú -->
+      <!-- Cabecera -->
       <div class="d-flex justify-content-between align-items-start">
         <div class="d-flex align-items-center flex-wrap gap-2">
           <strong
@@ -97,7 +97,6 @@
         </button>
       </div>
 
-      <!-- Respuestas aplanadas a 1 nivel (estilo YouTube/Twitter) -->
       <div v-if="hasReplies" class="thread-replies">
         <CommentItem
           v-for="reply in threadReplies[comment.id]"
@@ -153,11 +152,8 @@ export default {
     };
 
     const isAuthor = computed(() => authStore.user?.id === props.comment.user_id);
-
-    // Solo los comentarios raíz tienen entradas en threadReplies
     const hasReplies = computed(() => !!props.threadReplies[props.comment.id]?.length);
 
-    // El autor del comentario padre se obtiene del mapa de comentarios
     const parentAuthorName = computed(() => {
       if (!props.comment.parent_comment_id) return null;
       return props.commentsById[props.comment.parent_comment_id]?.author_name || null;

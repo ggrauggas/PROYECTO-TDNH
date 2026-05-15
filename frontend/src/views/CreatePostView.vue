@@ -166,7 +166,7 @@ export default {
         
         const response = await postService.create(postData);
         
-        // Redirigir a la publicación creada
+        // Redirigir a la publicación
         router.push(`/post/${response.data.post.id}`);
         
       } catch (error) {

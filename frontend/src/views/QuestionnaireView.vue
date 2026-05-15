@@ -389,11 +389,9 @@ export default {
     const submitQuestionnaire = async () => {
       submitting.value = true;
       try {
-        // Aquí enviarías los datos a la API
-        // await userService.saveQuestionnaire(answers);
+
         console.log('Respuestas del cuestionario:', { ...answers });
 
-        // Generar resumen visual
         const typeMap = { tipo1: 'Tipo 1', tipo2: 'Tipo 2', gestacional: 'Gestacional', otro: 'Otro' };
         const yearsMap = { menos1: '< 1 año', '1a5': '1-5 años', '5a10': '5-10 años', mas10: '+10 años' };
 
@@ -405,7 +403,6 @@ export default {
 
         completed.value = true;
 
-        // Actualizar el store si se desea
         if (authStore.user) {
           authStore.user.questionnaire_completed = true;
         }
