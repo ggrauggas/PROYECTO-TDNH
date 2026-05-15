@@ -1,6 +1,6 @@
 <template>
   <div class="home-view">
-    <!-- Hero Section -->
+
     <section class="hero-section text-center py-5 mb-5">
       <div class="container">
         <div class="hero-badge mb-4">
@@ -176,7 +176,6 @@ export default {
 <style scoped lang="scss">
 @import "~@/assets/scss/variables.scss";
 
-// ── Hero — glass sobre mesh gradient ─────────────────────────────────────────
 .hero-section {
   margin-top: -1.5rem;
   padding-top: 5rem !important;
@@ -243,7 +242,6 @@ export default {
   font-size: 1rem;
 }
 
-// ── Section headers ────────────────────────────────────────────────────────────
 .section-label {
   font-size: 0.75rem;
   font-weight: 700;
@@ -260,7 +258,6 @@ export default {
   letter-spacing: -0.03em;
 }
 
-// ── Feature cards — Liquid Glass ──────────────────────────────────────────────
 .feature-card {
   background: rgba(255, 255, 255, 0.70);
   backdrop-filter: blur(20px) saturate(180%);
@@ -302,7 +299,6 @@ export default {
   margin-bottom: 0.5rem;
 }
 
-// ── CTA — Glass gradient ──────────────────────────────────────────────────────
 .cta-section { background: transparent; }
 
 .cta-inner {
@@ -347,7 +343,6 @@ export default {
   }
 }
 
-// ── Share section — Glass ─────────────────────────────────────────────────────
 .share-section {
   background: rgba(255, 255, 255, 0.55);
   backdrop-filter: blur(16px);

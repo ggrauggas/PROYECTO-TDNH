@@ -15,8 +15,6 @@ import DonateView from '../views/DonateView.vue';
 import VideosView from '../views/VideosView.vue';
 import ProfileView from '../views/ProfileView.vue';
 import MyPostsView from '../views/MyPostsView.vue';
-
-// Nuevas vistas
 import VerifyEmailView from '../views/VerifyEmailView.vue';
 import AdminView from '../views/AdminView.vue';
 import QuestionnaireView from '../views/QuestionnaireView.vue';

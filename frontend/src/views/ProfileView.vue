@@ -58,7 +58,7 @@
       </div>
 
       <div class="col-md-8">
-        <!-- Formulario de edición -->
+
         <div v-if="editing" class="card mb-4">
           <div class="card-header bg-primary text-white">
             <h5 class="mb-0">
@@ -94,7 +94,6 @@
                 <textarea class="form-control" v-model="editForm.bio" rows="3"></textarea>
               </div>
 
-              <!-- Sección desplegable para cambiar contraseña -->
               <div class="mb-3">
                 <button
                   type="button"
@@ -294,7 +293,7 @@ export default {
 
     const loadUserData = async () => {
       try {
-        // Esto debería venir de un endpoint /api/users/profile
+
         user.value = authStore.user;
         
         editForm.full_name = user.value.full_name || '';
@@ -304,7 +303,6 @@ export default {
         editForm.glucose_enabled = user.value.glucose_enabled || false;
         editForm.notifications_enabled = user.value.notifications_enabled || false;
 
-        // Cargar publicaciones recientes del usuario y estadísticas reales en paralelo
         const [postsResponse, statsResponse] = await Promise.all([
           postService.getByUser(user.value.id, 1, 5),
           userService.getStats(user.value.id)
@@ -388,7 +386,7 @@ export default {
     };
 
     const updateProfile = async () => {
-      // Validar contraseñas si se quiere cambiar
+
       if (editForm.new_password) {
         if (editForm.new_password !== editForm.confirm_password) {
           alert('Las contraseñas no coinciden');

@@ -74,7 +74,7 @@ main {
   min-height: calc(100vh - 200px);
 }
 
-// ── Footer — Azul océano ──────────────────────────────────────────────────────
+// Footer
 .site-footer {
   background: #0369a1;
   border-top: none;

@@ -325,12 +325,12 @@ async function implementBots() {
     await addComment(postIds[27], userIds[12], 'Elena, cuéntale que ya he estado en 40 países. Los límites son mentales. La diabetes es un detalle.', t13);
     await addComment(postIds[27], userIds[8], 'Rafael, ¿recomendarías algún destino en particular para alguien con diabetes tipo 1?');
 
-    console.log(`   ✅ ${commentCount} comentarios creados`);
+    console.log(`   ${commentCount} comentarios creados`);
 
     // =============================================
     // 4. Likes (solo entre bots)
     // =============================================
-    console.log('\n❤️  Creando likes...');
+    console.log('\nCreando likes...');
 
     const likes = [
       [userIds[2], postIds[0]], [userIds[4], postIds[0]], [userIds[6], postIds[0]], [userIds[1], postIds[0]],
@@ -369,12 +369,12 @@ async function implementBots() {
         await client.query(`INSERT INTO likes (user_id, post_id) VALUES ($1, $2)`, [userId, postId]);
       } catch (e) { /* ignorar duplicados */ }
     }
-    console.log(`   ✅ ${likes.length} likes creados`);
+    console.log(`   ${likes.length} likes creados`);
 
     // =============================================
     // 5. Follows (solo entre bots)
     // =============================================
-    console.log('\n👥 Creando follows...');
+    console.log('\nCreando follows...');
 
     const follows = [
       [userIds[1], userIds[9]], [userIds[0], userIds[9]], [userIds[3], userIds[9]],
