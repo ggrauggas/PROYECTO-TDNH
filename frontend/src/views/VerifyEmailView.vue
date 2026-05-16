@@ -152,7 +152,7 @@ export default {
     onMounted(() => {
       if (!email.value) { router.push('/register'); return; }
       inputs[0]?.focus();
-      handleResend();
+      startCooldown();
     });
 
     onUnmounted(() => clearInterval(cooldownTimer));
