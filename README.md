@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="TD_NH-removebg-preview.png" alt="TU diabetes NUESTRA historia" width="500"/>
+  <img src="TD_NH.png" alt="TU diabetes NUESTRA historia" width="500"/>
 </p>
 
 Plataforma web tipo foro para personas con diabetes tipo 1 (y sus familias) donde pueden compartir experiencias, hacer preguntas, recibir apoyo de la comunidad y acceder a recursos sobre la enfermedad. Proyecto de TFG desarrollado por Gerard Grau Gascón.
