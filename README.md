@@ -426,12 +426,10 @@ Todas las respuestas siguen la misma estructura:
 | `/profile` | Autenticado | Perfil y edición de cuenta |
 | `/my-posts` | Autenticado | Mis publicaciones |
 | `/glucose` | Autenticado | Registro de datos de glucosa |
-| `/questionnaire` | Autenticado | Cuestionario de perfil de salud |
 | `/quiz` | Público | Test de conocimientos |
 | `/guide` | Público | Guía informativa |
 | `/videos` | Público | Sección de vídeos |
 | `/about` | Público | Quiénes somos |
-| `/donate` | Público | Donaciones |
 | `/admin` | Admin | Panel de administración |
 
 ---
