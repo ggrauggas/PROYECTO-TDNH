@@ -50,7 +50,7 @@ body {
   background-attachment: fixed;
 }
 
-// ── Navbar — Liquid Glass ─────────────────────────────────────────────────────
+// ── Navbar  ─────────────────────────────────────────────────────
 .navbar {
   background: rgba(242, 242, 247, 0.82) !important;
   backdrop-filter: saturate(180%) blur(20px);
@@ -138,7 +138,7 @@ body {
   }
 }
 
-// ── Tarjetas de posts — Liquid Glass ─────────────────────────────────────────
+// ── Tarjetas de posts ─────────────────────────────────────────
 .post-card {
   background: $glass-bg;
   backdrop-filter: blur($glass-blur) saturate(180%);
@@ -203,7 +203,7 @@ body {
   &.liked { color: $danger; }
 }
 
-// ── Auth form — Liquid Glass ───────────────────────────────────────────────────
+// ── Auth form ───────────────────────────────────────────────────
 .auth-form {
   max-width: 420px;
   margin: 3rem auto;
@@ -287,7 +287,7 @@ body {
   }
 }
 
-// ── Páginas estáticas — Glass ─────────────────────────────────────────────────
+// ── Páginas estáticas  ────────────────────────────────────────────────
 .info-page {
   background: rgba(255, 255, 255, 0.72);
   backdrop-filter: blur(20px) saturate(180%);
@@ -319,7 +319,7 @@ body {
   }
 }
 
-// ── Video cards — Glass ───────────────────────────────────────────────────────
+// ── Video cards ───────────────────────────────────────────────────────
 .video-card {
   cursor: pointer;
   background: rgba(255, 255, 255, 0.72);
@@ -345,7 +345,7 @@ body {
   .nuestra-highlight { color: $primary;     font-weight: 700; }
 }
 
-// ── Botones globales — planos y sólidos ───────────────────────────────────────
+// ── Botones globales ───────────────────────────────────────────────────────────
 .btn {
   font-weight: 600;
   letter-spacing: 0.01em;
