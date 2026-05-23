@@ -33,39 +33,15 @@ const routes = [
   { path: '/verify-email', name: 'VerifyEmail', component: VerifyEmailView },
   { path: '/guide', name: 'Guide', component: GuideView },
   { path: '/about', name: 'About', component: AboutView },
-  // { path: '/donate', name: 'Donate', component: DonateView }, // DESHABILITADO TEMPORALMENTE
+  // { path: '/donate', name: 'Donate', component: DonateView }, // DESHABILITADO
   { path: '/donate', redirect: '/' },
   { path: '/videos', name: 'Videos', component: VideosView },
   { path: '/profile', name: 'Profile', component: ProfileView, meta: { requiresAuth: true } },
   { path: '/my-posts', name: 'MyPosts', component: MyPostsView, meta: { requiresAuth: true } },
-
-  // ── Nuevas rutas ──
-  {
-    path: '/admin',
-    name: 'Admin',
-    component: AdminView,
-    meta: { requiresAuth: true, requiresAdmin: true }
-  },
-  {
-    // Cuestionario de perfil: accesible desde la Guía, requiere login
-    path: '/questionnaire',
-    name: 'Questionnaire',
-    component: QuestionnaireView,
-    meta: { requiresAuth: true }
-  },
-  {
-    // Datos de glucosa: requiere login y tener glucose_enabled
-    path: '/glucose',
-    name: 'Glucose',
-    component: GlucoseView,
-    meta: { requiresAuth: true, requiresGlucose: true }
-  },
-  {
-    // Test para principiantes: público, no requiere login
-    path: '/quiz',
-    name: 'Quiz',
-    component: QuizView
-  },
+  { path: '/admin', name: 'Admin', component: AdminView, meta: { requiresAuth: true, requiresAdmin: true }},
+  { path: '/questionnaire', name: 'Questionnaire', component: QuestionnaireView, meta: { requiresAuth: true }},
+  { path: '/glucose', name: 'Glucose', component: GlucoseView, meta: { requiresAuth: true, requiresGlucose: true }},
+  { path: '/quiz', name: 'Quiz',component: QuizView },
 
   // ── Fallback ──
   { path: '/:pathMatch(.*)*', redirect: '/' }
