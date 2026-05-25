@@ -229,7 +229,7 @@ npm install
 npm run serve       # Dev server en :8080
 ```
 
-> La URL de la API está hardcodeada en `frontend/src/services/api.js` apuntando a `http://localhost:3000/api`. Cámbiala ahí si usas otro puerto o entorno.
+> La URL de la API está definida en `frontend/src/services/api.js` apuntando a `http://localhost:3000/api`. Cámbiala ahí si usas otro puerto o entorno.
 
 ---
 
@@ -286,6 +286,7 @@ Hay tres scripts de seeders independientes:
 ### `npm run db:seed` — Usuarios base
 
 Crea **únicamente** los dos usuarios de administración. Solo se ejecuta si la base de datos está vacía.
+> Modificar el archivo `run.js` para definir los usuarios administrador principales.
 
 ```bash
 # Con Docker
@@ -347,9 +348,6 @@ docker-compose exec backend npm run db:bots:add
 | `admin` | admin@admin.com | `*******` | Administrador |
 | `gerardgrau` | gerardgrau2004@gmail.com | ``*******`` | Administrador |
 | Bots | `*@example.com` | `password123` | Usuario |
-
-> Cambia las contraseñas y el `JWT_SECRET` antes de desplegar en producción.
-
 ---
 
 ## API REST
