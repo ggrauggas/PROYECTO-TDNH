@@ -50,6 +50,7 @@ Los administradores disponen además de un panel de administración y aparecen c
 | Frontend | Vue.js 3 (Options API), Vue Router 4, Bootstrap 5, SCSS |
 | Backend | Node.js, Express 4 |
 | Base de datos | PostgreSQL 15 |
+| Control de Versión | Git |
 | Autenticación | JWT (`jsonwebtoken`) + bcrypt |
 | Contenedores | Docker, Docker Compose |
 | HTTP client | Axios |
