@@ -43,7 +43,7 @@ class UserModel {
   async findById(id) {
     const query = `
       SELECT id, username, email, full_name, diabetes_type, diagnosis_date,
-             bio, avatar_url, role, glucose_enabled, notifications_enabled, created_at
+            bio, avatar_url, role, glucose_enabled, notifications_enabled, created_at
       FROM users
       WHERE id = $1
     `;
@@ -97,9 +97,9 @@ class UserModel {
   async findAll(limit = 500, offset = 0) {
     const query = `
       SELECT u.id, u.username, u.email, u.full_name, u.diabetes_type,
-             u.role, u.is_active, u.created_at, u.bio,
-             COUNT(DISTINCT p.id)::int AS post_count,
-             COUNT(DISTINCT c.id)::int AS comment_count
+            u.role, u.is_active, u.created_at, u.bio,
+            COUNT(DISTINCT p.id)::int AS post_count,
+            COUNT(DISTINCT c.id)::int AS comment_count
       FROM users u
       LEFT JOIN posts p ON p.user_id = u.id
       LEFT JOIN comments c ON c.user_id = u.id

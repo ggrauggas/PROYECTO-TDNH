@@ -4,27 +4,78 @@
       <div class="col-lg-7">
 
         <!-- Pantalla de inicio -->
-        <div v-if="phase === 'intro'" class="text-center">
-          <div class="quiz-intro-card card border-0 shadow-sm p-5">
-            <div class="quiz-icon mb-4">
-              <i class="bi bi-patch-question-fill"></i>
+        <div v-if="phase === 'intro'" class="quiz-intro-wrapper text-center">
+          <!-- Formas decorativas de fondo -->
+          <div class="bg-shapes" aria-hidden="true">
+            <span class="shape shape-1"></span>
+            <span class="shape shape-2"></span>
+            <span class="shape shape-3"></span>
+          </div>
+
+          <div class="quiz-intro-card card border-0 p-4 p-md-5">
+            <!-- Badge superior -->
+            <div class="intro-badge mb-4">
+              <i class="bi bi-stars me-1"></i>Test interactivo
             </div>
-            <h2 class="fw-bold mb-2">Test para tu DT3</h2>
-            <p class="text-muted mb-4">
+
+            <!-- Icono con halo -->
+            <div class="quiz-icon-wrap mb-4">
+              <div class="quiz-icon-glow"></div>
+              <div class="quiz-icon">
+                <i class="bi bi-patch-question-fill"></i>
+              </div>
+            </div>
+
+            <h2 class="quiz-title fw-bold mb-3">
+              Test para tu <span class="title-accent">DT3</span>
+            </h2>
+            <p class="quiz-subtitle mb-4">
               ¿Convives con alguien con diabetes? La diabetes tipo 3 hace referencia a las personas que acompañan y cuidan a quienes la padecen. Pon a prueba lo que sabes.
-              {{ questions.length }} preguntas · Respuesta inmediata · Sin límite de tiempo
             </p>
-            <div class="row g-3 mb-4 text-start">
-              <div class="col-6" v-for="tip in introTips" :key="tip.text">
-                <div class="d-flex align-items-center gap-2">
-                  <i :class="`bi ${tip.icon} text-primary`"></i>
-                  <small class="text-muted">{{ tip.text }}</small>
+
+            <!-- Stats -->
+            <div class="intro-stats row g-2 g-md-3 mb-4">
+              <div class="col-4">
+                <div class="stat-card">
+                  <div class="stat-number">{{ questions.length }}</div>
+                  <div class="stat-label">Preguntas</div>
+                </div>
+              </div>
+              <div class="col-4">
+                <div class="stat-card">
+                  <div class="stat-number">{{ categoryCount }}</div>
+                  <div class="stat-label">Categorías</div>
+                </div>
+              </div>
+              <div class="col-4">
+                <div class="stat-card">
+                  <div class="stat-number">~5'</div>
+                  <div class="stat-label">Duración</div>
                 </div>
               </div>
             </div>
-            <button class="btn btn-primary btn-lg px-5" @click="startQuiz">
+
+            <!-- Tips -->
+            <div class="intro-tips row g-3 mb-4 text-start">
+              <div class="col-sm-6" v-for="tip in introTips" :key="tip.text">
+                <div class="tip-item">
+                  <div class="tip-icon">
+                    <i :class="`bi ${tip.icon}`"></i>
+                  </div>
+                  <small>{{ tip.text }}</small>
+                </div>
+              </div>
+            </div>
+
+            <!-- CTA -->
+            <button class="btn-start" @click="startQuiz">
               <i class="bi bi-play-fill me-2"></i>Empezar el test
+              <i class="bi bi-arrow-right ms-2"></i>
             </button>
+
+            <p class="small text-muted mt-3 mb-0">
+              <i class="bi bi-shield-check me-1"></i>Sin registro · Sin límite de tiempo
+            </p>
           </div>
         </div>
 
@@ -319,6 +370,7 @@ export default {
     ];
 
     const currentQ = computed(() => questions[currentIndex.value]);
+    const categoryCount = computed(() => new Set(questions.map(q => q.category)).size);
 
     const getOptionClass = (i) => {
       if (!answered.value) return 'option-default';
@@ -365,9 +417,9 @@ export default {
     const scorePercent = computed(() => (correctCount.value / questions.length) * 100);
     const scoreArc = computed(() => (scorePercent.value / 100) * 314);
     const scoreColor = computed(() => {
-      if (scorePercent.value >= 80) return '#2a9d8f';
-      if (scorePercent.value >= 50) return '#e9c46a';
-      return '#e76f51';
+      if (scorePercent.value >= 80) return '#0d9488';
+      if (scorePercent.value >= 50) return '#f59e0b';
+      return '#ef4444';
     });
 
     const resultEmoji = computed(() => {
@@ -404,7 +456,7 @@ export default {
     return {
       phase, currentIndex, currentQ, questions,
       answered, selectedAnswer, isCorrect, correctCount,
-      letters, introTips,
+      letters, introTips, categoryCount,
       scorePercent, scoreArc, scoreColor,
       resultEmoji, resultTitle, resultMessage, categoryResults,
       getOptionClass, selectAnswer, nextQuestion, startQuiz, restartQuiz
@@ -418,14 +470,228 @@ export default {
   border-radius: 20px !important;
 }
 
+/* === Intro: contenedor + formas decorativas === */
+.quiz-intro-wrapper {
+  position: relative;
+  isolation: isolate;
+}
+
+.bg-shapes {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+
+  .shape {
+    position: absolute;
+    display: block;
+    border-radius: 50%;
+    filter: blur(60px);
+    opacity: 0.5;
+    animation: float 9s ease-in-out infinite;
+  }
+  .shape-1 {
+    width: 280px; height: 280px;
+    top: -60px; left: -60px;
+    background: radial-gradient(circle, var(--color-primary) 0%, transparent 65%);
+  }
+  .shape-2 {
+    width: 240px; height: 240px;
+    bottom: -80px; right: -60px;
+    background: radial-gradient(circle, var(--color-teal) 0%, transparent 65%);
+    animation-delay: -3s;
+  }
+  .shape-3 {
+    width: 180px; height: 180px;
+    top: 50%; right: 15%;
+    background: radial-gradient(circle, var(--color-pink) 0%, transparent 65%);
+    opacity: 0.35;
+    animation-delay: -6s;
+  }
+}
+@keyframes float {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50%      { transform: translate(15px, -20px) scale(1.08); }
+}
+
+/* === Intro: tarjeta === */
+.quiz-intro-card {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow:
+    0 1px 2px rgba(16, 24, 40, 0.04),
+    0 12px 40px -8px rgba(3, 105, 161, 0.18);
+  animation: introIn 0.55s cubic-bezier(.22,.61,.36,1);
+}
+@keyframes introIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Badge superior */
+.intro-badge {
+  display: inline-flex;
+  align-items: center;
+  align-self: center;
+  padding: 6px 14px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  border-radius: 999px;
+  color: var(--color-primary);
+  background: linear-gradient(135deg, rgba(3, 105, 161, 0.12), rgba(13, 148, 136, 0.12));
+  border: 1px solid rgba(3, 105, 161, 0.18);
+}
+
+/* Icono con halo pulsante */
+.quiz-icon-wrap {
+  position: relative;
+  width: 96px;
+  height: 96px;
+  margin: 0 auto;
+}
+.quiz-icon-glow {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(3, 105, 161, 0.35) 0%, transparent 70%);
+  animation: pulse 2.4s ease-in-out infinite;
+}
 .quiz-icon {
-  font-size: 4rem;
-  color: #2c7da0;
-  animation: bounce 1s infinite alternate;
+  position: relative;
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  color: white;
+  font-size: 2.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 24px -6px rgba(3, 105, 161, 0.5);
+  animation: bounce 2.2s ease-in-out infinite alternate;
+}
+@keyframes pulse {
+  0%, 100% { transform: scale(1);   opacity: 0.7; }
+  50%      { transform: scale(1.25); opacity: 0.35; }
 }
 @keyframes bounce {
   from { transform: translateY(0); }
-  to   { transform: translateY(-8px); }
+  to   { transform: translateY(-6px); }
+}
+
+/* Título */
+.quiz-title {
+  font-size: clamp(1.6rem, 2.4vw, 2.1rem);
+  letter-spacing: -0.02em;
+}
+.title-accent {
+  color: var(--color-primary);
+}
+.quiz-subtitle {
+  color: #6c757d;
+  font-size: 0.97rem;
+  max-width: 520px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.6;
+}
+
+/* Stats */
+.stat-card {
+  padding: 0.9rem 0.5rem;
+  border-radius: 14px;
+  background: rgba(3, 105, 161, 0.05);
+  border: 1px solid rgba(3, 105, 161, 0.1);
+  transition: transform 0.2s ease, background 0.2s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    background: rgba(3, 105, 161, 0.08);
+  }
+
+  .stat-number {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--color-primary);
+    line-height: 1;
+  }
+  .stat-label {
+    margin-top: 4px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #6c757d;
+  }
+}
+
+/* Tips */
+.tip-item {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.65rem 0.85rem;
+  border-radius: 12px;
+  background: #f8f9fa;
+  border: 1px solid #eef0f2;
+  transition: all 0.2s ease;
+  height: 100%;
+
+  &:hover {
+    background: white;
+    border-color: rgba(3, 105, 161, 0.25);
+    transform: translateX(2px);
+  }
+
+  .tip-icon {
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    background: linear-gradient(135deg, rgba(3, 105, 161, 0.12), rgba(13, 148, 136, 0.12));
+    color: var(--color-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.95rem;
+  }
+  small {
+    color: #495057;
+    line-height: 1.35;
+  }
+}
+
+/* CTA */
+.btn-start {
+  align-self: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.85rem 2.2rem;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: white;
+  border: none;
+  border-radius: 999px;
+  background: var(--color-primary);
+  box-shadow: 0 8px 20px -4px rgba(3, 105, 161, 0.45);
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+
+  i { transition: transform 0.2s ease; }
+
+  &:hover {
+    background: #025786;
+    transform: translateY(-2px);
+    box-shadow: 0 12px 26px -4px rgba(3, 105, 161, 0.55);
+
+    i.bi-arrow-right { transform: translateX(4px); }
+  }
+  &:active {
+    transform: translateY(0);
+  }
 }
 
 .option-btn {
@@ -436,7 +702,7 @@ export default {
   transition: all 0.15s;
 
   &:hover:not(:disabled) {
-    border-color: #2c7da0;
+    border-color: var(--color-primary);
     background: white;
   }
 
@@ -455,15 +721,15 @@ export default {
   }
 
   &.option-correct {
-    border-color: #2a9d8f !important;
-    background: rgba(42, 157, 143, 0.08) !important;
-    .option-letter { background: #2a9d8f; color: white; }
+    border-color: var(--color-teal) !important;
+    background: rgba(13, 148, 136, 0.08) !important;
+    .option-letter { background: var(--color-teal); color: white; }
   }
 
   &.option-wrong {
-    border-color: #e76f51 !important;
-    background: rgba(231, 111, 81, 0.08) !important;
-    .option-letter { background: #e76f51; color: white; }
+    border-color: #ef4444 !important;
+    background: rgba(239, 68, 68, 0.08) !important;
+    .option-letter { background: #ef4444; color: white; }
   }
 
   &.option-disabled {
@@ -473,8 +739,8 @@ export default {
 
 .explanation {
   border-left: 4px solid;
-  &-correct { border-color: #2a9d8f; background: rgba(42, 157, 143, 0.06); }
-  &-wrong   { border-color: #e76f51; background: rgba(231, 111, 81, 0.06); }
+  &-correct { border-color: var(--color-teal); background: rgba(13, 148, 136, 0.06); }
+  &-wrong   { border-color: #ef4444; background: rgba(239, 68, 68, 0.06); }
 
   p { text-align: justify; }
 }

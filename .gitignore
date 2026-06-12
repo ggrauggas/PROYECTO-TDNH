@@ -6,7 +6,6 @@ npm-debug.log
 
 .claude/
 .agents/
-DEPLOY.md
 # Entorno
 .env
 .env.local
